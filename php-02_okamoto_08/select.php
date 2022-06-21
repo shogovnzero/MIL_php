@@ -3,7 +3,7 @@ require_once("funcs.php");
 
 // access to DB
 try {
-    $pdo = new PDO("mysql:dbname=shogovnzero_gs_bm_table;charset=utf8;host=mysql57.shogovnzero.sakura.ne.jp","shogovnzero","Vienna1180");
+    $pdo = new PDO("mysql:dbname=***;charset=utf8;host=***","***","***");
 } catch (PDOException $e) {
     exit("DBConnection Error:".$e->getMessage());
 }
