@@ -1,0 +1,69 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body .container {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body .container header {
+  width: 100%;
+  padding: 10px;
+  background-color: #5a7a85;
+}
+
+body .container header .area_nav_header .list_nav_header {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+body .container header .area_nav_header .list_nav_header .item_nav_header {
+  color: white;
+  text-decoration: none;
+}
+
+body .container header .area_nav_header .list_nav_header .item_nav_header li {
+  font-weight: 700;
+  line-height: 100%;
+  margin: 10px;
+  list-style: none;
+}
+
+body .container main {
+  padding: 20px;
+}
+
+body .container main .table_bmlist {
+  border-collapse: collapse;
+  margin: 0 auto;
+  padding: 0;
+  width: auto;
+  table-layout: fixed;
+}
+
+body .container main .table_bmlist thead tr {
+  background-color: #5a7a85;
+  color: #fff;
+}
+
+body .container main .table_bmlist tr {
+  background-color: #e6f2f5;
+  padding: .35em;
+  border-bottom: 2px solid #fff;
+}
+
+body .container main .table_bmlist th, body .container main .table_bmlist td {
+  padding: 1em 10px 1em 1em;
+  border-right: 2px solid #fff;
+}
+
+body .container main .table_bmlist th {
+  font-size: .85em;
+}
+/*# sourceMappingURL=style.css.map */
