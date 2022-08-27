@@ -8,7 +8,7 @@ function h($str){
 function db_conn(){
     try {
         //localhostの場合
-        $db_name = "soa_db";    //データベース名
+        $db_name = "cap_db";    //データベース名
         $db_id   = "root";      //アカウント名
         $db_pw   = "";          //パスワード：XAMPPはパスワード無しに修正してください。
         $db_host = "localhost"; //DBホスト
@@ -36,4 +36,14 @@ function sql_error($stmt){
 function redirect($file_name){
     header("Location: ".$file_name);
     exit();
+}
+
+// Session Check (スケルトン)
+function sschk(){
+    if($_SESSION["chk_ssid"] != session_id()){
+        exit("Login Error");
+    }else{
+        session_regenerate_id(true);
+        $_SESSION["chk_ssid"] = session_id();
+    }
 }

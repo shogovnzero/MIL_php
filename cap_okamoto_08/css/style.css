@@ -1,0 +1,95 @@
+@charset "UTF-8";
+body {
+  font-family: "Segoe UI", "Meiryo UI", "Yu Gothic", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", sans-serif;
+}
+
+body .container {
+  display: inline-block;
+  width: 100%;
+}
+
+body .container header {
+  position: fixed;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: red;
+  z-index: 9999;
+  width: 100%;
+  padding: 0px 10px;
+}
+
+body .container header .area_logo_header {
+  width: 200px;
+}
+
+body .container header .area_nav_header {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  float: right;
+}
+
+body .container header .area_nav_header .area_tab {
+  width: 100px;
+}
+
+body .container header .area_nav_header .area_tab a {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  display: block;
+  line-height: 50px;
+  color: #fbfbfb;
+  -webkit-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+  text-transform: uppercase;
+}
+
+body .container header .area_nav_header .area_tab .area_item {
+  border-radius: 3px;
+  display: none;
+  overflow: hidden;
+  background-color: white;
+  width: 220px;
+  padding: 15px;
+  position: absolute;
+  -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+body .container header .area_nav_header .area_tab .area_item a {
+  display: block;
+  float: left;
+  padding: 0%;
+  margin: 2% 0;
+  width: 100%;
+  text-align: center;
+  background-color: #f44355;
+  color: #fbfbfb;
+  border-radius: 2px;
+  -webkit-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+}
+
+body .container header .area_nav_header .area_tab .area_item a:hover {
+  background-color: #212121;
+  cursor: pointer;
+}
+
+body .container header .area_nav_header .area_tab:hover a {
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+body .container header .area_nav_header .area_tab:hover .area_item {
+  display: block;
+}
+
+body .container main {
+  display: block;
+  margin-top: 100px;
+}
+/*# sourceMappingURL=style.css.map */

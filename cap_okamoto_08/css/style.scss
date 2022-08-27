@@ -1,0 +1,83 @@
+@charset "UTF-8";
+body {
+    font-family: "Segoe UI", "Meiryo UI", "Yu Gothic", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", sans-serif;
+    .container {
+        display: inline-block;
+        width: 100%;
+        header {
+            position: fixed;
+            display: flex;
+            background-color: red;
+            z-index: 9999;
+            width: 100%;
+            padding: 0px 10px;
+            .area_logo_header {
+                width: 200px;
+            }
+            .area_nav_header {
+                display: flex;
+                float: right;
+                .area_tab {
+                    width: 100px;
+                    a {
+                        text-align: center;
+                        width: 100%;
+                        height: 100%;
+                        display: block;
+                        line-height: 50px;
+                        color: #fbfbfb;
+                        transition: background-color 0.2s ease;
+                        text-transform: uppercase;
+                    }
+                    .area_item {
+                        border-radius: 3px;
+                        display: none;
+                        overflow: hidden;
+                        background-color: white;
+                        width: 220px;
+                        padding: 15px;
+                        position: absolute;
+                        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+                        a {
+                            display: block;
+                            float: left;
+                            padding: 0%;
+                            margin: 2% 0;
+                            width: 100%;
+                            text-align: center;
+                            background-color: #f44355;
+                            color: #fbfbfb;
+                            border-radius: 2px;
+                            transition: background-color 0.2s ease;
+                        }
+                        a:hover {
+                            background-color: #212121;
+                            cursor: pointer;
+                        }
+                    }
+                }
+                .area_tab:hover {
+                    a {
+                        background-color: rgba(0, 0, 0, 0.1);
+                        cursor: pointer;
+                    }
+                    .area_item {
+                        display: block;
+                        a {
+                        }
+                    }
+                }
+            }
+        }
+        main {
+            display: block;
+            margin-top: 100px;
+            .area_top {
+            }
+            .area_main {
+            }
+        }
+        footer {
+        }
+    }
+}
