@@ -6,45 +6,37 @@ sschk();
 $pdo = db_conn();
 
 if(!empty($_POST)){
-  if($_POST["owner_name"] === ""){
-      $error["owner_name"] = "blank";
+  if($_POST["vessel_number"] === ""){
+    $error["vessel_number"] = "blank";
   }
-  if($_POST["owner_email"] === ""){
-      $error["owner_email"] = "blank";
+  if($_POST["vessel_name_jp"] === ""){
+    $error["vessel_name_jp"] = "blank";
   }
-  if($_POST["owner_id"] === ""){
-      $error["owner_id"] = "blank";
-  }
-  if($_POST["owner_pw"] === ""){
-      $error["owner_pw"] = "blank";
+  if($_POST["vessel_name_en"] === ""){
+    $error["vessel_name_en"] = "blank";
   }
   if(!isset($error)){
-      $stmt = $pdo->prepare("SELECT COUNT(*) as cnt_name FROM cap_owner WHERE owner_name=?");
-      $stmt->execute(array($_POST["owner_name"]));
-      $record = $stmt->fetch();
-      if($record["cnt_name"] > 0){
-          $error["owner_name"] = "duplicate";
-      }
-
-      $stmt = $pdo->prepare("SELECT COUNT(*) as cnt_email FROM cap_owner WHERE email=?");
-      $stmt->execute(array($_POST["owner_email"]));
-      $record = $stmt->fetch();
-      if($record["cnt_email"] > 0){
-          $error["owner_email"] = "duplicate";
-      }
-
-      $stmt = $pdo->prepare("SELECT COUNT(*) as cnt_id FROM cap_owner WHERE owner_id=?");
-      $stmt->execute(array($_POST["owner_id"]));
-      $record = $stmt->fetch();
-      if($record["cnt_id"] > 0){
-          $error["owner_id"] = "duplicate";
-      }
+    $stmt = $pdo->prepare("SELECT COUNT(*) as cnt_number FROM cap_owner WHERE vessel_number=?");
+    $stmt->execute(array($_POST["vessel_number"]));
+    $record = $stmt->fetch();
+    if($record["cnt_number"] > 0){
+        $error["vessel_number"] = "duplicate";
+    }
   }
   if (!isset($error)) {
-      $_SESSION['join'] = $_POST;
-      redirect("signup_process.php");
-      exit();
+    $_SESSION['join'] = $_POST;
+    redirect("vessel_register_process.php");
+    exit();
   }
+}
+
+if (isset($_POST['vessel_trade_pref']) && is_array($_POST['vessel_trade_pref'])) {
+  $pref = implode(",",$_POST['vessel_trade_pref']);
+}
+
+
+if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
+  $fuel = implode(",",$_POST['vessel_fuel']);
 }
 
 ?>
@@ -59,6 +51,7 @@ if(!empty($_POST)){
   <title>CAP - 船舶新規登録</title>
   <link rel="stylesheet" href="./css/reset.css">
   <link rel="stylesheet" href="./css/style.css">
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 </head>
 
 <body>
@@ -67,29 +60,68 @@ if(!empty($_POST)){
       <?php include("menu.php"); ?>
     </header>
     <main>
-      <form method="post" action="vessel_register_process.php">
+      <form method="post" action="">
         <div>登録情報・運航情報</div>
         <table class="">
           <tr>
-            <td>船舶登録番号<span id="required">*</span></td>
-            <td><input type="number" name="vessel_number"></td>
+            <td>船舶登録番号<span id="required">*</span></td>  
+            <td>
+              <?php if (!empty($error["vessel_number"]) && $error['vessel_number'] === 'blank'): ?>
+                <input type="number" name="vessel_number">
+                <p class="error">*船舶登録番号は必須入力です</p>
+              <?php elseif (!empty($_POST)): ?>
+                <input type="number" name="vessel_number" value="<?=$_POST["vessel_number"]?>">
+              <?php else: ?>
+                <input type="number" name="vessel_number">
+              <?php endif ?>
+            </td>
           </tr>
           <tr>
             <td>船名(日本語)<span id="required">*</span></td>
-            <td><input type="text" name="vessel_name_jp"></td>
+            <td>
+              <?php if (!empty($error["vessel_name_jp"]) && $error['vessel_name_jp'] === 'blank'): ?>
+                <input type="text" name="vessel_name_jp">
+                <p class="error">*船名は必須入力です</p>
+              <?php elseif (!empty($_POST)): ?>
+                <input type="text" name="vessel_name_jp" value="<?=$_POST["vessel_name_jp"]?>">
+              <?php else: ?>
+                <input type="text" name="vessel_name_jp">
+              <?php endif ?>
+            </td>
           </tr>
           <tr>
             <td>船名(英文)<span id="required">*</span></td>
-            <td><input type="text" name="vessel_name_en"></td>
+            <td>
+              <?php if (!empty($error["vessel_name_en"]) && $error['vessel_name_en'] === 'blank'): ?>
+                <input type="text" name="vessel_name_en">
+                <p class="error">*船名は必須入力です</p>
+              <?php elseif (!empty($_POST)): ?>
+                <input type="text" name="vessel_name_en" value="<?=$_POST["vessel_name_en"]?>">
+              <?php else: ?>
+                <input type="text" name="vessel_name_en">
+              <?php endif ?>
+            </td>
           </tr>
           <input type="hidden" name="owner_id" value="<?=$id?>">
           <tr>
             <td>船舶管理会社</td>
-            <td><input type="text" name="manager" placeholder="自社管理の場合は空白"></td>
+            <td>
+              <?php if (!empty($_POST)): ?>
+                <input type="text" name="manager" placeholder="自社管理の場合は空白" value="<?=$_POST["manager"]?>">
+              <?php else: ?>
+                <input type="text" name="manager" placeholder="自社管理の場合は空白">
+              <?php endif ?>
+            </td>
           </tr>
           <tr>
             <td>船籍港</td>
-            <td><input type="text" name="vessel_reg_port"></td>
+            <td>
+              <?php if (!empty($_POST)): ?>
+                <input type="text" name="vessel_reg_port" value="<?=$_POST["vessel_reg_port"]?>">
+              <?php else: ?>
+                <input type="text" name="vessel_reg_port">
+              <?php endif ?>
+            </td>
           </tr>
           <tr>
             <td>主な寄港先(都道府県)</td>
@@ -98,78 +130,78 @@ if(!empty($_POST)){
                 <tr>
                   <td>北海道・東北</td>
                   <td>
-                    <input type="checkbox" name="vessel_trade_pref" value="1">北海道
-                    <input type="checkbox" name="vessel_trade_pref" value="2">青森県
-                    <input type="checkbox" name="vessel_trade_pref" value="3">岩手県
-                    <input type="checkbox" name="vessel_trade_pref" value="4">宮城県
-                    <input type="checkbox" name="vessel_trade_pref" value="5">秋田県
-                    <input type="checkbox" name="vessel_trade_pref" value="6">山形県
-                    <input type="checkbox" name="vessel_trade_pref" value="7">福島県
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="北海道" <?php if(strpos($pref,"北海道") !== false){echo 'checked="checked"';}?>>北海道</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="青森県" <?php if(strpos($pref,"青森県") !== false){echo 'checked="checked"';}?>>青森県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="岩手県" <?php if(strpos($pref,"岩手県") !== false){echo 'checked="checked"';}?>>岩手県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="宮城県" <?php if(strpos($pref,"宮城県") !== false){echo 'checked="checked"';}?>>宮城県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="秋田県" <?php if(strpos($pref,"秋田県") !== false){echo 'checked="checked"';}?>>秋田県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="山形県" <?php if(strpos($pref,"山形県") !== false){echo 'checked="checked"';}?>>山形県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="福島県" <?php if(strpos($pref,"福島県") !== false){echo 'checked="checked"';}?>>福島県</label>
                   </td>
                 </tr>
                 <tr>
                   <td>関東</td>
                   <td>
-                    <input type="checkbox" name="vessel_trade_pref" value="8">茨城県
-                    <input type="checkbox" name="vessel_trade_pref" value="9">栃木県
-                    <input type="checkbox" name="vessel_trade_pref" value="10">群馬県
-                    <input type="checkbox" name="vessel_trade_pref" value="11">埼玉県
-                    <input type="checkbox" name="vessel_trade_pref" value="12">千葉県
-                    <input type="checkbox" name="vessel_trade_pref" value="13">東京都
-                    <input type="checkbox" name="vessel_trade_pref" value="14">神奈川県
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="茨城県" <?php if(strpos($pref,"茨城県") !== false){echo 'checked="checked"';}?>>茨城県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="栃木県" <?php if(strpos($pref,"栃木県") !== false){echo 'checked="checked"';}?>>栃木県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="群馬県" <?php if(strpos($pref,"群馬県") !== false){echo 'checked="checked"';}?>>群馬県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="埼玉県" <?php if(strpos($pref,"埼玉県") !== false){echo 'checked="checked"';}?>>埼玉県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="千葉県" <?php if(strpos($pref,"千葉県") !== false){echo 'checked="checked"';}?>>千葉県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="東京都" <?php if(strpos($pref,"東京都") !== false){echo 'checked="checked"';}?>>東京都</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="神奈川県" <?php if(strpos($pref,"神奈川県") !== false){echo 'checked="checked"';}?>>神奈川県</label>
                   </td>
                 </tr>
                 <tr>
                   <td>東海道・甲信越</td>
                   <td>
-                    <input type="checkbox" name="vessel_trade_pref" value="15">新潟県
-                    <input type="checkbox" name="vessel_trade_pref" value="16">富山県
-                    <input type="checkbox" name="vessel_trade_pref" value="17">石川県
-                    <input type="checkbox" name="vessel_trade_pref" value="18">福井県
-                    <input type="checkbox" name="vessel_trade_pref" value="19">山梨県
-                    <input type="checkbox" name="vessel_trade_pref" value="20">長野県
-                    <input type="checkbox" name="vessel_trade_pref" value="21">岐阜県
-                    <input type="checkbox" name="vessel_trade_pref" value="22">静岡県
-                    <input type="checkbox" name="vessel_trade_pref" value="23">愛知県
-                    <input type="checkbox" name="vessel_trade_pref" value="24">三重県
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="新潟県" <?php if(strpos($pref,"新潟県") !== false){echo 'checked="checked"';}?>>新潟県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="富山県" <?php if(strpos($pref,"富山県") !== false){echo 'checked="checked"';}?>>富山県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="石川県" <?php if(strpos($pref,"石川県") !== false){echo 'checked="checked"';}?>>石川県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="福井県" <?php if(strpos($pref,"福井県") !== false){echo 'checked="checked"';}?>>福井県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="山梨県" <?php if(strpos($pref,"山梨県") !== false){echo 'checked="checked"';}?>>山梨県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="長野県" <?php if(strpos($pref,"長野県") !== false){echo 'checked="checked"';}?>>長野県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="岐阜県" <?php if(strpos($pref,"岐阜県") !== false){echo 'checked="checked"';}?>>岐阜県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="静岡県" <?php if(strpos($pref,"静岡県") !== false){echo 'checked="checked"';}?>>静岡県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="愛知県" <?php if(strpos($pref,"愛知県") !== false){echo 'checked="checked"';}?>>愛知県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="三重県" <?php if(strpos($pref,"三重県") !== false){echo 'checked="checked"';}?>>三重県</label>
                   </td>
                 </tr>
                 <tr>
                   <td>関西</td>
                   <td>
-                    <input type="checkbox" name="vessel_trade_pref" value="25">滋賀県
-                    <input type="checkbox" name="vessel_trade_pref" value="26">京都府
-                    <input type="checkbox" name="vessel_trade_pref" value="27">大阪府
-                    <input type="checkbox" name="vessel_trade_pref" value="28">兵庫県
-                    <input type="checkbox" name="vessel_trade_pref" value="29">奈良県
-                    <input type="checkbox" name="vessel_trade_pref" value="30">和歌山県
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="滋賀県" <?php if(strpos($pref,"滋賀県") !== false){echo 'checked="checked"';}?>>滋賀県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="京都府" <?php if(strpos($pref,"京都府") !== false){echo 'checked="checked"';}?>>京都府</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="大阪府" <?php if(strpos($pref,"大阪府") !== false){echo 'checked="checked"';}?>>大阪府</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="兵庫県" <?php if(strpos($pref,"兵庫県") !== false){echo 'checked="checked"';}?>>兵庫県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="奈良県" <?php if(strpos($pref,"奈良県") !== false){echo 'checked="checked"';}?>>奈良県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="和歌山県" <?php if(strpos($pref,"和歌山県") !== false){echo 'checked="checked"';}?>>和歌山県</label>
                   </td>
                 </tr>
                 <tr>
                   <td>中国・四国</td>
                   <td>
-                    <input type="checkbox" name="vessel_trade_pref" value="31">鳥取県
-                    <input type="checkbox" name="vessel_trade_pref" value="32">島根県
-                    <input type="checkbox" name="vessel_trade_pref" value="33">岡山県
-                    <input type="checkbox" name="vessel_trade_pref" value="34">広島県
-                    <input type="checkbox" name="vessel_trade_pref" value="35">山口県
-                    <input type="checkbox" name="vessel_trade_pref" value="36">徳島県
-                    <input type="checkbox" name="vessel_trade_pref" value="37">香川県
-                    <input type="checkbox" name="vessel_trade_pref" value="38">愛媛県
-                    <input type="checkbox" name="vessel_trade_pref" value="39">高知県
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="鳥取県" <?php if(strpos($pref,"鳥取県") !== false){echo 'checked="checked"';}?>>鳥取県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="島根県" <?php if(strpos($pref,"島根県") !== false){echo 'checked="checked"';}?>>島根県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="岡山県" <?php if(strpos($pref,"岡山県") !== false){echo 'checked="checked"';}?>>岡山県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="広島県" <?php if(strpos($pref,"広島県") !== false){echo 'checked="checked"';}?>>広島県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="山口県" <?php if(strpos($pref,"山口県") !== false){echo 'checked="checked"';}?>>山口県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="徳島県" <?php if(strpos($pref,"徳島県") !== false){echo 'checked="checked"';}?>>徳島県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="香川県" <?php if(strpos($pref,"香川県") !== false){echo 'checked="checked"';}?>>香川県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="愛媛県" <?php if(strpos($pref,"愛媛県") !== false){echo 'checked="checked"';}?>>愛媛県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="高知県" <?php if(strpos($pref,"高知県") !== false){echo 'checked="checked"';}?>>高知県</label>
                   </td>
                 </tr>
                 <tr>
                   <td>九州・沖縄</td>
                   <td>
-                    <input type="checkbox" name="vessel_trade_pref" value="40">福岡県
-                    <input type="checkbox" name="vessel_trade_pref" value="41">佐賀県
-                    <input type="checkbox" name="vessel_trade_pref" value="42">長崎県
-                    <input type="checkbox" name="vessel_trade_pref" value="43">熊本県
-                    <input type="checkbox" name="vessel_trade_pref" value="44">大分県
-                    <input type="checkbox" name="vessel_trade_pref" value="45">宮崎県
-                    <input type="checkbox" name="vessel_trade_pref" value="46">鹿児島県
-                    <input type="checkbox" name="vessel_trade_pref" value="47">沖縄県
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="福岡県" <?php if(strpos($pref,"福岡県") !== false){echo 'checked="checked"';}?>>福岡県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="佐賀県" <?php if(strpos($pref,"佐賀県") !== false){echo 'checked="checked"';}?>>佐賀県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="長崎県" <?php if(strpos($pref,"長崎県") !== false){echo 'checked="checked"';}?>>長崎県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="熊本県" <?php if(strpos($pref,"熊本県") !== false){echo 'checked="checked"';}?>>熊本県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="大分県" <?php if(strpos($pref,"大分県") !== false){echo 'checked="checked"';}?>>大分県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="宮崎県" <?php if(strpos($pref,"宮崎県") !== false){echo 'checked="checked"';}?>>宮崎県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="鹿児島県" <?php if(strpos($pref,"鹿児島県") !== false){echo 'checked="checked"';}?>>鹿児島県</label>
+                    <label><input type="checkbox" name="vessel_trade_pref[]" value="沖縄県" <?php if(strpos($pref,"沖縄県") !== false){echo 'checked="checked"';}?>>沖縄県</label>
                   </td>
                 </tr>
               </table>
@@ -177,7 +209,13 @@ if(!empty($_POST)){
           </tr>
           <tr>
             <td>主な寄港先(港)</td>
-            <td><input type="text" name="vessel_trade_port"></td>
+            <td>
+              <?php if (!empty($_POST)): ?>
+                <input type="text" name="vessel_trade_port" value="<?=$_POST["vessel_trade_port"]?>">
+              <?php else: ?>
+                <input type="text" name="vessel_trade_port">
+              <?php endif ?>
+            </td>
           </tr>
         </table>
         <div>船種・船型</div>
@@ -187,100 +225,172 @@ if(!empty($_POST)){
             <td><select name="vessel_type">
               <option value="">下記から選択</option>
               <optgroup label="ガス船">
-                <option value="10">ガス船全般</option>
-                <option value="11">LNG船</option>
-                <option value="12">LPG船</option>
-                <option value="13">エタン船</option>
-                <option value="14">エチレン船</option>
-                <option value="15">アンモニア船</option>
-                <option value="16">液化CO2船</option>
-                <option value="17">液化水素船</option>
+                <option value="LNG船" <?php if(!empty($_POST['vessel_type'])&&'LNG船'===$_POST['vessel_type']){echo 'selected';}?>>LNG船</option>
+                <option value="LPG船" <?php if(!empty($_POST['vessel_type'])&&'LPG船'===$_POST['vessel_type']){echo 'selected';}?>>LPG船</option>
+                <option value="エタン船" <?php if(!empty($_POST['vessel_type'])&&'エタン船'===$_POST['vessel_type']){echo 'selected';}?>>エタン船</option>
+                <option value="エチレン船" <?php if(!empty($_POST['vessel_type'])&&'エチレン船'===$_POST['vessel_type']){echo 'selected';}?>>エチレン船</option>
+                <option value="アンモニア船" <?php if(!empty($_POST['vessel_type'])&&'アンモニア船'===$_POST['vessel_type']){echo 'selected';}?>>アンモニア船</option>
+                <option value="液化CO2船" <?php if(!empty($_POST['vessel_type'])&&'液化CO2船'===$_POST['vessel_type']){echo 'selected';}?>>液化CO2船</option>
+                <option value="液化水素船" <?php if(!empty($_POST['vessel_type'])&&'液化水素船'===$_POST['vessel_type']){echo 'selected';}?>>液化水素船</option>
+                <option value="ガス船全般" <?php if(!empty($_POST['vessel_type'])&&'ガス船全般'===$_POST['vessel_type']){echo 'selected';}?>>ガス船全般</option>
               </optgroup>
               <optgroup label="バルカー">
-                <option value="20">バルカー全般</option>
-                <option value="21">石炭専用船</option>
-                <option value="22">石炭灰専用船</option>
-                <option value="23">コークス専用船</option>
-                <option value="24">鉱石専用船</option>
-                <option value="25">鋼材専用船</option>
-                <option value="26">穀物専用船</option>
-                <option value="27">セメント専用船</option>
+                <option value="石炭専用船" <?php if(!empty($_POST['vessel_type'])&&'石炭専用船'===$_POST['vessel_type']){echo 'selected';}?>>石炭専用船</option>
+                <option value="石炭灰専用船" <?php if(!empty($_POST['vessel_type'])&&'石炭灰専用船'===$_POST['vessel_type']){echo 'selected';}?>>石炭灰専用船</option>
+                <option value="コークス専用船" <?php if(!empty($_POST['vessel_type'])&&'コークス専用船'===$_POST['vessel_type']){echo 'selected';}?>>コークス専用船</option>
+                <option value="鉱石専用船" <?php if(!empty($_POST['vessel_type'])&&'鉱石専用船'===$_POST['vessel_type']){echo 'selected';}?>>鉱石専用船</option>
+                <option value="鋼材専用船" <?php if(!empty($_POST['vessel_type'])&&'鋼材専用船'===$_POST['vessel_type']){echo 'selected';}?>>鋼材専用船</option>
+                <option value="穀物専用船" <?php if(!empty($_POST['vessel_type'])&&'穀物専用船'===$_POST['vessel_type']){echo 'selected';}?>>穀物専用船</option>
+                <option value="セメント専用船" <?php if(!empty($_POST['vessel_type'])&&'セメント専用船'===$_POST['vessel_type']){echo 'selected';}?>>セメント専用船</option>
+                <option value="バルカー全般" <?php if(!empty($_POST['vessel_type'])&&'バルカー全般'===$_POST['vessel_type']){echo 'selected';}?>>バルカー全般</option>
               </optgroup>
               <optgroup label="タンカー">
-                <option value="30">タンカー全般</option>
-                <option value="31">オイルタンカー</option>
-                <option value="32">プロダクトタンカー</option>
-                <option value="33">ケミカルタンカー</option>
+                <option value="オイルタンカー" <?php if(!empty($_POST['vessel_type'])&&'オイルタンカー'===$_POST['vessel_type']){echo 'selected';}?>>オイルタンカー</option>
+                <option value="プロダクトタンカー" <?php if(!empty($_POST['vessel_type'])&&'プロダクトタンカー'===$_POST['vessel_type']){echo 'selected';}?>>プロダクトタンカー</option>
+                <option value="ケミカルタンカー" <?php if(!empty($_POST['vessel_type'])&&'ケミカルタンカー'===$_POST['vessel_type']){echo 'selected';}?>>ケミカルタンカー</option>
+                <option value="タンカー全般" <?php if(!empty($_POST['vessel_type'])&&'タンカー全般'===$_POST['vessel_type']){echo 'selected';}?>>タンカー全般</option>
               </optgroup>
               <optgroup label="他貨物船">
-                <option value="40">他貨物船</option>
-                <option value="41">コンテナ船</option>
-                <option value="42">自動車運搬船</option>
-                <option value="43">RORO船</option>
-                <option value="44">重量貨物船</option>
+                <option value="コンテナ船" <?php if(!empty($_POST['vessel_type'])&&'コンテナ船'===$_POST['vessel_type']){echo 'selected';}?>>コンテナ船</option>
+                <option value="自動車運搬船" <?php if(!empty($_POST['vessel_type'])&&'自動車運搬船'===$_POST['vessel_type']){echo 'selected';}?>>自動車運搬船</option>
+                <option value="RORO船" <?php if(!empty($_POST['vessel_type'])&&'RORO船'===$_POST['vessel_type']){echo 'selected';}?>>RORO船</option>
+                <option value="重量貨物船" <?php if(!empty($_POST['vessel_type'])&&'重量貨物船'===$_POST['vessel_type']){echo 'selected';}?>>重量貨物船</option>
+                <option value="他貨物船" <?php if(!empty($_POST['vessel_type'])&&'他貨物船'===$_POST['vessel_type']){echo 'selected';}?>>他貨物船</option>
               </optgroup>
               <optgroup label="旅客船・作業船">
-                <option value="51">旅客船</option>
-                <option value="52">ROPAX船</option>
-                <option value="60">作業船一般</option>
-                <option value="61">SEP船</option>
-                <option value="62">SOV</option>
-                <option value="63">CTV</option>
-                <option value="64">タグボート</option>
-                <option value="65">漁船</option>
+                <option value="旅客船" <?php if(!empty($_POST['vessel_type'])&&'旅客船'===$_POST['vessel_type']){echo 'selected';}?>>旅客船</option>
+                <option value="ROPAX船" <?php if(!empty($_POST['vessel_type'])&&'ROPAX船'===$_POST['vessel_type']){echo 'selected';}?>>ROPAX船</option>
+                <option value="作業船一般" <?php if(!empty($_POST['vessel_type'])&&'作業船一般'===$_POST['vessel_type']){echo 'selected';}?>>作業船一般</option>
+                <option value="SEP船" <?php if(!empty($_POST['vessel_type'])&&'SEP船'===$_POST['vessel_type']){echo 'selected';}?>>SEP船</option>
+                <option value="SOV" <?php if(!empty($_POST['vessel_type'])&&'SOV'===$_POST['vessel_type']){echo 'selected';}?>>SOV</option>
+                <option value="CTV" <?php if(!empty($_POST['vessel_type'])&&'CTV'===$_POST['vessel_type']){echo 'selected';}?>>CTV</option>
+                <option value="タグボート" <?php if(!empty($_POST['vessel_type'])&&'タグボート'===$_POST['vessel_type']){echo 'selected';}?>>タグボート</option>
+                <option value="漁船" <?php if(!empty($_POST['vessel_type'])&&'漁船'===$_POST['vessel_type']){echo 'selected';}?>>漁船</option>
               </optgroup>
             </select></td>
           </tr>
           <tr>
             <td>総トン数(GT)</td>
-            <td><input type="number" name="vessel_gt"></td>
+            <td>
+              <?php if (!empty($_POST)): ?>
+                <input type="number" name="vessel_gt" value="<?=$_POST["vessel_gt"]?>">
+              <?php else: ?>
+                <input type="number" name="vessel_gt">
+              <?php endif ?>
+            </td>
           </tr>
           <tr>
             <td>純トン数(NT)</td>
-            <td><input type="number" name="vessel_nt"></td>
+            <td>
+              <?php if (!empty($_POST)): ?>
+                <input type="number" name="vessel_nt" value="<?=$_POST["vessel_nt"]?>">
+              <?php else: ?>
+                <input type="number" name="vessel_nt">
+              <?php endif ?>
+            </td>
           </tr>
           <tr>
             <td>載貨重量トン数(DWT)</td>
-            <td><input type="number" name="vessel_dwt"></td>
+            <td>
+              <?php if (!empty($_POST)): ?>
+                <input type="number" name="vessel_dwt" value="<?=$_POST["vessel_dwt"]?>">
+              <?php else: ?>
+                <input type="number" name="vessel_dwt">
+              <?php endif ?>
+            </td>
           </tr>
-          <tr>
+          <tr id="gascarrier" style="display:none">
             <td>タンク容積(m3) ※ガス船のみ</td>
-            <td><input type="number" name="vessel_tank"></td>
+            <td>
+              <?php if (!empty($_POST)): ?>
+                <input type="number" name="vessel_tank" value="<?=$_POST["vessel_tank"]?>">
+              <?php else: ?>
+                <input type="number" name="vessel_tank">
+              <?php endif ?>
+            </td>
           </tr>
-          <tr>
+          <tr id="boxship" style="display:none">
             <td>コンテナ積載数量(TEU) ※コンテナ船のみ</td>
-            <td><input type="number" name="vessel_tank"></td>
+            <td>
+              <?php if (!empty($_POST)): ?>
+                <input type="number" name="vessel_teu" value="<?=$_POST["vessel_teu"]?>">
+              <?php else: ?>
+                <input type="number" name="vessel_teu">
+              <?php endif ?>
+            </td>
           </tr>
           <tr>
             <td>全長/Loa(m)</td>
-            <td><input type="number" name="vessel_loa"></td>
+            <td>
+              <?php if (!empty($_POST)): ?>
+                <input type="number" name="vessel_loa" value="<?=$_POST["vessel_loa"]?>">
+              <?php else: ?>
+                <input type="number" name="vessel_loa">
+              <?php endif ?>
+            </td>
           </tr>
           <tr>
             <td>船幅/Beam(m)</td>
-            <td><input type="number" name="vessel_beam"></td>
+            <td>
+              <?php if (!empty($_POST)): ?>
+                <input type="number" name="vessel_beam" value="<?=$_POST["vessel_beam"]?>">
+              <?php else: ?>
+                <input type="number" name="vessel_beam">
+              <?php endif ?>
+            </td>
           </tr>
           <tr>
             <td>深さ/Depth(m)</td>
-            <td><input type="number" name="vessel_depth"></td>
+            <td>
+              <?php if (!empty($_POST)): ?>
+                <input type="number" name="vessel_depth" value="<?=$_POST["vessel_depth"]?>">
+              <?php else: ?>
+                <input type="number" name="vessel_depth">
+              <?php endif ?>
+            </td>
           </tr>
           <tr>
             <td>喫水/Draft(m)</td>
-            <td><input type="number" name="vessel_draft"></td>
+            <td>
+              <?php if (!empty($_POST)): ?>
+                <input type="number" name="vessel_draft" value="<?=$_POST["vessel_draft"]?>">
+              <?php else: ?>
+                <input type="number" name="vessel_draft">
+              <?php endif ?>
+            </td>
           </tr>
         </table>
         <div>技術情報</div>
         <table class="">
           <tr>
             <td>造船所</td>
-            <td><input type="text" name="vessel_sy"></td>
+            <td>
+              <?php if (!empty($_POST)): ?>
+                <input type="text" name="vessel_sy" value="<?=$_POST["vessel_sy"]?>">
+              <?php else: ?>
+                <input type="text" name="vessel_sy">
+              <?php endif ?>
+            </td>
           </tr>
           <tr>
             <td>竣工年月日</td>
-            <td><input type="date" name="vessel_built"></td>
+            <td>
+              <?php if (!empty($_POST)): ?>
+                <input type="date" name="vessel_built" value="<?=$_POST["vessel_built"]?>">
+              <?php else: ?>
+                <input type="date" name="vessel_built">
+              <?php endif ?>
+            </td>
           </tr>
           <tr>
             <td>主機型式</td>
-            <td><input type="text" name="vessel_me"></td>
+            <td>
+              <?php if (!empty($_POST)): ?>
+                <input type="text" name="vessel_me" value="<?=$_POST["vessel_me"]?>">
+              <?php else: ?>
+                <input type="text" name="vessel_me">
+              <?php endif ?>
+            </td>
           </tr>
           <tr>
             <td>燃料</td>
@@ -289,20 +399,20 @@ if(!empty($_POST)){
                 <tr>
                   <td>従来燃料</td>
                   <td>
-                    <input type="checkbox" name="vessel_fuel" value="1">軽油
-                    <input type="checkbox" name="vessel_fuel" value="2">A重油
-                    <input type="checkbox" name="vessel_fuel" value="3">B重油
-                    <input type="checkbox" name="vessel_fuel" value="4">C重油
+                    <label><input type="checkbox" name="vessel_fuel[]" value="軽油" <?php if(strpos($fuel,"軽油") !== false){echo 'checked="checked"';}?>>軽油</label>
+                    <label><input type="checkbox" name="vessel_fuel[]" value="A重油" <?php if(strpos($fuel,"A重油") !== false){echo 'checked="checked"';}?>>A重油</label>
+                    <label><input type="checkbox" name="vessel_fuel[]" value="B重油" <?php if(strpos($fuel,"B重油") !== false){echo 'checked="checked"';}?>>B重油</label>
+                    <label><input type="checkbox" name="vessel_fuel[]" value="C重油" <?php if(strpos($fuel,"C重油") !== false){echo 'checked="checked"';}?>>C重油</label>
                   </td>
                 </tr>
                 <tr>
                   <td>次世代燃料</td>
                   <td>
-                    <input type="checkbox" name="vessel_fuel" value="5">LNG
-                    <input type="checkbox" name="vessel_fuel" value="6">LPG
-                    <input type="checkbox" name="vessel_fuel" value="7">メタノール
-                    <input type="checkbox" name="vessel_fuel" value="8">アンモニア
-                    <input type="checkbox" name="vessel_fuel" value="9">電気推進
+                    <label><input type="checkbox" name="vessel_fuel[]" value="LNG" <?php if(strpos($fuel,"LNG") !== false){echo 'checked="checked"';}?>>LNG</label>
+                    <label><input type="checkbox" name="vessel_fuel[]" value="LPG" <?php if(strpos($fuel,"LPG") !== false){echo 'checked="checked"';}?>>LPG</label>
+                    <label><input type="checkbox" name="vessel_fuel[]" value="メタノール" <?php if(strpos($fuel,"メタノール") !== false){echo 'checked="checked"';}?>>メタノール</label>
+                    <label><input type="checkbox" name="vessel_fuel[]" value="アンモニア" <?php if(strpos($fuel,"アンモニア") !== false){echo 'checked="checked"';}?>>アンモニア</label>
+                    <label><input type="checkbox" name="vessel_fuel[]" value="電気推進" <?php if(strpos($fuel,"電気推進") !== false){echo 'checked="checked"';}?>>電気推進</label>
                   </td>
                 </tr>
               </table>
@@ -315,4 +425,26 @@ if(!empty($_POST)){
     <footer>
     </footer>
   </div>
+  <script>
+    $("[name=vessel_type]").change(function(){
+      let val = $("[name=vessel_type]").val();
+      if (val=="コンテナ船"){
+        $("#gascarrier").hide();
+        $("#boxship").show();
+      }else if (val=="LNG船" || val=="LPG船" || val=="エタン船" || val=="エチレン船" || val=="アンモニア船" || val=="液化CO2船" || val=="液化水素船" || val=="ガス船全般"){
+        $("#gascarrier").show();
+        $("#boxship").hide();
+      }
+    });
+    $(function(){
+      let val = $("[name=vessel_type]").val();
+      if (val=="コンテナ船"){
+        $("#gascarrier").hide();
+        $("#boxship").show();
+      }else if (val=="LNG船" || val=="LPG船" || val=="エタン船" || val=="エチレン船" || val=="アンモニア船" || val=="液化CO2船" || val=="液化水素船" || val=="ガス船全般"){
+        $("#gascarrier").show();
+        $("#boxship").hide();
+      }
+    });
+  </script>
 </body>

@@ -70,11 +70,11 @@ if(!empty($_POST)){
                         <label for="owner_name">会社名<span id="required">*</span></label>
                         <?php if (!empty($error["owner_name"]) && $error['owner_name'] === 'blank'): ?>
                             <input type="text" name="owner_name" class="tbox_auth" placeholder="会社名">
-                            <p class="error">*会社名を入力してください</p>
+                            <p class="error">*会社名は必須入力です</p>
                         <?php elseif (!empty($error["owner_name"]) && $error['owner_name'] === 'duplicate'): ?>
                             <input type="text" name="owner_name" class="tbox_auth" placeholder="会社名">
                             <p class="error">*この会社は登録済みです</p>
-                        <?php elseif (!empty($_POST["owner_name"])): ?>
+                        <?php elseif (!empty($_POST)): ?>
                             <input type="text" name="owner_name" class="tbox_auth" value="<?=$_POST["owner_name"]?>">
                         <?php else: ?>
                             <input type="text" name="owner_name" class="tbox_auth" placeholder="会社名">
@@ -84,11 +84,11 @@ if(!empty($_POST)){
                         <label for="owner_email">メールアドレス<span id="required">*</span></label>
                         <?php if (!empty($error["owner_email"]) && $error['owner_email'] === 'blank'): ?>
                             <input type="email" name="owner_email" class="tbox_auth" placeholder="メールアドレス">
-                            <p class="error">*メールアドレスを入力してください</p>
+                            <p class="error">*メールアドレスは必須入力です</p>
                         <?php elseif (!empty($error["owner_email"]) && $error['owner_email'] === 'duplicate'): ?>
                             <input type="email" name="owner_email" class="tbox_auth" placeholder="メールアドレス">
                             <p class="error">*このメールアドレスは登録済みです</p>
-                        <?php elseif (!empty($_POST["owner_email"])): ?>
+                        <?php elseif (!empty($_POST)): ?>
                             <input type="email" name="owner_email" class="tbox_auth" value="<?=$_POST["owner_email"]?>">
                         <?php else: ?>
                             <input type="email" name="owner_email" class="tbox_auth" placeholder="メールアドレス">
@@ -98,11 +98,11 @@ if(!empty($_POST)){
                         <label for="owner_id">ログインID<span id="required">*</span></label>
                         <?php if (!empty($error["owner_id"]) && $error['owner_id'] === 'blank'): ?>
                             <input type="text" name="owner_id" class="tbox_auth" placeholder="ログインID">
-                            <p class="error">*メールアドレスを入力してください</p>
+                            <p class="error">*ログインIDは必須入力です</p>
                         <?php elseif (!empty($error["owner_id"]) && $error['owner_id'] === 'duplicate'): ?>
                             <input type="text" name="owner_id" class="tbox_auth" placeholder="ログインID">
-                            <p class="error">*このメールアドレスは登録済みです</p>
-                        <?php elseif (!empty($_POST["owner_id"])): ?>
+                            <p class="error">*このログインIDは既に使用されています</p>
+                        <?php elseif (!empty($_POST)): ?>
                             <input type="text" name="owner_id" class="tbox_auth" value="<?=$_POST["owner_id"]?>">
                         <?php else: ?>
                             <input type="text" name="owner_id" class="tbox_auth" placeholder="ログインID">
@@ -112,8 +112,8 @@ if(!empty($_POST)){
                         <label for="owner_pw">パスワード<span id="required">*</span></label>
                         <?php if (!empty($error["owner_pw"]) && $error['owner_pw'] === 'blank'): ?>
                             <input type="password" name="owner_pw" class="tbox_auth" placeholder="パスワード">
-                            <p class="error">*パスワードを入力してください</p>
-                        <?php elseif (!empty($_POST["owner_pw"])): ?>
+                            <p class="error">*パスワードは必須入力です</p>
+                        <?php elseif (!empty($_POST)): ?>
                             <input type="password" name="owner_pw" class="tbox_auth" value="<?=$_POST["owner_pw"]?>">
                         <?php else: ?>
                             <input type="password" name="owner_pw" class="tbox_auth" placeholder="パスワード">
