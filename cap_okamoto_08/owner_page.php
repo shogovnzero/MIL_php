@@ -42,7 +42,7 @@ if($status==false) {
         <div class = "area_logo"></div>
         <div class = "area_description">
           <div class = "owner_name"><?=$row["owner_name"]?></div>
-          <div><a href="">chat with this owner</a></div>
+          <div><a href="chat_create.php?id=<?=$id?>">chat with this owner</a></div>
           <div class = "owner_info">
             <table>
             <tr>

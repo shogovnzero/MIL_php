@@ -1,36 +1,25 @@
 <?php
-// session start
 session_start();
+$owner_name = $_SESSION["join"]["owner_name"];
+$email = $_SESSION["join"]["owner_email"];
+$owner_id = $_SESSION["join"]["owner_id"];
+$owner_pw = password_hash($_SESSION["join"]["owner_pw"], PASSWORD_DEFAULT);
 
-// POST value
-$owner_id = $_POST['owner_id'];
-$owner_pw = $_POST['owner_pw'];
-
-// DB access
 include("funcs.php");
 $pdo = db_conn();
 
-// create SQL
-$stmt = $pdo->prepare("SELECT * FROM cap_owner WHERE owner_id=:owner_id");
-$stmt->bindValue(':owner_id',$owner_id, PDO::PARAM_STR);
+$stmt = $pdo->prepare("INSERT INTO cap_owner(owner_id, owner_pw, owner_name, email)VALUES(:owner_id, :owner_pw, :owner_name, :email)");
+$stmt->bindValue(':owner_id', $owner_id, PDO::PARAM_STR);
+$stmt->bindValue(':owner_pw', $owner_pw, PDO::PARAM_STR);
+$stmt->bindValue(':owner_name', $owner_name, PDO::PARAM_STR);
+$stmt->bindValue(':email', $email, PDO::PARAM_STR);
 $status = $stmt->execute();
 
-// sql error
 if($status==false){
-    sql_error($stmt);
-}
-
-// login process
-$val = $stmt->fetch();
-$pw = password_verify($owner_pw, $val["owner_pw"]);
-if($pw){
-    $_SESSION["chk_ssid"] = session_id();
-    $_SESSION["owner_name"] = $val["owner_name"];
-    $_SESSION["id"] = $val["id"];
-    redirect("index.php");
+  sql_error($stmt);
 }else{
-    redirect("login.php");
+  redirect("login.php");
 }
 
-exit();
 ?>
+

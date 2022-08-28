@@ -32,7 +32,7 @@ if($status==false) {
 <body>
     <div class="container">
         <header>
-          ようこそ<?=$row["owner_name"]?>さん。
+          <?php include("menu.php"); ?>
         </header>
         <main>
           <h3>会社概要</h3>
@@ -93,10 +93,6 @@ if($status==false) {
             </table>
             <input type="submit" value="送信">
           </form>
-          <a href="index.php">マイページ</a>
-          <a href="mypage_update.php">マイページ情報更新</a>
-          <a href="owner_search.php">船主検索</a>
-          <a href="vessel_search.php">船舶検索</a>
         </main>
         <footer>
         </footer>
