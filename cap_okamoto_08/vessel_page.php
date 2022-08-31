@@ -16,8 +16,15 @@ if($status==false) {
   $row = $stmt->fetch();
 }
 
-if($id != $row["owner_id"]){
-  redirect("vessel_page.php?id=$vessel_id");
+$stmt2   = $pdo->prepare("SELECT * FROM cap_owner WHERE id=:id");
+$stmt2->bindValue(":id",$row["owner_id"],PDO::PARAM_INT);
+$status2 = $stmt2->execute();
+
+$view="";
+if($status2==false) {
+  sql_error($stmt2);
+}else{
+  $row2 = $stmt2->fetch();
 }
 ?>
 
@@ -39,7 +46,23 @@ if($id != $row["owner_id"]){
       <?php include("menu.php"); ?>
     </header>
     <main>
-      <div><a href="vessel_mine_update.php?id=<?=$row["id"]?>">船舶情報を編集する</a></div>
+      <div>船主情報</div>
+      <div class = "owner_info">
+        <table>
+        <tr>
+          <td>会社名</td>
+          <td><?=$row2["owner_name"]?></td>
+        </tr>
+        <tr>
+          <td>会社URL</td>
+          <td><a href="<?=$row2["owner_url"]?>"><?=$row2["owner_url"]?></a></td>
+        </tr>
+        <tr>
+          <td>会社所在地</td>
+          <td>〒<?=$row2["p_postal_code"]." ".$row2["p_region"].$row2["p_locality"].$row2["p_street_address"]." ".$row2["p_extended_address"]?></td>
+        </tr>
+        </table>
+      </div>
       <div>登録情報・運航情報</div>
       <table class="">
         <tr>

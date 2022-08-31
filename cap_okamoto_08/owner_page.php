@@ -1,16 +1,16 @@
 <?php
 session_start();
-$id = $_GET["id"];
+$owner_id = $_GET["id"];
 include("funcs.php");
 sschk();
 $pdo = db_conn();
 
-if($id==$_SESSION["id"]){
+if($owner_id==$_SESSION["id"]){
   redirect("index.php");
 }
 
 $stmt = $pdo->prepare("SELECT * FROM cap_owner WHERE id=:id");
-$stmt->bindValue(":id",$id,PDO::PARAM_INT);
+$stmt->bindValue(":id",$owner_id,PDO::PARAM_INT);
 $status = $stmt->execute();
 
 if($status==false) {
@@ -45,30 +45,30 @@ if($status==false) {
           <div><a href="chat_create.php?id=<?=$id?>">chat with this owner</a></div>
           <div class = "owner_info">
             <table>
-            <tr>
-              <td>代表者</td>
-              <td><?=$row["owner_ceo"]?></td>
-            </tr>
-            <tr>
-              <td>会社URL</td>
-              <td><a href="<?=$row["owner_url"]?>"><?=$row["owner_url"]?></a></td>
-            </tr>
-            <tr>
-              <td>会社所在地</td>
-              <td>〒<?=$row["p_postal_code"]." ".$row["p_region"].$row["p_locality"].$row["p_street_address"]." ".$row["p_extended_address"]?></td>
-            </tr>
-            <tr>
-              <td>創立年月日</td>
-              <td><?=$row["owner_foundation"]?></td>
-            </tr>
-            <tr>
-              <td>資本金</td>
-              <td><?=$row["owner_capital"]?></td>
-            </tr>
-            <tr>
-              <td>従業員数</td>
-              <td><?=$row["owner_employee"]?></td>
-            </tr>
+              <tr>
+                <td>代表者</td>
+                <td><?=$row["owner_ceo"]?></td>
+              </tr>
+              <tr>
+                <td>会社URL</td>
+                <td><a href="<?=$row["owner_url"]?>"><?=$row["owner_url"]?></a></td>
+              </tr>
+              <tr>
+                <td>会社所在地</td>
+                <td>〒<?=$row["p_postal_code"]." ".$row["p_region"].$row["p_locality"].$row["p_street_address"]." ".$row["p_extended_address"]?></td>
+              </tr>
+              <tr>
+                <td>創立年月日</td>
+                <td><?=$row["owner_foundation"]?></td>
+              </tr>
+              <tr>
+                <td>資本金</td>
+                <td><?=$row["owner_capital"]?></td>
+              </tr>
+              <tr>
+                <td>従業員数</td>
+                <td><?=$row["owner_employee"]?></td>
+              </tr>
             </table>
           </div>
           <div class = "follow"></div>

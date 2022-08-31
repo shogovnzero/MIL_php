@@ -1,5 +1,6 @@
 <?php
 session_start();
+$vessel_id = $_SESSION["join"]['vessel_id'];
 include("funcs.php");
 sschk();
 
@@ -7,7 +8,6 @@ sschk();
 $vessel_number = $_SESSION["join"]["vessel_number"];
 $vessel_name_jp = $_SESSION["join"]["vessel_name_jp"];
 $vessel_name_en = $_SESSION["join"]["vessel_name_en"];
-$owner_id = $_SESSION["join"]["owner_id"];
 $manager = $_SESSION["join"]["manager"];
 $vessel_reg_port = $_SESSION["join"]["vessel_reg_port"];
 $vessel_trade_pref = implode(",",$_SESSION["join"]["vessel_trade_pref"]);
@@ -33,23 +33,15 @@ $vessel_fuel = implode(",",$_SESSION["join"]["vessel_fuel"]);
 
 $pdo = db_conn();
 
-$stmt = $pdo->prepare("INSERT INTO cap_vessel(vessel_number, vessel_name_jp, vessel_name_en, owner_id, manager, vessel_reg_port, vessel_trade_pref, vessel_trade_port,
-vessel_type, vessel_gt, vessel_nt, vessel_dwt, vessel_tank, vessel_teu, vessel_loa, vessel_beam, vessel_depth, vessel_draft,
-vessel_sy, vessel_built, vessel_me, vessel_fuel)
-VALUES(:vessel_number, :vessel_name_jp, :vessel_name_en, :owner_id, :manager, :vessel_reg_port, :vessel_trade_pref, :vessel_trade_port,
-:vessel_type, :vessel_gt, :vessel_nt, :vessel_dwt, :vessel_tank, :vessel_teu, :vessel_loa, :vessel_beam, :vessel_depth, :vessel_draft,
-:vessel_sy, :vessel_built, :vessel_me, :vessel_fuel)");
-
+$stmt = $pdo->prepare("UPDATE cap_vessel SET vessel_number=:vessel_number, vessel_name_jp=:vessel_name_jp, vessel_name_en=:vessel_name_en, manager=:manager, vessel_reg_port=:vessel_reg_port, vessel_trade_pref=:vessel_trade_pref, vessel_trade_port=:vessel_trade_port, vessel_type=:vessel_type, vessel_gt=:vessel_gt, vessel_nt=:vessel_nt, vessel_dwt=:vessel_dwt, vessel_tank=:vessel_tank, vessel_teu=:vessel_teu, vessel_loa=:vessel_loa, vessel_beam=:vessel_beam, vessel_depth=:vessel_depth, vessel_draft=:vessel_draft, vessel_sy=:vessel_sy, vessel_built=:vessel_built, vessel_me=:vessel_me, vessel_fuel=:vessel_fuel WHERE id=:id");
 
 $stmt->bindValue(':vessel_number', $vessel_number, PDO::PARAM_INT);
 $stmt->bindValue(':vessel_name_jp', $vessel_name_jp, PDO::PARAM_STR);
 $stmt->bindValue(':vessel_name_en', $vessel_name_en, PDO::PARAM_STR);
-$stmt->bindValue(':owner_id', $owner_id, PDO::PARAM_INT);
 $stmt->bindValue(':manager', $manager, PDO::PARAM_STR);
 $stmt->bindValue(':vessel_reg_port', $vessel_reg_port, PDO::PARAM_STR);
 $stmt->bindValue(':vessel_trade_pref', $vessel_trade_pref, PDO::PARAM_STR);
 $stmt->bindValue(':vessel_trade_port', $vessel_trade_port, PDO::PARAM_STR);
-
 
 $stmt->bindValue(':vessel_type', $vessel_type, PDO::PARAM_STR);
 $stmt->bindValue(':vessel_gt', $vessel_gt, PDO::PARAM_INT);
@@ -67,12 +59,13 @@ $stmt->bindValue(':vessel_built', $vessel_built, PDO::PARAM_STR);
 $stmt->bindValue(':vessel_me', $vessel_me, PDO::PARAM_STR);
 $stmt->bindValue(':vessel_fuel', $vessel_fuel, PDO::PARAM_STR);
 
+$stmt->bindValue(':id', $vessel_id, PDO::PARAM_INT);
 $status = $stmt->execute();
 
 if($status==false){
     sql_error($stmt);
 }else{
-    redirect("vessel_register.php");
+    redirect("vessel_mine.php?id=$vessel_id");
 }
 
 ?>

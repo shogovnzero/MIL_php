@@ -1,9 +1,24 @@
 <?php
 session_start();
-$id = $_SESSION['id'];
+$id = $_SESSION["id"];
+$vessel_id = $_GET['id'];
 include("funcs.php");
 sschk();
 $pdo = db_conn();
+
+$stmt = $pdo->prepare("SELECT * FROM cap_vessel WHERE id=:id");
+$stmt->bindValue(":id",$vessel_id,PDO::PARAM_INT);
+$status = $stmt->execute();
+
+if($status==false) {
+  sql_error($stmt);
+}else{
+  $row = $stmt->fetch();
+}
+
+if($id != $row["owner_id"]){
+  redirect("vessel_page.php?id=$vessel_id");
+}
 
 if(!empty($_POST)){
   if($_POST["vessel_number"] === ""){
@@ -20,22 +35,30 @@ if(!empty($_POST)){
     $stmt->execute(array($_POST["vessel_number"]));
     $record = $stmt->fetch();
     if($record["cnt_number"] > 0){
+      if($row["vessel_number"] != $_POST["vessel_number"]){
         $error["vessel_number"] = "duplicate";
+      }
     }
   }
   if (!isset($error)) {
     $_SESSION['join'] = $_POST;
-    redirect("vessel_register_process.php");
+    redirect("vessel_mine_update_process.php");
     exit();
   }
 }
 
 $pref = 0;
+if (empty($POST)){
+  $pref = $row["vessel_trade_pref"];
+}
 if (isset($_POST['vessel_trade_pref']) && is_array($_POST['vessel_trade_pref'])) {
   $pref = implode(",",$_POST['vessel_trade_pref']);
 }
 
 $fuel = 0;
+if (empty($POST)){
+  $fuel = $row["vessel_type"];
+} 
 if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
   $fuel = implode(",",$_POST['vessel_fuel']);
 }
@@ -49,7 +72,7 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>CAP - 船舶新規登録</title>
+  <title>CAP - <?=$row["vessel_name_jp"]?></title>
   <link rel="stylesheet" href="./css/reset.css">
   <link rel="stylesheet" href="./css/style.css">
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -73,7 +96,7 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
               <?php elseif (!empty($_POST)): ?>
                 <input type="number" name="vessel_number" value="<?=$_POST["vessel_number"]?>">
               <?php else: ?>
-                <input type="number" name="vessel_number">
+                <input type="number" name="vessel_number" value="<?=$row["vessel_number"]?>">
               <?php endif ?>
             </td>
           </tr>
@@ -86,7 +109,7 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
               <?php elseif (!empty($_POST)): ?>
                 <input type="text" name="vessel_name_jp" value="<?=$_POST["vessel_name_jp"]?>">
               <?php else: ?>
-                <input type="text" name="vessel_name_jp">
+                <input type="text" name="vessel_name_jp" value="<?=$row["vessel_name_jp"]?>">
               <?php endif ?>
             </td>
           </tr>
@@ -99,18 +122,17 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
               <?php elseif (!empty($_POST)): ?>
                 <input type="text" name="vessel_name_en" value="<?=$_POST["vessel_name_en"]?>">
               <?php else: ?>
-                <input type="text" name="vessel_name_en">
+                <input type="text" name="vessel_name_en" value="<?=$row["vessel_name_en"]?>">
               <?php endif ?>
             </td>
           </tr>
-          <input type="hidden" name="owner_id" value="<?=$id?>">
           <tr>
             <td>船舶管理会社</td>
             <td>
               <?php if (!empty($_POST)): ?>
                 <input type="text" name="manager" placeholder="自社管理の場合は空白" value="<?=$_POST["manager"]?>">
               <?php else: ?>
-                <input type="text" name="manager" placeholder="自社管理の場合は空白">
+                <input type="text" name="manager" placeholder="自社管理の場合は空白" value="<?=$row["manager"]?>">
               <?php endif ?>
             </td>
           </tr>
@@ -120,7 +142,7 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
               <?php if (!empty($_POST)): ?>
                 <input type="text" name="vessel_reg_port" value="<?=$_POST["vessel_reg_port"]?>">
               <?php else: ?>
-                <input type="text" name="vessel_reg_port">
+                <input type="text" name="vessel_reg_port" value="<?=$row["vessel_reg_port"]?>">
               <?php endif ?>
             </td>
           </tr>
@@ -214,7 +236,7 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
               <?php if (!empty($_POST)): ?>
                 <input type="text" name="vessel_trade_port" value="<?=$_POST["vessel_trade_port"]?>">
               <?php else: ?>
-                <input type="text" name="vessel_trade_port">
+                <input type="text" name="vessel_trade_port" value="<?=$row["vessel_trade_port"]?>">
               <?php endif ?>
             </td>
           </tr>
@@ -226,47 +248,47 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
             <td><select name="vessel_type">
               <option value="">下記から選択</option>
               <optgroup label="ガス船">
-                <option value="LNG船" <?php if(!empty($_POST['vessel_type'])&&'LNG船'===$_POST['vessel_type']){echo 'selected';}?>>LNG船</option>
-                <option value="LPG船" <?php if(!empty($_POST['vessel_type'])&&'LPG船'===$_POST['vessel_type']){echo 'selected';}?>>LPG船</option>
-                <option value="エタン船" <?php if(!empty($_POST['vessel_type'])&&'エタン船'===$_POST['vessel_type']){echo 'selected';}?>>エタン船</option>
-                <option value="エチレン船" <?php if(!empty($_POST['vessel_type'])&&'エチレン船'===$_POST['vessel_type']){echo 'selected';}?>>エチレン船</option>
-                <option value="アンモニア船" <?php if(!empty($_POST['vessel_type'])&&'アンモニア船'===$_POST['vessel_type']){echo 'selected';}?>>アンモニア船</option>
-                <option value="液化CO2船" <?php if(!empty($_POST['vessel_type'])&&'液化CO2船'===$_POST['vessel_type']){echo 'selected';}?>>液化CO2船</option>
-                <option value="液化水素船" <?php if(!empty($_POST['vessel_type'])&&'液化水素船'===$_POST['vessel_type']){echo 'selected';}?>>液化水素船</option>
-                <option value="ガス船全般" <?php if(!empty($_POST['vessel_type'])&&'ガス船全般'===$_POST['vessel_type']){echo 'selected';}?>>ガス船全般</option>
+                <option value="LNG船" <?php if(!empty($_POST['vessel_type'])&&'LNG船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="LNG船"){echo 'selected';}?>>LNG船</option>
+                <option value="LPG船" <?php if(!empty($_POST['vessel_type'])&&'LPG船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="LPG船"){echo 'selected';}?>>LPG船</option>
+                <option value="エタン船" <?php if(!empty($_POST['vessel_type'])&&'エタン船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="エタン船"){echo 'selected';}?>>エタン船</option>
+                <option value="エチレン船" <?php if(!empty($_POST['vessel_type'])&&'エチレン船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="エチレン船"){echo 'selected';}?>>エチレン船</option>
+                <option value="アンモニア船" <?php if(!empty($_POST['vessel_type'])&&'アンモニア船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="アンモニア船"){echo 'selected';}?>>アンモニア船</option>
+                <option value="液化CO2船" <?php if(!empty($_POST['vessel_type'])&&'液化CO2船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="液化CO2船"){echo 'selected';}?>>液化CO2船</option>
+                <option value="液化水素船" <?php if(!empty($_POST['vessel_type'])&&'液化水素船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="液化水素船"){echo 'selected';}?>>液化水素船</option>
+                <option value="ガス船全般" <?php if(!empty($_POST['vessel_type'])&&'ガス船全般'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="ガス船全般"){echo 'selected';}?>>ガス船全般</option>
               </optgroup>
               <optgroup label="バルカー">
-                <option value="石炭専用船" <?php if(!empty($_POST['vessel_type'])&&'石炭専用船'===$_POST['vessel_type']){echo 'selected';}?>>石炭専用船</option>
-                <option value="石炭灰専用船" <?php if(!empty($_POST['vessel_type'])&&'石炭灰専用船'===$_POST['vessel_type']){echo 'selected';}?>>石炭灰専用船</option>
-                <option value="コークス専用船" <?php if(!empty($_POST['vessel_type'])&&'コークス専用船'===$_POST['vessel_type']){echo 'selected';}?>>コークス専用船</option>
-                <option value="鉱石専用船" <?php if(!empty($_POST['vessel_type'])&&'鉱石専用船'===$_POST['vessel_type']){echo 'selected';}?>>鉱石専用船</option>
-                <option value="鋼材専用船" <?php if(!empty($_POST['vessel_type'])&&'鋼材専用船'===$_POST['vessel_type']){echo 'selected';}?>>鋼材専用船</option>
-                <option value="穀物専用船" <?php if(!empty($_POST['vessel_type'])&&'穀物専用船'===$_POST['vessel_type']){echo 'selected';}?>>穀物専用船</option>
-                <option value="セメント専用船" <?php if(!empty($_POST['vessel_type'])&&'セメント専用船'===$_POST['vessel_type']){echo 'selected';}?>>セメント専用船</option>
-                <option value="バルカー全般" <?php if(!empty($_POST['vessel_type'])&&'バルカー全般'===$_POST['vessel_type']){echo 'selected';}?>>バルカー全般</option>
+                <option value="石炭専用船" <?php if(!empty($_POST['vessel_type'])&&'石炭専用船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="石炭専用船"){echo 'selected';}?>>石炭専用船</option>
+                <option value="石炭灰専用船" <?php if(!empty($_POST['vessel_type'])&&'石炭灰専用船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="石炭灰専用船"){echo 'selected';}?>>石炭灰専用船</option>
+                <option value="コークス専用船" <?php if(!empty($_POST['vessel_type'])&&'コークス専用船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="コークス専用船"){echo 'selected';}?>>コークス専用船</option>
+                <option value="鉱石専用船" <?php if(!empty($_POST['vessel_type'])&&'鉱石専用船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="鉱石専用船"){echo 'selected';}?>>鉱石専用船</option>
+                <option value="鋼材専用船" <?php if(!empty($_POST['vessel_type'])&&'鋼材専用船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="鋼材専用船"){echo 'selected';}?>>鋼材専用船</option>
+                <option value="穀物専用船" <?php if(!empty($_POST['vessel_type'])&&'穀物専用船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="穀物専用船"){echo 'selected';}?>>穀物専用船</option>
+                <option value="セメント専用船" <?php if(!empty($_POST['vessel_type'])&&'セメント専用船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="セメント専用船"){echo 'selected';}?>>セメント専用船</option>
+                <option value="バルカー全般" <?php if(!empty($_POST['vessel_type'])&&'バルカー全般'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="バルカー全般"){echo 'selected';}?>>バルカー全般</option>
               </optgroup>
               <optgroup label="タンカー">
-                <option value="オイルタンカー" <?php if(!empty($_POST['vessel_type'])&&'オイルタンカー'===$_POST['vessel_type']){echo 'selected';}?>>オイルタンカー</option>
-                <option value="プロダクトタンカー" <?php if(!empty($_POST['vessel_type'])&&'プロダクトタンカー'===$_POST['vessel_type']){echo 'selected';}?>>プロダクトタンカー</option>
-                <option value="ケミカルタンカー" <?php if(!empty($_POST['vessel_type'])&&'ケミカルタンカー'===$_POST['vessel_type']){echo 'selected';}?>>ケミカルタンカー</option>
-                <option value="タンカー全般" <?php if(!empty($_POST['vessel_type'])&&'タンカー全般'===$_POST['vessel_type']){echo 'selected';}?>>タンカー全般</option>
+                <option value="オイルタンカー" <?php if(!empty($_POST['vessel_type'])&&'オイルタンカー'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="オイルタンカー"){echo 'selected';}?>>オイルタンカー</option>
+                <option value="プロダクトタンカー" <?php if(!empty($_POST['vessel_type'])&&'プロダクトタンカー'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="プロダクトタンカー"){echo 'selected';}?>>プロダクトタンカー</option>
+                <option value="ケミカルタンカー" <?php if(!empty($_POST['vessel_type'])&&'ケミカルタンカー'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="ケミカルタンカー"){echo 'selected';}?>>ケミカルタンカー</option>
+                <option value="タンカー全般" <?php if(!empty($_POST['vessel_type'])&&'タンカー全般'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="タンカー全般"){echo 'selected';}?>>タンカー全般</option>
               </optgroup>
               <optgroup label="他貨物船">
-                <option value="コンテナ船" <?php if(!empty($_POST['vessel_type'])&&'コンテナ船'===$_POST['vessel_type']){echo 'selected';}?>>コンテナ船</option>
-                <option value="自動車運搬船" <?php if(!empty($_POST['vessel_type'])&&'自動車運搬船'===$_POST['vessel_type']){echo 'selected';}?>>自動車運搬船</option>
-                <option value="RORO船" <?php if(!empty($_POST['vessel_type'])&&'RORO船'===$_POST['vessel_type']){echo 'selected';}?>>RORO船</option>
-                <option value="重量貨物船" <?php if(!empty($_POST['vessel_type'])&&'重量貨物船'===$_POST['vessel_type']){echo 'selected';}?>>重量貨物船</option>
-                <option value="他貨物船" <?php if(!empty($_POST['vessel_type'])&&'他貨物船'===$_POST['vessel_type']){echo 'selected';}?>>他貨物船</option>
+                <option value="コンテナ船" <?php if(!empty($_POST['vessel_type'])&&'コンテナ船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="コンテナ船"){echo 'selected';}?>>コンテナ船</option>
+                <option value="自動車運搬船" <?php if(!empty($_POST['vessel_type'])&&'自動車運搬船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="自動車運搬船"){echo 'selected';}?>>自動車運搬船</option>
+                <option value="RORO船" <?php if(!empty($_POST['vessel_type'])&&'RORO船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="RORO船"){echo 'selected';}?>>RORO船</option>
+                <option value="重量貨物船" <?php if(!empty($_POST['vessel_type'])&&'重量貨物船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="重量貨物船"){echo 'selected';}?>>重量貨物船</option>
+                <option value="他貨物船" <?php if(!empty($_POST['vessel_type'])&&'他貨物船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="他貨物船"){echo 'selected';}?>>他貨物船</option>
               </optgroup>
               <optgroup label="旅客船・作業船">
-                <option value="旅客船" <?php if(!empty($_POST['vessel_type'])&&'旅客船'===$_POST['vessel_type']){echo 'selected';}?>>旅客船</option>
-                <option value="ROPAX船" <?php if(!empty($_POST['vessel_type'])&&'ROPAX船'===$_POST['vessel_type']){echo 'selected';}?>>ROPAX船</option>
-                <option value="作業船一般" <?php if(!empty($_POST['vessel_type'])&&'作業船一般'===$_POST['vessel_type']){echo 'selected';}?>>作業船一般</option>
-                <option value="SEP船" <?php if(!empty($_POST['vessel_type'])&&'SEP船'===$_POST['vessel_type']){echo 'selected';}?>>SEP船</option>
-                <option value="SOV" <?php if(!empty($_POST['vessel_type'])&&'SOV'===$_POST['vessel_type']){echo 'selected';}?>>SOV</option>
-                <option value="CTV" <?php if(!empty($_POST['vessel_type'])&&'CTV'===$_POST['vessel_type']){echo 'selected';}?>>CTV</option>
-                <option value="タグボート" <?php if(!empty($_POST['vessel_type'])&&'タグボート'===$_POST['vessel_type']){echo 'selected';}?>>タグボート</option>
-                <option value="漁船" <?php if(!empty($_POST['vessel_type'])&&'漁船'===$_POST['vessel_type']){echo 'selected';}?>>漁船</option>
+                <option value="旅客船" <?php if(!empty($_POST['vessel_type'])&&'旅客船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="旅客船"){echo 'selected';}?>>旅客船</option>
+                <option value="ROPAX船" <?php if(!empty($_POST['vessel_type'])&&'ROPAX船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="ROPAX船"){echo 'selected';}?>>ROPAX船</option>
+                <option value="作業船一般" <?php if(!empty($_POST['vessel_type'])&&'作業船一般'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="作業船一般"){echo 'selected';}?>>作業船一般</option>
+                <option value="SEP船" <?php if(!empty($_POST['vessel_type'])&&'SEP船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="SEP船"){echo 'selected';}?>>SEP船</option>
+                <option value="SOV" <?php if(!empty($_POST['vessel_type'])&&'SOV'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="SOV船"){echo 'selected';}?>>SOV</option>
+                <option value="CTV" <?php if(!empty($_POST['vessel_type'])&&'CTV'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="CTV船"){echo 'selected';}?>>CTV</option>
+                <option value="タグボート" <?php if(!empty($_POST['vessel_type'])&&'タグボート'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="タグボート"){echo 'selected';}?>>タグボート</option>
+                <option value="漁船" <?php if(!empty($_POST['vessel_type'])&&'漁船'===$_POST['vessel_type']){echo 'selected';}elseif(empty($_POST)&&$row["vessel_type"]=="漁船"){echo 'selected';}?>>漁船</option>
               </optgroup>
             </select></td>
           </tr>
@@ -276,7 +298,7 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
               <?php if (!empty($_POST)): ?>
                 <input type="number" name="vessel_gt" value="<?=$_POST["vessel_gt"]?>">
               <?php else: ?>
-                <input type="number" name="vessel_gt">
+                <input type="number" name="vessel_gt" value="<?=$row["vessel_gt"]?>">
               <?php endif ?>
             </td>
           </tr>
@@ -286,7 +308,7 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
               <?php if (!empty($_POST)): ?>
                 <input type="number" name="vessel_nt" value="<?=$_POST["vessel_nt"]?>">
               <?php else: ?>
-                <input type="number" name="vessel_nt">
+                <input type="number" name="vessel_nt" value="<?=$row["vessel_nt"]?>">
               <?php endif ?>
             </td>
           </tr>
@@ -296,7 +318,7 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
               <?php if (!empty($_POST)): ?>
                 <input type="number" name="vessel_dwt" value="<?=$_POST["vessel_dwt"]?>">
               <?php else: ?>
-                <input type="number" name="vessel_dwt">
+                <input type="number" name="vessel_dwt" value="<?=$row["vessel_dwt"]?>">
               <?php endif ?>
             </td>
           </tr>
@@ -306,7 +328,7 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
               <?php if (!empty($_POST)): ?>
                 <input type="number" name="vessel_tank" value="<?=$_POST["vessel_tank"]?>">
               <?php else: ?>
-                <input type="number" name="vessel_tank">
+                <input type="number" name="vessel_tank" value="<?=$row["vessel_tank"]?>">
               <?php endif ?>
             </td>
           </tr>
@@ -316,7 +338,7 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
               <?php if (!empty($_POST)): ?>
                 <input type="number" name="vessel_teu" value="<?=$_POST["vessel_teu"]?>">
               <?php else: ?>
-                <input type="number" name="vessel_teu">
+                <input type="number" name="vessel_teu" value="<?=$row["vessel_teu"]?>">
               <?php endif ?>
             </td>
           </tr>
@@ -326,7 +348,7 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
               <?php if (!empty($_POST)): ?>
                 <input type="number" name="vessel_loa" value="<?=$_POST["vessel_loa"]?>">
               <?php else: ?>
-                <input type="number" name="vessel_loa">
+                <input type="number" name="vessel_loa" value="<?=$row["vessel_loa"]?>">
               <?php endif ?>
             </td>
           </tr>
@@ -336,7 +358,7 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
               <?php if (!empty($_POST)): ?>
                 <input type="number" name="vessel_beam" value="<?=$_POST["vessel_beam"]?>">
               <?php else: ?>
-                <input type="number" name="vessel_beam">
+                <input type="number" name="vessel_beam" value="<?=$row["vessel_beam"]?>">
               <?php endif ?>
             </td>
           </tr>
@@ -346,7 +368,7 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
               <?php if (!empty($_POST)): ?>
                 <input type="number" name="vessel_depth" value="<?=$_POST["vessel_depth"]?>">
               <?php else: ?>
-                <input type="number" name="vessel_depth">
+                <input type="number" name="vessel_depth" value="<?=$row["vessel_depth"]?>">
               <?php endif ?>
             </td>
           </tr>
@@ -356,7 +378,7 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
               <?php if (!empty($_POST)): ?>
                 <input type="number" name="vessel_draft" value="<?=$_POST["vessel_draft"]?>">
               <?php else: ?>
-                <input type="number" name="vessel_draft">
+                <input type="number" name="vessel_draft" value="<?=$row["vessel_draft"]?>">
               <?php endif ?>
             </td>
           </tr>
@@ -369,7 +391,7 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
               <?php if (!empty($_POST)): ?>
                 <input type="text" name="vessel_sy" value="<?=$_POST["vessel_sy"]?>">
               <?php else: ?>
-                <input type="text" name="vessel_sy">
+                <input type="text" name="vessel_sy" value="<?=$row["vessel_sy"]?>">
               <?php endif ?>
             </td>
           </tr>
@@ -379,7 +401,7 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
               <?php if (!empty($_POST)): ?>
                 <input type="date" name="vessel_built" value="<?=$_POST["vessel_built"]?>">
               <?php else: ?>
-                <input type="date" name="vessel_built">
+                <input type="date" name="vessel_built" value="<?=$row["vessel_built"]?>">
               <?php endif ?>
             </td>
           </tr>
@@ -389,7 +411,7 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
               <?php if (!empty($_POST)): ?>
                 <input type="text" name="vessel_me" value="<?=$_POST["vessel_me"]?>">
               <?php else: ?>
-                <input type="text" name="vessel_me">
+                <input type="text" name="vessel_me" value="<?=$row["vessel_me"]?>">
               <?php endif ?>
             </td>
           </tr>
@@ -419,8 +441,9 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
               </table>
             </td>
           </tr>
+          <input type="hidden" name="vessel_id" value="<?=$vessel_id?>">
         </table>
-        <input type="submit" value="登録">
+        <input type="submit" value="更新">
       </form>
     </main>
     <footer>
@@ -432,7 +455,7 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
       if (val=="コンテナ船"){
         $("#gascarrier").hide();
         $("#boxship").show();
-      }else if (val=="LNG船" || val=="LPG船" || val=="エタン船" || val=="エチレン船" || val=="アンモニア船" || val=="液化CO2船" || val=="液化水素船" || val=="ガス船全般"){
+      } else if (val=="LNG船" || val=="LPG船" || val=="エタン船" || val=="エチレン船" || val=="アンモニア船" || val=="液化CO2船" || val=="液化水素船" || val=="ガス船全般"){
         $("#gascarrier").show();
         $("#boxship").hide();
       }
@@ -442,7 +465,7 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
       if (val=="コンテナ船"){
         $("#gascarrier").hide();
         $("#boxship").show();
-      }else if (val=="LNG船" || val=="LPG船" || val=="エタン船" || val=="エチレン船" || val=="アンモニア船" || val=="液化CO2船" || val=="液化水素船" || val=="ガス船全般"){
+      } else if (val=="LNG船" || val=="LPG船" || val=="エタン船" || val=="エチレン船" || val=="アンモニア船" || val=="液化CO2船" || val=="液化水素船" || val=="ガス船全般"){
         $("#gascarrier").show();
         $("#boxship").hide();
       }

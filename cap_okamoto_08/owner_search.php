@@ -1,6 +1,5 @@
 <?php
 session_start();
-$id = $_SESSION["id"];
 include("funcs.php");
 sschk();
 $pdo = db_conn();
@@ -13,7 +12,7 @@ if($status==false) {
   sql_error($stmt);
 }else{
   while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
-    $view .= "<p>".'<a href="owner_page.php?id='.h($r["id"]).'">'."船主ページ</a>".h($r["owner_name"])."|".h($r["p_region"]).h($r["p_locality"])."</p>";
+    $view .= "<p>".'<a href="owner_page.php?id='.$r["id"].'">'."船主ページ</a>".$r["owner_name"]."|".$r["p_region"].$r["p_locality"]."</p>";
   }
 }
 ?>

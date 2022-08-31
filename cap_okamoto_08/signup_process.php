@@ -1,11 +1,12 @@
 <?php
 session_start();
+include("funcs.php");
+
 $owner_name = $_SESSION["join"]["owner_name"];
 $email = $_SESSION["join"]["owner_email"];
 $owner_id = $_SESSION["join"]["owner_id"];
 $owner_pw = password_hash($_SESSION["join"]["owner_pw"], PASSWORD_DEFAULT);
 
-include("funcs.php");
 $pdo = db_conn();
 
 $stmt = $pdo->prepare("INSERT INTO cap_owner(owner_id, owner_pw, owner_name, email)VALUES(:owner_id, :owner_pw, :owner_name, :email)");

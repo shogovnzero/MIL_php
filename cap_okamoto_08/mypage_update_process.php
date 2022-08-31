@@ -1,4 +1,8 @@
 <?php
+session_start();
+include("funcs.php");
+sschk();
+
 $owner_name = $_POST["owner_name"];
 $owner_ceo = $_POST['owner_ceo'];
 $owner_url = $_POST['owner_url'];
@@ -12,7 +16,6 @@ $p_street_address = $_POST['p_street_address'];
 $p_extended_address = $_POST['p_extended_address'];
 $id = $_POST['id'];
 
-include("funcs.php");
 $pdo = db_conn();
 
 $stmt = $pdo->prepare("UPDATE cap_owner SET owner_name=:owner_name,owner_ceo=:owner_ceo,owner_url=:owner_url,owner_foundation=:owner_foundation,owner_capital=:owner_capital,owner_employee=:owner_employee,p_postal_code=:p_postal_code,p_region=:p_region,p_locality=:p_locality,p_street_address=:p_street_address,p_extended_address=:p_extended_address WHERE id=:id");
