@@ -360,6 +360,16 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
               <?php endif ?>
             </td>
           </tr>
+          <tr>
+            <td>定員数</td>
+            <td>
+              <?php if (!empty($_POST)): ?>
+                <input type="text" name="vessel_crew" value="<?=$_POST["vessel_crew"]?>">
+              <?php else: ?>
+                <input type="text" name="vessel_crew">
+              <?php endif ?>
+            </td>
+          </tr>
         </table>
         <div>技術情報</div>
         <table class="">

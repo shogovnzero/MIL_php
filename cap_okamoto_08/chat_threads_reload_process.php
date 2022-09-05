@@ -25,8 +25,7 @@ if($status==false) {
     $threads .=     '<div class="message_thread">'.$r["message"].'</div>';
     $threads .=     '<div class="command_thread">';
     $threads .=       '<button class="btn_like">いいね</button>';
-    $threads .=       '<button class="btn_look" name='.$r["chat_id"].'>閲覧</button>';
-    $threads .=       '<button class="btn_reply" name='.$r["chat_id"].'>返信</button>';
+    $threads .=       '<button class="btn_reply" name='.$r["chat_id"].'>閲覧・返信</button>';
     if($r["sender_id"] == $id){
       $threads .=     '<button class="btn_update" name='.$r["chat_id"].'>編集</button>';
       $threads .=     '<button class="btn_delete" name='.$r["chat_id"].'>削除</button>';

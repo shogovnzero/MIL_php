@@ -1,13 +1,14 @@
 @charset "UTF-8";
 body {
-    font-family: "Segoe UI", "Meiryo UI", "Yu Gothic", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", sans-serif;
+    font-family: 'Noto Sans JP', sans-serif;
+    color: rgba(41,43,46,1);
     .container {
         display: inline-block;
         width: 100%;
         header {
             position: fixed;
             display: flex;
-            background-color: red;
+            background-color: rgba(0,74,133,1);
             z-index: 9999;
             width: 100%;
             padding: 0px 10px;
@@ -16,7 +17,8 @@ body {
             }
             .area_nav_header {
                 display: flex;
-                float: right;
+                justify-content: flex-end;
+                // float: right;
                 .area_tab {
                     width: 100px;
                     a {
@@ -45,7 +47,7 @@ body {
                             margin: 2% 0;
                             width: 100%;
                             text-align: center;
-                            background-color: #f44355;
+                            background-color: rgba(0,74,133,1);
                             color: #fbfbfb;
                             border-radius: 2px;
                             transition: background-color 0.2s ease;
@@ -71,10 +73,240 @@ body {
         }
         main {
             display: block;
-            margin-top: 100px;
+            margin-top: 50px;
+            padding: 0 20px;
             .area_top {
+                display: flex;
+                padding: 20px 0;
+                width: 100%;
+                .area_logo{
+                    width: 25%;
+                }
+                .area_description{
+                    width: 75%;
+                    .owner_name{
+                       color: rgba(41,43,46,1);
+                       font-size: 24px;
+                       font-weight: 700;
+                       line-height: 200%;
+                    }
+                    table{
+                        width: 100%;
+                        border-collapse: collapse;
+                        font-size: 14px;
+                        tr {
+                            border-bottom: solid 2px white;
+                            th {
+                                position: relative;
+                                text-align: center;
+                                vertical-align: middle;
+                                width: 30%;
+                                background-color: rgba(0,74,133,1);
+                                color: white;
+                                padding: 5px 0;
+                            }
+                            th:after {
+                                display: block;
+                                content: "";
+                                width: 0px;
+                                height: 0px;
+                                position: absolute;
+                                top:calc(50% - 7px);
+                                right:-7px;
+                                border-left: 7px solid rgba(0,74,133,1);
+                                border-top: 7px solid transparent;
+                                border-bottom: 7px solid transparent;
+                            }
+                            td {
+                                text-align: left;
+                                vertical-align: middle;
+                                width: auto;
+                                background-color: white;
+                                padding: 5px 0px 5px 10px;
+                            }
+                        }
+                        tr:last-child {
+                            border-bottom: none;
+                        }
+                    }
+                }
             }
             .area_main {
+                width: 100%;
+                .area_owner_vessel {
+                    padding: 20px 0px;
+                    width: 100%;
+                    h3 {
+                        font-size: 20px;
+                        font-weight: 700;
+                        line-height: 40px;
+                    }
+                    .owner_vessel {
+                        width: 100%;
+                        border-collapse: collapse;
+                        font-size: 14px;
+                        tr {
+                            border-bottom: solid 2px white;
+                            th {
+                                position: relative;
+                                text-align: center;
+                                vertical-align: middle;
+                                width: calc(100%/9);
+                                background-color: rgba(0,74,133,1);
+                                color: white;
+                                padding: 5px 0;
+                            }
+                            td {
+                                text-align: center;
+                                vertical-align: middle;
+                                width: auto;
+                                background-color: white;
+                                padding: 5px 0px;
+                            }
+                        }
+                        tr:last-child {
+                            border-bottom: none;
+                        }
+                    }
+                }
+                .area_owner_interest{
+                    padding: 20px 0px;
+                    width: 100%;
+                    h3 {
+                        font-size: 20px;
+                        font-weight: 700;
+                        line-height: 40px;
+                    }
+                    .owner_interest{
+                        table{
+                            width: 100%;
+                            border-collapse: collapse;
+                            font-size: 14px;
+                            tr {
+                                border-bottom: solid 2px white;
+                                th {
+                                    position: relative;
+                                    text-align: center;
+                                    vertical-align: middle;
+                                    width: 30%;
+                                    background-color: rgba(0,74,133,1);
+                                    color: white;
+                                    padding: 5px 0;
+                                }
+                                th:after {
+                                    display: block;
+                                    content: "";
+                                    width: 0px;
+                                    height: 0px;
+                                    position: absolute;
+                                    top:calc(50% - 7px);
+                                    right:-7px;
+                                    border-left: 7px solid rgba(0,74,133,1);
+                                    border-top: 7px solid transparent;
+                                    border-bottom: 7px solid transparent;
+                                }
+                                td {
+                                    text-align: left;
+                                    vertical-align: middle;
+                                    width: auto;
+                                    background-color: white;
+                                    padding: 5px 0px 5px 10px;
+                                }
+                            }
+                            tr:last-child {
+                                border-bottom: none;
+                            }
+                        }
+                    }
+                }
+                .area_vessel_category{
+                    padding: 20px 0px;
+                    width: 100%;
+                    h3 {
+                        font-size: 20px;
+                        font-weight: 700;
+                        line-height: 40px;
+                    }
+                    table{
+                        width: 100%;
+                        border-collapse: collapse;
+                        font-size: 14px;
+                        tr {
+                            border-bottom: solid 2px white;
+                            th {
+                                position: relative;
+                                text-align: center;
+                                vertical-align: middle;
+                                width: 30%;
+                                background-color: rgba(0,74,133,1);
+                                color: white;
+                                padding: 5px 0;
+                            }
+                            th:after {
+                                display: block;
+                                content: "";
+                                width: 0px;
+                                height: 0px;
+                                position: absolute;
+                                top:calc(50% - 7px);
+                                right:-7px;
+                                border-left: 7px solid rgba(0,74,133,1);
+                                border-top: 7px solid transparent;
+                                border-bottom: 7px solid transparent;
+                            }
+                            td {
+                                text-align: left;
+                                vertical-align: middle;
+                                width: auto;
+                                background-color: white;
+                                padding: 5px 0px 5px 10px;
+                            }
+                        }
+                        tr:last-child {
+                            border-bottom: none;
+                        }
+                    }
+                }
+            }
+        }
+        #table_vessel {
+            padding: 20px 0px;
+            width: 100%;
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 14px;
+                tr {
+                    border-bottom: solid 2px white;
+                    th {
+                        position: relative;
+                        text-align: center;
+                        vertical-align: middle;
+                        width: calc(100%/10);
+                        background-color: rgba(0,74,133,1);
+                        color: white;
+                        padding: 5px 0;
+                    }
+                    td {
+                        text-align: center;
+                        vertical-align: middle;
+                        width: auto;
+                        background-color: white;
+                        padding: 5px 0px;
+                    }
+                }
+                tr:nth-child(odd) {
+                    td {
+                        text-align: center;
+                        vertical-align: middle;
+                        width: auto;
+                        background-color: rgba(230,236,238,1);
+                        padding: 5px 0px;
+                    }
+                }
+                tr:last-child {
+                    border-bottom: none;
+                }
             }
         }
         footer {

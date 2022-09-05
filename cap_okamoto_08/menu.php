@@ -10,7 +10,7 @@ if($status==false) {
   sql_error($stmt);
 }else{
   while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
-    $vessel .= '<a href="vessel_mine.php?id='.$r["id"].'">'.$r["vessel_name_jp"]."</a>";
+    $vessel .= '<a href="vessel_mine.php?id='.$r["vessel_id"].'">'.$r["vessel_name_jp"]."</a>";
   }
 }
 ?>

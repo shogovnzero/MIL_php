@@ -1,6 +1,6 @@
-@charset "UTF-8";
 body {
-  font-family: "Segoe UI", "Meiryo UI", "Yu Gothic", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", sans-serif;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: #292b2e;
 }
 
 body .container {
@@ -14,7 +14,7 @@ body .container header {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  background-color: red;
+  background-color: #004a85;
   z-index: 9999;
   width: 100%;
   padding: 0px 10px;
@@ -29,7 +29,10 @@ body .container header .area_nav_header {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  float: right;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 body .container header .area_nav_header .area_tab {
@@ -67,7 +70,7 @@ body .container header .area_nav_header .area_tab .area_item a {
   margin: 2% 0;
   width: 100%;
   text-align: center;
-  background-color: #f44355;
+  background-color: #004a85;
   color: #fbfbfb;
   border-radius: 2px;
   -webkit-transition: background-color 0.2s ease;
@@ -90,6 +93,280 @@ body .container header .area_nav_header .area_tab:hover .area_item {
 
 body .container main {
   display: block;
-  margin-top: 100px;
+  margin-top: 50px;
+  padding: 0 20px;
+}
+
+body .container main .area_top {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px 0;
+  width: 100%;
+}
+
+body .container main .area_top .area_logo {
+  width: 25%;
+}
+
+body .container main .area_top .area_description {
+  width: 75%;
+}
+
+body .container main .area_top .area_description .owner_name {
+  color: #292b2e;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 200%;
+}
+
+body .container main .area_top .area_description table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+body .container main .area_top .area_description table tr {
+  border-bottom: solid 2px white;
+}
+
+body .container main .area_top .area_description table tr th {
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  width: 30%;
+  background-color: #004a85;
+  color: white;
+  padding: 5px 0;
+}
+
+body .container main .area_top .area_description table tr th:after {
+  display: block;
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  top: calc(50% - 7px);
+  right: -7px;
+  border-left: 7px solid #004a85;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+}
+
+body .container main .area_top .area_description table tr td {
+  text-align: left;
+  vertical-align: middle;
+  width: auto;
+  background-color: white;
+  padding: 5px 0px 5px 10px;
+}
+
+body .container main .area_top .area_description table tr:last-child {
+  border-bottom: none;
+}
+
+body .container main .area_main {
+  width: 100%;
+}
+
+body .container main .area_main .area_owner_vessel {
+  padding: 20px 0px;
+  width: 100%;
+}
+
+body .container main .area_main .area_owner_vessel h3 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 40px;
+}
+
+body .container main .area_main .area_owner_vessel .owner_vessel {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+body .container main .area_main .area_owner_vessel .owner_vessel tr {
+  border-bottom: solid 2px white;
+}
+
+body .container main .area_main .area_owner_vessel .owner_vessel tr th {
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  width: calc(100%/9);
+  background-color: #004a85;
+  color: white;
+  padding: 5px 0;
+}
+
+body .container main .area_main .area_owner_vessel .owner_vessel tr td {
+  text-align: center;
+  vertical-align: middle;
+  width: auto;
+  background-color: white;
+  padding: 5px 0px;
+}
+
+body .container main .area_main .area_owner_vessel .owner_vessel tr:last-child {
+  border-bottom: none;
+}
+
+body .container main .area_main .area_owner_interest {
+  padding: 20px 0px;
+  width: 100%;
+}
+
+body .container main .area_main .area_owner_interest h3 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 40px;
+}
+
+body .container main .area_main .area_owner_interest .owner_interest table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+body .container main .area_main .area_owner_interest .owner_interest table tr {
+  border-bottom: solid 2px white;
+}
+
+body .container main .area_main .area_owner_interest .owner_interest table tr th {
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  width: 30%;
+  background-color: #004a85;
+  color: white;
+  padding: 5px 0;
+}
+
+body .container main .area_main .area_owner_interest .owner_interest table tr th:after {
+  display: block;
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  top: calc(50% - 7px);
+  right: -7px;
+  border-left: 7px solid #004a85;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+}
+
+body .container main .area_main .area_owner_interest .owner_interest table tr td {
+  text-align: left;
+  vertical-align: middle;
+  width: auto;
+  background-color: white;
+  padding: 5px 0px 5px 10px;
+}
+
+body .container main .area_main .area_owner_interest .owner_interest table tr:last-child {
+  border-bottom: none;
+}
+
+body .container main .area_main .area_vessel_category {
+  padding: 20px 0px;
+  width: 100%;
+}
+
+body .container main .area_main .area_vessel_category h3 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 40px;
+}
+
+body .container main .area_main .area_vessel_category table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+body .container main .area_main .area_vessel_category table tr {
+  border-bottom: solid 2px white;
+}
+
+body .container main .area_main .area_vessel_category table tr th {
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  width: 30%;
+  background-color: #004a85;
+  color: white;
+  padding: 5px 0;
+}
+
+body .container main .area_main .area_vessel_category table tr th:after {
+  display: block;
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  top: calc(50% - 7px);
+  right: -7px;
+  border-left: 7px solid #004a85;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+}
+
+body .container main .area_main .area_vessel_category table tr td {
+  text-align: left;
+  vertical-align: middle;
+  width: auto;
+  background-color: white;
+  padding: 5px 0px 5px 10px;
+}
+
+body .container main .area_main .area_vessel_category table tr:last-child {
+  border-bottom: none;
+}
+
+body .container #table_vessel {
+  padding: 20px 0px;
+  width: 100%;
+}
+
+body .container #table_vessel table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+body .container #table_vessel table tr {
+  border-bottom: solid 2px white;
+}
+
+body .container #table_vessel table tr th {
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  width: calc(100%/10);
+  background-color: #004a85;
+  color: white;
+  padding: 5px 0;
+}
+
+body .container #table_vessel table tr td {
+  text-align: center;
+  vertical-align: middle;
+  width: auto;
+  background-color: white;
+  padding: 5px 0px;
+}
+
+body .container #table_vessel table tr:nth-child(odd) td {
+  text-align: center;
+  vertical-align: middle;
+  width: auto;
+  background-color: #e6ecee;
+  padding: 5px 0px;
+}
+
+body .container #table_vessel table tr:last-child {
+  border-bottom: none;
 }
 /*# sourceMappingURL=style.css.map */

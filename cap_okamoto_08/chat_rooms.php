@@ -27,6 +27,7 @@
     const params = new URLSearchParams();
     params.append("id", $("#id").val());
     params.append("room_id", $(this).attr('name'));
+    var value = $('#send').attr('name', $(this).attr('name'));
     axios.post('chat_threads_reload_process.php',params).then(function (response) {
       console.log(typeof response.data);
       if(response.data){

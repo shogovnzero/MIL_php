@@ -18,5 +18,5 @@ $stmt->bindValue(':thread_flg', $thread_flg, PDO::PARAM_INT);
 $stmt->bindValue(':thread_id', $thread_id, PDO::PARAM_INT);
 $status = $stmt->execute();
 
-include_once("chat_thread_reload_process.php");
+include_once("chat_threads_reload_process.php");
 ?>

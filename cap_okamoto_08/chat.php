@@ -36,7 +36,8 @@ sschk();
       <div id="area_room">
         <?php include_once("chat_threads.php"); ?>
       </div>
-      <div id="area_thread">
+      <div id="area_thread" style="display:none">
+        <?php include_once("chat_thread.php"); ?>
       </div>
     </div>      
     </main>

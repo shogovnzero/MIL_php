@@ -2,13 +2,11 @@
 include_once("funcs.php");
 
 $id = $_POST["id"];
-$room_id = $_POST["room_id"];
-$thread_id = $_POST["chat_id"];
+$thread_id = $_POST["thread_id"];
 
 $pdo = db_conn();
 
-$stmt   = $pdo->prepare("SELECT chat_id,room_id,sender_id,message,thread_flg,thread_id,AAA.indate,owner_name FROM (SELECT * FROM cap_chat_content WHERE room_id=:room_id AND thread_id=:thread_id) AS AAA INNER JOIN cap_owner ON sender_id=cap_owner.id");
-$stmt->bindValue(':room_id', $room_id, PDO::PARAM_INT);
+$stmt   = $pdo->prepare("SELECT chat_id,room_id,sender_id,message,thread_flg,thread_id,AAA.indate,owner_name FROM (SELECT * FROM cap_chat_content WHERE thread_id=:thread_id) AS AAA INNER JOIN cap_owner ON sender_id=cap_owner.id");
 $stmt->bindValue(':thread_id', $thread_id, PDO::PARAM_INT);
 $status = $stmt->execute();
 
@@ -17,8 +15,7 @@ $thread="";
 if($status==false) {
   sql_error($stmt);
 }else{
-  $stmt2   = $pdo->prepare("SELECT chat_id,room_id,sender_id,message,thread_flg,thread_id,AAA.indate,owner_name FROM (SELECT * FROM cap_chat_content WHERE room_id=:room_id AND chat_id=:thread_id) AS AAA INNER JOIN cap_owner ON sender_id=cap_owner.id");
-  $stmt2->bindValue(':room_id', $room_id, PDO::PARAM_INT);
+  $stmt2   = $pdo->prepare("SELECT chat_id,room_id,sender_id,message,thread_flg,thread_id,AAA.indate,owner_name FROM (SELECT * FROM cap_chat_content WHERE chat_id=:thread_id) AS AAA INNER JOIN cap_owner ON sender_id=cap_owner.id");
   $stmt2->bindValue(':thread_id', $thread_id, PDO::PARAM_INT);
   $status2 = $stmt2->execute();
   if($status2==false) {

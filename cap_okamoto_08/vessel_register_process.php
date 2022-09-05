@@ -24,6 +24,7 @@ $vessel_loa = $_SESSION["join"]["vessel_loa"];
 $vessel_beam = $_SESSION["join"]["vessel_beam"];
 $vessel_depth = $_SESSION["join"]["vessel_depth"];
 $vessel_draft = $_SESSION["join"]["vessel_draft"];
+$vessel_crew = $_SESSION["join"]["vessel_crew"];
 
 // 技術情報
 $vessel_sy = $_SESSION["join"]["vessel_sy"];
@@ -34,10 +35,10 @@ $vessel_fuel = implode(",",$_SESSION["join"]["vessel_fuel"]);
 $pdo = db_conn();
 
 $stmt = $pdo->prepare("INSERT INTO cap_vessel(vessel_number, vessel_name_jp, vessel_name_en, owner_id, manager, vessel_reg_port, vessel_trade_pref, vessel_trade_port,
-vessel_type, vessel_gt, vessel_nt, vessel_dwt, vessel_tank, vessel_teu, vessel_loa, vessel_beam, vessel_depth, vessel_draft,
+vessel_type, vessel_gt, vessel_nt, vessel_dwt, vessel_tank, vessel_teu, vessel_loa, vessel_beam, vessel_depth, vessel_draft, vessel_crew,
 vessel_sy, vessel_built, vessel_me, vessel_fuel)
 VALUES(:vessel_number, :vessel_name_jp, :vessel_name_en, :owner_id, :manager, :vessel_reg_port, :vessel_trade_pref, :vessel_trade_port,
-:vessel_type, :vessel_gt, :vessel_nt, :vessel_dwt, :vessel_tank, :vessel_teu, :vessel_loa, :vessel_beam, :vessel_depth, :vessel_draft,
+:vessel_type, :vessel_gt, :vessel_nt, :vessel_dwt, :vessel_tank, :vessel_teu, :vessel_loa, :vessel_beam, :vessel_depth, :vessel_draft, :vessel_crew,
 :vessel_sy, :vessel_built, :vessel_me, :vessel_fuel)");
 
 
@@ -61,6 +62,7 @@ $stmt->bindValue(':vessel_loa', $vessel_loa, PDO::PARAM_INT);
 $stmt->bindValue(':vessel_beam', $vessel_beam, PDO::PARAM_INT);
 $stmt->bindValue(':vessel_depth', $vessel_depth, PDO::PARAM_INT);
 $stmt->bindValue(':vessel_draft', $vessel_draft, PDO::PARAM_INT);
+$stmt->bindValue(':vessel_crew', $vessel_crew, PDO::PARAM_INT);
 
 $stmt->bindValue(':vessel_sy', $vessel_sy, PDO::PARAM_STR);
 $stmt->bindValue(':vessel_built', $vessel_built, PDO::PARAM_STR);

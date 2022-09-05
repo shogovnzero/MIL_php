@@ -6,7 +6,7 @@ include("funcs.php");
 sschk();
 $pdo = db_conn();
 
-$stmt = $pdo->prepare("SELECT * FROM cap_vessel WHERE id=:id");
+$stmt = $pdo->prepare("SELECT * FROM cap_vessel WHERE vessel_id=:id");
 $stmt->bindValue(":id",$vessel_id,PDO::PARAM_INT);
 $status = $stmt->execute();
 
@@ -18,6 +18,22 @@ if($status==false) {
 
 if($id != $row["owner_id"]){
   redirect("vessel_page.php?id=$vessel_id");
+}
+
+$pref = 0;
+if (empty($POST)){
+  $pref = $row["vessel_trade_pref"];
+}
+if (isset($_POST['vessel_trade_pref']) && is_array($_POST['vessel_trade_pref'])) {
+  $pref = implode(",",$_POST['vessel_trade_pref']);
+}
+
+$fuel = 0;
+if (empty($POST)){
+  $fuel = $row["vessel_fuel"];
+} 
+if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
+  $fuel = implode(",",$_POST['vessel_fuel']);
 }
 
 if(!empty($_POST)){
@@ -47,22 +63,6 @@ if(!empty($_POST)){
   }
 }
 
-$pref = 0;
-if (empty($POST)){
-  $pref = $row["vessel_trade_pref"];
-}
-if (isset($_POST['vessel_trade_pref']) && is_array($_POST['vessel_trade_pref'])) {
-  $pref = implode(",",$_POST['vessel_trade_pref']);
-}
-
-$fuel = 0;
-if (empty($POST)){
-  $fuel = $row["vessel_type"];
-} 
-if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
-  $fuel = implode(",",$_POST['vessel_fuel']);
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -74,8 +74,13 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>CAP - <?=$row["vessel_name_jp"]?></title>
   <link rel="stylesheet" href="./css/reset.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/style.css">
-  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 </head>
 
 <body>
@@ -85,6 +90,53 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
     </header>
     <main>
       <form method="post" action="">
+        <div class="area_top">
+          <div class="area_logo"></div>
+          <div class="area_description">
+            <table>
+              <tr>
+                <th>船舶登録番号<span id="required">*</span></th>  
+                <td>
+                  <?php if (!empty($error["vessel_number"]) && $error['vessel_number'] === 'blank'): ?>
+                    <input type="number" name="vessel_number">
+                    <p class="error">*船舶登録番号は必須入力です</p>
+                  <?php elseif (!empty($_POST)): ?>
+                    <input type="number" name="vessel_number" value="<?=$_POST["vessel_number"]?>">
+                  <?php else: ?>
+                    <input type="number" name="vessel_number" value="<?=$row["vessel_number"]?>">
+                  <?php endif ?>
+                </td>
+              </tr>
+              <tr>
+                <th>船名(日本語)<span id="required">*</span></th>
+                <td>
+                  <?php if (!empty($error["vessel_name_jp"]) && $error['vessel_name_jp'] === 'blank'): ?>
+                    <input type="text" name="vessel_name_jp">
+                    <p class="error">*船名は必須入力です</p>
+                  <?php elseif (!empty($_POST)): ?>
+                    <input type="text" name="vessel_name_jp" value="<?=$_POST["vessel_name_jp"]?>">
+                  <?php else: ?>
+                    <input type="text" name="vessel_name_jp" value="<?=$row["vessel_name_jp"]?>">
+                  <?php endif ?>
+                </td>
+              </tr>
+              <tr>
+                <th>船名(英文)<span id="required">*</span></th>
+                <td>
+                  <?php if (!empty($error["vessel_name_en"]) && $error['vessel_name_en'] === 'blank'): ?>
+                    <input type="text" name="vessel_name_en">
+                    <p class="error">*船名は必須入力です</p>
+                  <?php elseif (!empty($_POST)): ?>
+                    <input type="text" name="vessel_name_en" value="<?=$_POST["vessel_name_en"]?>">
+                  <?php else: ?>
+                    <input type="text" name="vessel_name_en" value="<?=$row["vessel_name_en"]?>">
+                  <?php endif ?>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="are_main"></div>
         <div>登録情報・運航情報</div>
         <table class="">
           <tr>
@@ -133,6 +185,16 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
                 <input type="text" name="manager" placeholder="自社管理の場合は空白" value="<?=$_POST["manager"]?>">
               <?php else: ?>
                 <input type="text" name="manager" placeholder="自社管理の場合は空白" value="<?=$row["manager"]?>">
+              <?php endif ?>
+            </td>
+          </tr>
+          <tr>
+            <td>オペレーター</td>
+            <td>
+              <?php if (!empty($_POST)): ?>
+                <input type="text" name="operator" value="<?=$_POST["operator"]?>">
+              <?php else: ?>
+                <input type="text" name="operator" value="<?=$row["operator"]?>">
               <?php endif ?>
             </td>
           </tr>
@@ -379,6 +441,16 @@ if (isset($_POST['vessel_fuel']) && is_array($_POST['vessel_fuel'])) {
                 <input type="number" name="vessel_draft" value="<?=$_POST["vessel_draft"]?>">
               <?php else: ?>
                 <input type="number" name="vessel_draft" value="<?=$row["vessel_draft"]?>">
+              <?php endif ?>
+            </td>
+          </tr>
+          <tr>
+            <td>定員数</td>
+            <td>
+              <?php if (!empty($_POST)): ?>
+                <input type="number" name="vessel_crew" value="<?=$_POST["vessel_crew"]?>">
+              <?php else: ?>
+                <input type="number" name="vessel_crew" value="<?=$row["vessel_crew"]?>">
               <?php endif ?>
             </td>
           </tr>
