@@ -13,8 +13,9 @@ $rooms="";
 if($status==false) {
     sql_error($stmt);
 }else{
+    $rooms .= '<p class="new_room">新規チャット作成(準備中)</p>';
+    $rooms .= '<p>▼チャットールーム一覧▼</p>';
     $rooms .= '<ul>';
-    $rooms .= '<li class="new_room">新規チャットルームを作成</li>';
     while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
         $rooms .= '<li class="room" name="'.$r["room_id"].'">'.$r["room_name"]."</li>";
     }

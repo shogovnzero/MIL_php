@@ -1,11 +1,13 @@
 body {
   font-family: 'Noto Sans JP', sans-serif;
   color: #292b2e;
+  height: 100%;
 }
 
 body .container {
   display: inline-block;
   width: 100%;
+  height: 100%;
 }
 
 body .container header {
@@ -95,6 +97,7 @@ body .container main {
   display: block;
   margin-top: 50px;
   padding: 0 20px;
+  height: 100%;
 }
 
 body .container main .area_top {
@@ -325,22 +328,22 @@ body .container main .area_main .area_vessel_category table tr:last-child {
   border-bottom: none;
 }
 
-body .container #table_vessel {
+body .container main #table_vessel {
   padding: 20px 0px;
   width: 100%;
 }
 
-body .container #table_vessel table {
+body .container main #table_vessel table {
   width: 100%;
   border-collapse: collapse;
   font-size: 14px;
 }
 
-body .container #table_vessel table tr {
+body .container main #table_vessel table tr {
   border-bottom: solid 2px white;
 }
 
-body .container #table_vessel table tr th {
+body .container main #table_vessel table tr th {
   position: relative;
   text-align: center;
   vertical-align: middle;
@@ -350,7 +353,7 @@ body .container #table_vessel table tr th {
   padding: 5px 0;
 }
 
-body .container #table_vessel table tr td {
+body .container main #table_vessel table tr td {
   text-align: center;
   vertical-align: middle;
   width: auto;
@@ -358,7 +361,7 @@ body .container #table_vessel table tr td {
   padding: 5px 0px;
 }
 
-body .container #table_vessel table tr:nth-child(odd) td {
+body .container main #table_vessel table tr:nth-child(odd) td {
   text-align: center;
   vertical-align: middle;
   width: auto;
@@ -366,7 +369,131 @@ body .container #table_vessel table tr:nth-child(odd) td {
   padding: 5px 0px;
 }
 
-body .container #table_vessel table tr:last-child {
+body .container main #table_vessel table tr:last-child {
   border-bottom: none;
+}
+
+body .container main #table_owner {
+  padding: 20px 0px;
+  width: 100%;
+}
+
+body .container main #table_owner table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+body .container main #table_owner table tr {
+  border-bottom: solid 2px white;
+}
+
+body .container main #table_owner table tr th {
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  width: calc(100%/9);
+  background-color: #004a85;
+  color: white;
+  padding: 5px 0;
+}
+
+body .container main #table_owner table tr td {
+  text-align: center;
+  vertical-align: middle;
+  width: auto;
+  background-color: white;
+  padding: 5px 0px;
+}
+
+body .container main #table_owner table tr:nth-child(odd) td {
+  text-align: center;
+  vertical-align: middle;
+  width: auto;
+  background-color: #e6ecee;
+  padding: 5px 0px;
+}
+
+body .container main #table_owner table tr:last-child {
+  border-bottom: none;
+}
+
+body .container main .base {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px 0;
+  width: 100%;
+  height: 100%;
+}
+
+body .container main .base #area_rooms {
+  width: 20%;
+  padding: 10px 0;
+}
+
+body .container main .base #area_rooms #window_rooms {
+  overflow-y: scroll;
+  height: 100%;
+}
+
+body .container main .base #area_rooms #window_rooms p {
+  text-align: center;
+  vertical-align: middle;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px;
+}
+
+body .container main .base #area_rooms #window_rooms .new_room {
+  cursor: pointer;
+}
+
+body .container main .base #area_rooms #window_rooms .new_room:hover {
+  background-color: #bce1ff;
+}
+
+body .container main .base #area_rooms #window_rooms ul li {
+  text-align: left;
+  vertical-align: middle;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px;
+  cursor: pointer;
+}
+
+body .container main .base #area_rooms #window_rooms ul li:hover {
+  background-color: #bce1ff;
+}
+
+body .container main .base #area_room {
+  width: 40%;
+  padding: 10px 0;
+}
+
+body .container main .base #area_room #area_room_name {
+  z-index: 100;
+}
+
+body .container main .base #area_room #area_output {
+  z-index: 5;
+  overflow-y: scroll;
+  height: 80vh;
+}
+
+body .container main .base #area_room #area_output #area_threads {
+  padding: 10px 10px 40px;
+}
+
+body .container main .base #area_room .area_input {
+  z-index: 100;
+  position: absolute;
+  bottom: 0;
+}
+
+body .container main .base #area_thread {
+  width: 40%;
+  padding: 10px 0;
 }
 /*# sourceMappingURL=style.css.map */

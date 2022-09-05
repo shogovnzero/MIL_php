@@ -7,24 +7,24 @@ $threads="";
 $room_name="";
 ?>
 
-<div class="area_room">
-  <div id="area_room_name"><?=$room_name?></div>
-  <div id="area_output">
-    <div id="area_threads"><?=$threads?></div>
+
+<div id="area_room_name"><?=$room_name?></div>
+<div id="area_output">
+  <div id="area_threads"><?=$threads?></div>
+</div>
+<div class="area_input">
+  <div class="area_message">
+    <textarea id="message" name="message"></textarea>
+    <input id="id" type="hidden" name="id" value="<?=$id?>">
+    <input id="sender_id" type="hidden" name="sender_id" value="<?=$id?>">
+    <input id="thread_flg" type="hidden" name="thread_flg" value="1">
+    <input id="thread_id" type="hidden" name="thread_id" value="">
   </div>
-  <div class="area_input">
-    <div class="area_message">
-      <textarea id="message" name="message"></textarea>
-      <input id="id" type="hidden" name="id" value="<?=$id?>">
-      <input id="sender_id" type="hidden" name="sender_id" value="<?=$id?>">
-      <input id="thread_flg" type="hidden" name="thread_flg" value="1">
-      <input id="thread_id" type="hidden" name="thread_id" value="">
-    </div>
-    <div class="area_btn">
-      <input id="send" class="material-icons" type="submit" name="room_id" value="send">
-    </div>
+  <div class="area_btn">
+    <input id="send" class="material-icons" type="submit" name="room_id" value="send">
   </div>
 </div>
+
 
 <script>
   // threads
