@@ -9,9 +9,11 @@ $room_name="";
 
 
 <div id="area_room_name"><?=$room_name?></div>
+
 <div id="area_output">
   <div id="area_threads"><?=$threads?></div>
 </div>
+
 <div class="area_input">
   <div class="area_message">
     <textarea id="message" name="message"></textarea>
@@ -26,8 +28,36 @@ $room_name="";
 </div>
 
 
+
 <script>
-  // threads
+  $("#area_room_name").on("click", function(){
+    if(!$(this).hasClass('on')){
+      $(this).addClass('on');
+      var txt = $(this).text();
+      $(this).html('<input type="text" value="'+txt+'" />');
+      $('#area_room_name > input').focus().blur(function(){
+        var inputVal = $(this).val();
+        if(inputVal===''){
+          inputVal = this.defaultValue;
+        };
+        $(this).parent().removeClass('on').text(inputVal);
+        const params = new URLSearchParams();
+        params.append("room_name", inputVal);
+        params.append("room_id", $("#send").attr('name'));
+        axios.post('chat_room_rename_process.php',params).then(function (response) {
+            console.log(typeof response.data);
+            if(response.data){
+              document.querySelector("#area_room_name").innerHTML=response.data;
+            }
+        }).catch(function (error) {
+            console.log(error);
+        }).then(function () {
+            console.log("Room Renamed");
+        });
+      });
+    };
+  });
+
   $("#send").on("click", function(){
     const params = new URLSearchParams();
     params.append("id", $("#id").val());
@@ -49,21 +79,55 @@ $room_name="";
     });
   });
 
-  $(document).on("click",".btn_update", function(){
+  var threads = "";
+  function reload_threads() {
     const params = new URLSearchParams();
-    params.append("chat_id", $(this).attr('name'));
     params.append("id", $("#id").val());
     params.append("room_id", $("#send").attr('name'));
-    axios.post('chat_update_process.php',params).then(function (response) {
-        console.log(typeof response.data);
-        if(response.data){
-          document.querySelector("#area_threads").innerHTML=response.data;
-        }
+    axios.post('chat_threads_reload_process.php',params).then(function (response) {
+      console.log(typeof response.data);
+      if(response.data){
+        document.querySelector("#area_threads").innerHTML=response.data;
+      }
     }).catch(function (error) {
-        console.log(error);
+      console.log(error);
     }).then(function () {
-        console.log("Last");
+      console.log("Threads Reloaded");
     });
+    threads = setTimeout(function() {reload_threads()},5000);
+  }
+  reload_threads();
+
+  $(document).on("click",".btn_update", function(){
+    clearTimeout(threads);
+    const chat_id = $(this).attr('name');
+    const message = "#chat_id_" + chat_id;
+    if(!$(message).hasClass('on')){
+      $(message).addClass('on');
+      var txt = $(message).text();
+      $(message).html('<input type="text" value="'+txt+'" />');
+      $(`${message} > input`).focus().blur(function(){
+        var inputVal = $(this).val();
+        if(inputVal===''){
+          inputVal = this.defaultValue;
+        };
+        $(this).parent().removeClass('on').text(inputVal);
+        const params = new URLSearchParams();
+        params.append("chat_id", chat_id);
+        params.append("message", inputVal);
+        axios.post('chat_update_process.php',params).then(function (response) {
+            console.log(typeof response.data);
+            if(response.data){
+              document.querySelector(`${message}`).innerHTML=response.data;
+            }
+        }).catch(function (error) {
+            console.log(error);
+        }).then(function () {
+            console.log("Threads Updated");
+        });
+        threads = setTimeout(function() {reload_threads()},5000);
+      });
+    };
   });
 
   $(document).on("click",".btn_delete", function(){
@@ -101,23 +165,7 @@ $room_name="";
     });
   });
 
-  function reload_threads() {
-    const params = new URLSearchParams();
-    params.append("id", $("#id").val());
-    params.append("room_id", $("#send").attr('name'));
-    axios.post('chat_threads_reload_process.php',params).then(function (response) {
-      console.log(typeof response.data);
-      if(response.data){
-        document.querySelector("#area_threads").innerHTML=response.data;
-      }
-    }).catch(function (error) {
-      console.log(error);
-    }).then(function () {
-      console.log("Last");
-    });
-    setTimeout(function() {reload_threads()},5000);
-  }
-  reload_threads();
+
 
 </script>
 

@@ -423,14 +423,14 @@ body .container main .base {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding: 20px 0;
+  padding: 20px 0 0;
   width: 100%;
   height: 100%;
 }
 
 body .container main .base #area_rooms {
   width: 20%;
-  padding: 10px 0;
+  padding: 0 0 10px;
 }
 
 body .container main .base #area_rooms #window_rooms {
@@ -469,31 +469,173 @@ body .container main .base #area_rooms #window_rooms ul li:hover {
 
 body .container main .base #area_room {
   width: 40%;
-  padding: 10px 0;
+  padding: 0 0 10px;
 }
 
 body .container main .base #area_room #area_room_name {
   z-index: 100;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 body .container main .base #area_room #area_output {
   z-index: 5;
   overflow-y: scroll;
-  height: 80vh;
+  height: 65vh;
 }
 
 body .container main .base #area_room #area_output #area_threads {
-  padding: 10px 10px 40px;
+  padding: 10px 10px 0px;
+}
+
+body .container main .base #area_room #area_output #area_threads .thread {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 10px 0;
+}
+
+body .container main .base #area_room #area_output #area_threads .thread .area_img {
+  width: 10%;
+  padding-right: 10px;
+}
+
+body .container main .base #area_room #area_output #area_threads .thread .area_content {
+  width: 90%;
+}
+
+body .container main .base #area_room #area_output #area_threads .thread .area_content .info {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+body .container main .base #area_room #area_output #area_threads .thread .area_content .info .owner_name {
+  font-size: 14px;
+  font-weight: 700;
+  vertical-align: bottom;
+}
+
+body .container main .base #area_room #area_output #area_threads .thread .area_content .info .dt_sent {
+  font-size: 12px;
+  font-weight: 300;
+  vertical-align: bottom;
+}
+
+body .container main .base #area_room #area_output #area_threads .thread .area_content .message_thread {
+  padding: 5px 0;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+body .container main .base #area_room #area_output #area_threads .thread:hover {
+  background-color: #bce1ff;
 }
 
 body .container main .base #area_room .area_input {
   z-index: 100;
-  position: absolute;
-  bottom: 0;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 100vh;
+  margin: 10px;
+  border: 2px solid #004a85;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #bce1ff;
+}
+
+body .container main .base #area_room .area_input .area_message #message {
+  width: 100%;
+  border: none;
+  background-color: transparent;
 }
 
 body .container main .base #area_thread {
   width: 40%;
+  padding: 0 0 10px;
+}
+
+body .container main .base #area_thread .area_thread_name {
+  z-index: 100;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+body .container main .base #area_thread .area_output {
+  z-index: 5;
+  overflow-y: scroll;
+  height: 65vh;
+}
+
+body .container main .base #area_thread .area_output #thread {
+  padding: 10px 10px 0px;
+}
+
+body .container main .base #area_thread .area_output #thread .thread {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   padding: 10px 0;
+}
+
+body .container main .base #area_thread .area_output #thread .thread .area_img {
+  width: 10%;
+  padding-right: 10px;
+}
+
+body .container main .base #area_thread .area_output #thread .thread .area_content {
+  width: 90%;
+}
+
+body .container main .base #area_thread .area_output #thread .thread .area_content .info {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+body .container main .base #area_thread .area_output #thread .thread .area_content .info .owner_name {
+  font-size: 14px;
+  font-weight: 700;
+  vertical-align: bottom;
+}
+
+body .container main .base #area_thread .area_output #thread .thread .area_content .info .dt_sent {
+  font-size: 12px;
+  font-weight: 300;
+  vertical-align: bottom;
+}
+
+body .container main .base #area_thread .area_output #thread .thread .area_content .message_thread {
+  padding: 5px 0;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+body .container main .base #area_thread .area_output #thread .thread:hover {
+  background-color: #bce1ff;
+}
+
+body .container main .base #area_thread .area_input {
+  z-index: 100;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 100vh;
+  margin: 10px;
+  border: 2px solid #004a85;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #bce1ff;
+}
+
+body .container main .base #area_thread .area_input .area_reply #message_reply {
+  width: 100%;
+  border: none;
+  background-color: transparent;
 }
 /*# sourceMappingURL=style.css.map */

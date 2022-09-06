@@ -7,18 +7,16 @@ function h($str){
 //DB接続
 function db_conn(){
     try {
-        //localhostの場合
-        $db_name = "cap_db";    //データベース名
-        $db_id   = "root";      //アカウント名
-        $db_pw   = "";          //パスワード：XAMPPはパスワード無しに修正してください。
-        $db_host = "localhost"; //DBホスト
+        $db_name = "cap_db";
+        $db_id   = "root";
+        $db_pw   = "";
+        $db_host = "localhost";
 
-        //localhost以外＊＊自分で書き直してください！！＊＊
         if($_SERVER["HTTP_HOST"] != 'localhost'){
-            $db_name = "";  //データベース名
-            $db_id   = "";  //アカウント名（さくらコントロールパネルに表示されています）
-            $db_pw   = "";  //パスワード(さくらサーバー最初にDB作成する際に設定したパスワード)
-            $db_host = "localhost"; //例）mysql**db.ne.jp...
+            $db_name = "shogovnzero_cap_db";  //データベース名
+            $db_id   = "shogovnzero";  //アカウント名（さくらコントロールパネルに表示されています）
+            $db_pw   = "Vienna1180";  //パスワード(さくらサーバー最初にDB作成する際に設定したパスワード)
+            $db_host = "mysql57.shogovnzero.sakura.ne.jp"; //例）mysql**db.ne.jp...
         }
         return new PDO('mysql:dbname='.$db_name.';charset=utf8;host='.$db_host, $db_id, $db_pw);
     } catch (PDOException $e) {

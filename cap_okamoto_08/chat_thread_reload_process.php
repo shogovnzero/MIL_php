@@ -26,11 +26,11 @@ if($status==false) {
       $thread .=   '<div class="area_img"><div class="owner_img"></div></div>';
       $thread .=   '<div class="area_content">';
       $thread .=     '<div class="info"><div class="owner_name">'.$r2["owner_name"].'</div><div class="dt_sent">'.$r2["indate"].'</div></div>';
-      $thread .=     '<div class="message_thread">'.$r2["message"].'</div>';
+      $thread .=     '<div id=inthread_chat_id_'.$r2["chat_id"].' class="message_thread">'.$r2["message"].'</div>';
       $thread .=     '<div class="command_thread">';
       $thread .=       '<button class="btn_like">いいね</button>';
       if($r2["sender_id"] == $id){
-        $thread .=     '<button class="btn_update" name='.$r2["chat_id"].'>編集</button>';
+        $thread .=     '<button class="btn_inthread_update" name='.$r2["chat_id"].'>編集</button>';
         $thread .=     '<button class="btn_delete" name='.$r2["chat_id"].'>削除</button>';
       }
       $thread .=     '</div>';
@@ -43,11 +43,11 @@ if($status==false) {
     $thread .=   '<div class="area_img"><div class="owner_img"></div></div>';
     $thread .=   '<div class="area_content">';
     $thread .=     '<div class="info"><div class="owner_name">'.$r["owner_name"].'</div><div class="dt_sent">'.$r["indate"].'</div></div>';
-    $thread .=     '<div class="message_thread">'.$r["message"].'</div>';
+    $thread .=     '<div id=inthread_chat_id_'.$r["chat_id"].' class="message_thread">'.$r["message"].'</div>';
     $thread .=     '<div class="command_thread">';
     $thread .=       '<button class="btn_like">いいね</button>';
     if($r["sender_id"] == $id){
-      $thread .=     '<button class="btn_update" name='.$r["chat_id"].'>編集</button>';
+      $thread .=     '<button class="btn_inthread_update" name='.$r["chat_id"].'>編集</button>';
       $thread .=     '<button class="btn_delete" name='.$r["chat_id"].'>削除</button>';
     }
     $thread .=     '</div>';

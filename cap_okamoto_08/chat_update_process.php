@@ -1,16 +1,15 @@
 <?php
 include_once("funcs.php");
 
-$id = $_POST["id"];
-$room_id = $_POST["room_id"];
 $chat_id = $_POST["chat_id"];
+$message = $_POST["message"];
 
 $pdo = db_conn();
 
-// // $stmt = $pdo->prepare("DELETE FROM cap_chat_content WHERE chat_id=:chat_id");
-// $stmt->bindValue(':chat_id', $chat_id, PDO::PARAM_INT);
-// $status = $stmt->execute();
+$stmt   = $pdo->prepare("UPDATE cap_chat_content SET message=:message WHERE chat_id=:chat_id");
+$stmt->bindValue(':chat_id', $chat_id, PDO::PARAM_INT);
+$stmt->bindValue(':message', $message, PDO::PARAM_STR);
+$status = $stmt->execute();
 
-
-include_once("chat_threads_reload_process.php")
+echo $message;
 ?>

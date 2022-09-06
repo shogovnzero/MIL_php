@@ -22,7 +22,7 @@ if($status==false) {
     $threads .=   '<div class="area_img"><div class="owner_img"></div></div>';
     $threads .=   '<div class="area_content">';
     $threads .=     '<div class="info"><div class="owner_name">'.$r["owner_name"].'</div><div class="dt_sent">'.$r["indate"].'</div></div>';
-    $threads .=     '<div class="message_thread">'.$r["message"].'</div>';
+    $threads .=     '<div id=chat_id_'.$r["chat_id"].' class="message_thread">'.$r["message"].'</div>';
     $threads .=     '<div class="command_thread">';
     $threads .=       '<button class="btn_like">いいね</button>';
     $threads .=       '<button class="btn_reply" name='.$r["chat_id"].'>閲覧・返信</button>';

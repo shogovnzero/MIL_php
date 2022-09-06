@@ -17,7 +17,7 @@
     }).catch(function (error) {
       console.log(error);
     }).then(function () {
-      console.log("Last");
+      console.log("Rooms Reloaded");
     });
     setTimeout(function() {reload_rooms()},5000);
   }
@@ -48,6 +48,10 @@
     }).then(function () {
       console.log("Last");
     });
+  });
+
+  $(document).on("click",".room", function(){
+    $("#area_thread").hide();
   });
 
 </script>

@@ -353,12 +353,12 @@ body {
             }
             .base {
                 display: flex;
-                padding: 20px 0;
+                padding: 20px 0 0;
                 width: 100%;
                 height: 100%;
                 #area_rooms {
                     width: 20%;
-                    padding: 10px 0;
+                    padding: 0 0 10px;
                     #window_rooms {
                         overflow-y: scroll;
                         height: 100%;
@@ -392,29 +392,48 @@ body {
                 }
                 #area_room {
                     width: 40%;
-                    padding: 10px 0;
+                    padding: 0 0 10px;
                     #area_room_name {
                         z-index: 100;
+                        padding: 10px;
+                        font-size: 20px;
+                        font-weight: 700;
                     }
                     #area_output {
                         z-index: 5;
                         overflow-y: scroll;
-                        height: 80vh;
+                        height: 65vh;
                         #area_threads {
-                            padding: 10px 10px 40px;
+                            padding: 10px 10px 0px;
                             .thread {
+                                display: flex;
+                                padding: 10px 0;
                                 .area_img {
+                                    width: 10%;
+                                    padding-right: 10px;
                                     .owner_img {
                                     }
                                 }
                                 .area_content {
+                                    width: 90%;
                                     .info {
+                                        display: flex;
                                         .owner_name {
+                                            font-size: 14px;
+                                            font-weight: 700;
+                                            vertical-align: bottom;
                                         }
                                         .dt_sent {
+                                            font-size: 12px;
+                                            font-weight: 300;
+                                            vertical-align: bottom;
                                         }
                                     }
-                                    .message_thread {}
+                                    .message_thread {
+                                        padding: 5px 0;
+                                        font-size: 14px;
+                                        font-weight: 400;
+                                    }
                                     .command_thread {
                                         .btn_like {}
                                         .btn_reply {}
@@ -423,14 +442,26 @@ body {
                                     }
                                 }
                             }
+                            .thread:hover {
+                                background-color: rgba(188,225,255,1);
+                            }
                         }
                     }
                     .area_input {
                         z-index: 100;
-                        position: absolute;
-                        bottom: 0;
+                        position: sticky;
+                        top: 100vh;
+                        margin: 10px;
+                        border: 2px solid rgba(0,74,133,1);
+                        border-radius: 5px;
+                        padding: 5px;
+                        background-color: rgba(188,225,255,1);
                         .area_message {
-                            #message {}
+                            #message {
+                                width: 100%;
+                                border: none;
+                                background-color: transparent;
+                            }
                         }
                         .area_btn {
                             #send {}
@@ -439,7 +470,80 @@ body {
                 }
                 #area_thread {
                     width: 40%;
-                    padding: 10px 0;
+                    padding: 0 0 10px;
+                    .area_thread_name {
+                        z-index: 100;
+                        padding: 10px;
+                        font-size: 20px;
+                        font-weight: 700;
+                    }
+                    .area_output {
+                        z-index: 5;
+                        overflow-y: scroll;
+                        height: 65vh;
+                        #thread {
+                            padding: 10px 10px 0px;
+                            .thread {
+                                display: flex;
+                                padding: 10px 0;
+                                .area_img {
+                                    width: 10%;
+                                    padding-right: 10px;
+                                    .area_owner_img {
+                                    }
+                                }
+                                .area_content {
+                                    width: 90%;
+                                    .info {
+                                        display: flex;
+                                        .owner_name{
+                                            font-size: 14px;
+                                            font-weight: 700;
+                                            vertical-align: bottom;
+                                        }
+                                        .dt_sent {
+                                            font-size: 12px;
+                                            font-weight: 300;
+                                            vertical-align: bottom;
+                                        }
+                                    }
+                                    .message_thread {
+                                        padding: 5px 0;
+                                        font-size: 14px;
+                                        font-weight: 400;
+                                    }
+                                    .command_thread {
+                                        .btn_like {}
+                                        .btn_update {}
+                                        .btn_delete {}
+                                    }
+                                }
+                            }
+                            .thread:hover {
+                                background-color: rgba(188,225,255,1);
+                            }
+                        }
+                    }
+                    .area_input {
+                        z-index: 100;
+                        position: sticky;
+                        top: 100vh;
+                        margin: 10px;
+                        border: 2px solid rgba(0,74,133,1);
+                        border-radius: 5px;
+                        padding: 5px;
+                        background-color: rgba(188,225,255,1);
+                        .area_reply {
+                            #message_reply {
+                                width: 100%;
+                                border: none;
+                                background-color: transparent;
+                            }
+                        }
+                        .area_btn {
+                            #send_reply {}
+                        }
+                    }
                 }
             }
         }
