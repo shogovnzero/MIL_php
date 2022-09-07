@@ -83,15 +83,35 @@ body {
                 padding: 20px 0;
                 width: 100%;
                 .area_logo{
-                    width: 25%;
+                    width: 200px;
+                    height: 200px;
+                    border:solid 0px ;
+                    border-radius:20px;
+                    margin:0;
+                    overflow:hidden;
+                    background-color: rgba(0,74,133,0.3);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    span {
+                        font-size: 150px;
+                        color: rgba(0,74,133,1)
+                    }
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
                 }
                 .area_description{
-                    width: 75%;
+                    width: calc(100% - 200px);
+                    padding-left: 20px;
                     .owner_name{
                        color: rgba(41,43,46,1);
                        font-size: 24px;
                        font-weight: 700;
                        line-height: 200%;
+                       width: 100%;
                     }
                     table{
                         width: 100%;
@@ -103,7 +123,7 @@ body {
                                 position: relative;
                                 text-align: center;
                                 vertical-align: middle;
-                                width: 30%;
+                                width: 150px;
                                 background-color: rgba(0,74,133,1);
                                 color: white;
                                 padding: 5px 0;
@@ -165,6 +185,11 @@ body {
                                 width: auto;
                                 background-color: white;
                                 padding: 5px 0px;
+                            }
+                        }
+                        tr:nth-child(odd) {
+                            td {
+                                background-color: rgba(230,236,238,1);
                             }
                         }
                         tr:last-child {
@@ -311,6 +336,47 @@ body {
                     }
                 }
             }
+            #owner_search_filter {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 14px;
+                tr {
+                    border-bottom: solid 1px white;
+                    th {
+                        position: relative;
+                        text-align: center;
+                        vertical-align: middle;
+                        width: calc(100%/10);
+                        background-color: rgba(0,74,133,1);
+                        color: white;
+                        padding: 5px 0;
+                    }
+                    th:hover {
+                        background-color: rgba(0,74,133,0.3);
+                        color: rgba(41,43,46,1);
+                        font-weight: 500;
+                    }
+                    td {
+                        text-align: center;
+                        vertical-align: middle;
+                        width: auto;
+                        background-color: white;
+                        padding: 5px 0px;
+                    }
+                }
+                tr:nth-child(odd) {
+                    td {
+                        text-align: center;
+                        vertical-align: middle;
+                        width: auto;
+                        background-color: rgba(230,236,238,1);
+                        padding: 5px 0px;
+                    }
+                }
+                tr:last-child {
+                    border-bottom: none;
+                }
+            }
             #table_owner {
                 padding: 20px 0px;
                 width: 100%;
@@ -319,7 +385,7 @@ body {
                     border-collapse: collapse;
                     font-size: 14px;
                     tr {
-                        border-bottom: solid 2px white;
+                        border-bottom: solid 1px white;
                         th {
                             position: relative;
                             text-align: center;
@@ -357,7 +423,7 @@ body {
                 width: 100%;
                 height: 100%;
                 #area_rooms {
-                    width: 20%;
+                    width: 220px;
                     padding: 0 0 10px;
                     #window_rooms {
                         overflow-y: scroll;
@@ -391,7 +457,7 @@ body {
                     }
                 }
                 #area_room {
-                    width: 40%;
+                    width: calc((100% - 220px)/2);
                     padding: 0 0 10px;
                     #area_room_name {
                         z-index: 100;
@@ -409,13 +475,28 @@ body {
                                 display: flex;
                                 padding: 10px 0;
                                 .area_img {
-                                    width: 10%;
+                                    width: 40px;
                                     padding-right: 10px;
                                     .owner_img {
+                                        width: 40px;
+                                        height: 40px;
+                                        border:solid 0px ;
+                                        border-radius:5px;
+                                        margin:0;
+                                        overflow:hidden;
+                                        background-color: rgba(0,74,133,0.3);
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        img {
+                                            width: 100%;
+                                            height: 100%;
+                                            object-fit: cover;
+                                        }
                                     }
                                 }
                                 .area_content {
-                                    width: 90%;
+                                    width: calc(100% - 40px);
                                     .info {
                                         display: flex;
                                         .owner_name {
@@ -469,7 +550,7 @@ body {
                     }
                 }
                 #area_thread {
-                    width: 40%;
+                    width: calc((100% - 220px)/2);
                     padding: 0 0 10px;
                     .area_thread_name {
                         z-index: 100;
@@ -487,13 +568,28 @@ body {
                                 display: flex;
                                 padding: 10px 0;
                                 .area_img {
-                                    width: 10%;
+                                    width: 40px;
                                     padding-right: 10px;
-                                    .area_owner_img {
+                                    .owner_img {
+                                        width: 40px;
+                                        height: 40px;
+                                        border:solid 0px ;
+                                        border-radius:5px;
+                                        margin:0;
+                                        overflow:hidden;
+                                        background-color: rgba(0,74,133,0.3);
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        img {
+                                            width: 100%;
+                                            height: 100%;
+                                            object-fit: cover;
+                                        }
                                     }
                                 }
                                 .area_content {
-                                    width: 90%;
+                                    width: calc(100% - 40px);
                                     .info {
                                         display: flex;
                                         .owner_name{

@@ -95,7 +95,14 @@ if(!empty($_POST)){
         <main>
           <form class="h-adr" method="post" action="" enctype="multipart/form-data">
             <div class="area_top">
-              <div class="area_logo">
+              <div>
+                <div class="area_logo">
+                  <?php if (empty($row["owner_img"]) || $row["owner_img"] == '1' || $row["owner_img"] == '2'): ?>
+                    <span class="material-icons-outlined">groups</span>
+                  <?php else: ?>
+                    <img src="img/<?=$row["owner_img"]?>">
+                  <?php endif ?>
+                </div>
                 <p>画像アップロード</p>
                 <input type="file" accept="image/*" name="owner_img">
               </div>

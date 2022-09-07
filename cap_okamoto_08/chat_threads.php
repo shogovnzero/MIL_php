@@ -14,7 +14,7 @@ $room_name="";
   <div id="area_threads"><?=$threads?></div>
 </div>
 
-<div class="area_input">
+<div class="area_input" style="display:none">
   <div class="area_message">
     <textarea id="message" name="message"></textarea>
     <input id="id" type="hidden" name="id" value="<?=$id?>">
@@ -34,8 +34,8 @@ $room_name="";
     if(!$(this).hasClass('on')){
       $(this).addClass('on');
       var txt = $(this).text();
-      $(this).html('<input type="text" value="'+txt+'" />');
-      $('#area_room_name > input').focus().blur(function(){
+      $(this).html('<input id="room_rename" type="text" value="'+txt+'" />');
+      $('#area_room_name > #room_rename').focus().blur(function(){
         var inputVal = $(this).val();
         if(inputVal===''){
           inputVal = this.defaultValue;

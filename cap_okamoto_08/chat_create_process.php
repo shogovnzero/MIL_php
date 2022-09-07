@@ -1,5 +1,4 @@
 <?php
-session_start();
 $id_1 = $_SESSION["id"];
 $id_2 = $_GET["id"];
 $room_member = [$id_1, $id_2];

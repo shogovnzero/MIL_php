@@ -69,6 +69,7 @@ if($status2==false) {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone" rel="stylesheet">
   <link rel="stylesheet" href="./css/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -82,7 +83,13 @@ if($status2==false) {
     </header>
     <main>
       <div class = "area_top">
-        <div class = "area_logo"></div>
+        <div class = "area_logo">
+          <?php if (empty($row["owner_img"]) || $row["owner_img"] == '1' || $row["owner_img"] == '2'): ?>
+            <span class="material-icons-outlined">groups</span>
+          <?php else: ?>
+            <img src="img/<?=$row["owner_img"]?>">
+          <?php endif ?>
+        </div>
         <div class = "area_description">
           <div class = "owner_name"><?=$row["owner_name"]?></div>
           <div><a href="chat_create.php?id=<?=$id?>">chat with this owner</a></div>
@@ -93,24 +100,24 @@ if($status2==false) {
                 <td><?=$row["owner_ceo"]?></td>
               </tr>
               <tr>
-                <th>会社URL</th>
-                <td><a href="<?=$row["owner_url"]?>"><?=$row["owner_url"]?></a></td>
-              </tr>
-              <tr>
                 <th>会社所在地</th>
                 <td>〒<?=$row["p_postal_code"]." ".$row["p_region"].$row["p_locality"].$row["p_street_address"]." ".$row["p_extended_address"]?></td>
               </tr>
               <tr>
                 <th>創立年月日</th>
-                <td><?=$row["owner_foundation"]?></td>
+                <td><?=date('Y年m月d日', strtotime($row["owner_foundation"]))?></td>
               </tr>
               <tr>
                 <th>資本金</th>
-                <td><?=$row["owner_capital"]?></td>
+                <td><?=number_format($row["owner_capital"])?>円</td>
               </tr>
               <tr>
                 <th>従業員数</th>
-                <td><?=$row["owner_employee"]?></td>
+                <td><?=number_format($row["owner_employee"])?>人</td>
+              </tr>
+              <tr>
+                <th>会社URL</th>
+                <td><a href="<?=$row["owner_url"]?>"><?=$row["owner_url"]?></a></td>
               </tr>
             </table>
           </div>

@@ -68,7 +68,8 @@ if($status==false) {
     </header>
     <main>
       <input type="text" id="keyword">
-      <button id="search">検索</button>
+      <button>検索</button>
+
       <div id="table_vessel"><?=$view?></div>
     </main>
     <footer>

@@ -51,7 +51,12 @@
   });
 
   $(document).on("click",".room", function(){
+    $(".area_input").show();
     $("#area_thread").hide();
+  });
+
+  $(document).on("click",".new_room", function(){
+    // 新しい要素を追加：上にかぶせる
   });
 
 </script>

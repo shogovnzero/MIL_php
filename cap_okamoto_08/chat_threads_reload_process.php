@@ -7,7 +7,7 @@ $thread_flg = "1";
 
 $pdo = db_conn();
 
-$stmt   = $pdo->prepare("SELECT chat_id,room_id,sender_id,message,thread_flg,AAA.indate,owner_name FROM (SELECT * FROM cap_chat_content WHERE room_id=:room_id AND thread_flg=:thread_flg) AS AAA INNER JOIN cap_owner ON sender_id=cap_owner.id");
+$stmt   = $pdo->prepare("SELECT chat_id,room_id,sender_id,message,thread_flg,AAA.indate,owner_name,owner_img FROM (SELECT * FROM cap_chat_content WHERE room_id=:room_id AND thread_flg=:thread_flg) AS AAA INNER JOIN cap_owner ON sender_id=cap_owner.id");
 $stmt->bindValue(':room_id', $room_id, PDO::PARAM_INT);
 $stmt->bindValue(':thread_flg', $thread_flg, PDO::PARAM_INT);
 $status = $stmt->execute();
@@ -19,7 +19,13 @@ if($status==false) {
 }else{
   while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
     $threads .= '<div class="thread">';
-    $threads .=   '<div class="area_img"><div class="owner_img"></div></div>';
+    $threads .=   '<div class="area_img"><div class="owner_img">';
+    if (empty($r["owner_img"]) || $r["owner_img"] == '1' || $r["owner_img"] == '2'){
+      $threads .=  '<span class="material-icons-outlined">groups</span>';
+    } else {
+      $threads .=   '<img src="img/'.$r["owner_img"].'">';
+    }
+    $threads .=   '</div></div>';
     $threads .=   '<div class="area_content">';
     $threads .=     '<div class="info"><div class="owner_name">'.$r["owner_name"].'</div><div class="dt_sent">'.$r["indate"].'</div></div>';
     $threads .=     '<div id=chat_id_'.$r["chat_id"].' class="message_thread">'.$r["message"].'</div>';
