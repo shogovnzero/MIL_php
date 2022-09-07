@@ -78,7 +78,9 @@ if($status2==false) {
     </header>
     <main>
       <div class = "area_top">
-        <div class = "area_logo"></div>
+        <div class = "area_logo">
+          <img src="img/<?=$row["owner_img"]?>">
+        </div>
         <div class = "area_description">
           <div class = "owner_name"><?=$row["owner_name"]?></div>
           <div class = "owner_info">

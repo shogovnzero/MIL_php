@@ -24,19 +24,19 @@ function db_conn(){
     }
 }
 
-//SQLエラー関数：sql_error($stmt)
+//SQLエラー関数
 function sql_error($stmt){
     $error = $stmt->errorInfo();
     exit('SQLError:'.$error[2]);
 }
 
-//リダイレクト関数: redirect($file_name)
+//リダイレクト関数:
 function redirect($file_name){
     header("Location: ".$file_name);
     exit();
 }
 
-// Session Check (スケルトン)
+// Session Check
 function sschk(){
     if($_SESSION["chk_ssid"] != session_id()){
         exit("Login Error");
@@ -45,3 +45,25 @@ function sschk(){
         $_SESSION["chk_ssid"] = session_id();
     }
 }
+
+// ファイルアップロード
+function fileUpload($fname,$path){
+    if (isset($_FILES[$fname]) && $_FILES[$fname]["error"] ==0 ) {
+        $file_name = $_FILES[$fname]["name"];
+        //一時保存場所取得
+        $tmp_path  = $_FILES[$fname]["tmp_name"];
+        $extension = pathinfo($file_name, PATHINFO_EXTENSION);
+        $file_name = uniqid(mt_rand(), true).".".$extension;
+        $file_dir_path = $path."/".$file_name;
+        if ( is_uploaded_file( $tmp_path ) ) {
+            if ( move_uploaded_file( $tmp_path, $file_dir_path ) ) {
+                chmod( $file_dir_path, 0644 );
+                return $file_name;
+            } else {
+                return 1; //失敗時：ファイル移動に失敗
+            }
+        }
+    } else {
+        return 2; //失敗時：ファイル取得エラー
+    }
+};

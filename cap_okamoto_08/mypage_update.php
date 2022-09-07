@@ -53,6 +53,15 @@ if (isset($_POST['owner_decarbon']) && is_array($_POST['owner_decarbon'])) {
 
 if(!empty($_POST)){
   $_SESSION['join'] = $_POST;
+  // 画像アップロードのみ先行
+  if($_FILES["owner_img"]["size"]>0){
+    $owner_img = fileUpload("owner_img","img");
+    $pdo = db_conn();
+    $stmt = $pdo->prepare("UPDATE cap_owner SET owner_img=:owner_img WHERE id=:id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':owner_img', $owner_img, PDO::PARAM_STR);
+    $status = $stmt->execute();
+  }
   redirect("mypage_update_process.php");
   exit();
 }
@@ -84,9 +93,12 @@ if(!empty($_POST)){
           <?php include("menu.php"); ?>
         </header>
         <main>
-          <form class="h-adr" method="post" action="">
+          <form class="h-adr" method="post" action="" enctype="multipart/form-data">
             <div class="area_top">
-              <div class="area_logo"></div>
+              <div class="area_logo">
+                <p>画像アップロード</p>
+                <input type="file" accept="image/*" name="owner_img">
+              </div>
               <div class="area_description">
                 <div class = "owner_name"><input type="text" name="owner_name" placeholder="会社名" value="<?=$row["owner_name"]?>" required></div>
                 <div class="owner_info">
@@ -199,8 +211,7 @@ if(!empty($_POST)){
                 </div>
               </div>
             </div>
-
-            <input type="submit" value="送信">
+            <input type="submit" name="upload" value="送信">
           </form>
         </main>
         <footer>
