@@ -185,7 +185,7 @@ if(!empty($_POST)){
                       <td>
                         <p><label><input type="checkbox" name="owner_crew_mng[]" value="船員採用" <?php if(strpos($owner_crew_mng,"船員採用") !== false){echo 'checked="checked"';}?>>船員採用</label></p>
                         <p><label><input type="checkbox" name="owner_crew_mng[]" value="船員育成・教育" <?php if(strpos($owner_crew_mng,"船員育成・教育") !== false){echo 'checked="checked"';}?>>船員育成・教育</label></p>
-                        <p><label><input type="checkbox" name="owner_crew_mng[]" value="船員管理" <?php if(strpos($owner_crew_mng,"船員管理") !== false){echo 'checked="checked"';}?>>船員採用</label></p>
+                        <p><label><input type="checkbox" name="owner_crew_mng[]" value="船員管理" <?php if(strpos($owner_crew_mng,"船員管理") !== false){echo 'checked="checked"';}?>>船員管理</label></p>
                         <p><label><input type="checkbox" name="owner_crew_mng[]" value="船員融通" <?php if(strpos($owner_crew_mng,"船員融通") !== false){echo 'checked="checked"';}?>>船員融通</label></p>
                         <p><label><input type="checkbox" name="owner_crew_mng[]" value="省人化・自動化" <?php if(strpos($owner_crew_mng,"省人化・自動化") !== false){echo 'checked="checked"';}?>>省人化・自動化</label></p>
                         <p><label><input type="checkbox" name="owner_crew_mng[]" value="オペレーションマニュアル" <?php if(strpos($owner_crew_mng,"オペレーションマニュアル") !== false){echo 'checked="checked"';}?>>オペレーションマニュアル</label></p>
