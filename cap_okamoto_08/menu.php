@@ -19,8 +19,13 @@ if($status==false) {
     <h1>CAP</h1>
 </div>
 <nav class = "area_nav_header">
-    <div class="area_tab"><a href="owner_search.php">船主検索</a></div>
-    <div class="area_tab"><a href="vessel_search.php">船舶検索</a></div>
+    <div class="area_tab">
+        <a>検索</a>
+        <div class="area_item">
+          <a href="owner_search.php">船主検索</a>
+          <a href="vessel_search.php">船舶検索</a>
+        </div>
+    </div>
     <div class="area_tab"><a href="chat.php">チャット</a></div>
     <div class="area_tab">
         <a>自社船舶</a>

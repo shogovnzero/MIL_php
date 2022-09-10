@@ -4,7 +4,6 @@ include_once("funcs.php");
 sschk();
 $pdo = db_conn();
 
-$stmt   = $pdo->prepare("SELECT * FROM cap_owner");
 $stmt = $pdo->prepare("SELECT * FROM cap_owner INNER JOIN (SELECT count(owner_id) AS owner_vessel, owner_id FROM cap_vessel GROUP BY owner_id HAVING owner_vessel>0) AS xxx ON id=xxx.owner_id");
 $status = $stmt->execute();
 
@@ -16,8 +15,6 @@ if($status==false) {
   $view .= '<tr>';
   $view .= '<th rowspan="2">船主</th>';
   $view .= '<th rowspan="2">所在地</th>';
-  $view .= '<th rowspan="2">資本金<br>(百万円)</th>';
-  $view .= '<th rowspan="2">従業員数<br>(人)</th>';
   $view .= '<th rowspan="2">保有隻数</th>';
   $view .= '<th colspan="4">関心事項</th>';
   $view .= '</tr>';
@@ -31,8 +28,6 @@ if($status==false) {
     $view .= '<tr>';
     $view .= '<td>'.'<a href="owner_page.php?id='.h($r["id"]).'">'.h($r["owner_name"]).'</a>'.'</td>';
     $view .= '<td>'.h($r["p_region"]).h($r["p_locality"]).'</td>';
-    $view .= '<td>'.number_format(h($r["owner_capital"])/1000000).'</td>';
-    $view .= '<td>'.number_format(h($r["owner_employee"])).'</td>';
     $view .= '<td>'.number_format(h($r["owner_vessel"])).'</td>';
     $view .= '<td>'.h($r["owner_cost"]).'</td>';
     $view .= '<td>'.h($r["owner_crew_mng"]).'</td>';
@@ -88,7 +83,7 @@ if($status==false) {
             <th id="owner_group">船主グループ化</th>
             <th id="owner_decarbon">脱炭素化</th>
           </tr>
-          <!-- $(table).append -->
+          <!-- $("#owner_search_filter").append -->
         </table>
         <button id="search">検索</button>
       </div>

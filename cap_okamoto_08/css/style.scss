@@ -7,6 +7,7 @@ body {
         display: inline-block;
         width: 100%;
         height: 100%;
+        // menu.php
         header {
             position: fixed;
             display: flex;
@@ -41,7 +42,7 @@ body {
                         width: 220px;
                         padding: 15px;
                         position: absolute;
-                        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+                        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);
                         a {
                             display: block;
                             float: left;
@@ -78,6 +79,7 @@ body {
             margin-top: 50px;
             padding: 0 20px;
             height: 100%;
+            // index.php owner_page.php vessel_mine.php vessel_mine_update.php vessel_page.php
             .area_top {
                 display: flex;
                 padding: 20px 0;
@@ -156,6 +158,7 @@ body {
             }
             .area_main {
                 width: 100%;
+                // index.php owner_page.php
                 .area_owner_vessel {
                     padding: 20px 0px;
                     width: 100%;
@@ -197,6 +200,7 @@ body {
                         }
                     }
                 }
+                // index.php owner_page.php
                 .area_owner_interest{
                     padding: 20px 0px;
                     width: 100%;
@@ -247,6 +251,7 @@ body {
                         }
                     }
                 }
+                // vessel_mine.php vessel_mine_update.php vessel_page.php
                 .area_vessel_category{
                     padding: 20px 0px;
                     width: 100%;
@@ -296,6 +301,108 @@ body {
                     }
                 }
             }
+            // vessel_search.php
+            #vessel_search_filter_0 {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 14px;
+                tr {
+                    border-bottom: solid 1px white;
+                    th {
+                        position: relative;
+                        text-align: center;
+                        vertical-align: middle;
+                        width: calc(100% / 4);
+                        height: 100%;
+                        line-height: 30px;
+                        background-color: rgba(0,74,133,1);
+                        color: white;
+                        .filter_item {
+                            border-radius: 3px;
+                            display: none;
+                            overflow: hidden;
+                            background-color: white;
+                            width: auto;
+                            padding: 15px;
+                            position: absolute;
+                            z-index: 100;
+                            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+                            a {
+                                display: block;
+                                float: left;
+                                padding: 0%;
+                                margin: 2% 0;
+                                width: 100%;
+                                text-align: center;
+                                background-color: rgba(0,74,133,1);
+                                color: #fbfbfb;
+                                border-radius: 2px;
+                                transition: background-color 0.2s ease;
+                            }
+                            a:hover {
+                                background-color: #212121;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                    th:hover {
+                        background-color: rgba(0,74,133,0.3);
+                        color: rgba(41,43,46,1);
+                        font-weight: 500;
+                        .filter_item {
+                            display: block;
+                        }
+                    }
+                    td {
+                        text-align: center;
+                        vertical-align: middle;
+                        width: auto;
+                        background-color: white;
+                        padding: 5px 0px;
+                    }
+                }
+                tr:nth-child(odd) {
+                    td {
+                        text-align: center;
+                        vertical-align: middle;
+                        width: auto;
+                        background-color: rgba(230,236,238,1);
+                        padding: 5px 0px;
+                    }
+                }
+                tr:last-child {
+                    border-bottom: none;
+                }
+            }
+            #vessel_search_filter {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 14px;
+                tr {
+                    border-bottom: solid 1px white;
+                    td {
+                        position: relative;
+                        width: calc(100% / 10);
+                        text-align: center;
+                        vertical-align: middle;
+                        // width: auto;
+                        background-color: white;
+                        padding: 5px 0px;
+                    }
+                }
+                tr:nth-child(odd) {
+                    td {
+                        text-align: center;
+                        vertical-align: middle;
+                        width: calc(100% / 10);
+                        background-color: rgba(230,236,238,1);
+                        padding: 5px 0px;
+                    }
+                }
+                tr:last-child {
+                    border-bottom: none;
+                }
+            }
             #table_vessel {
                 padding: 20px 0px;
                 width: 100%;
@@ -336,6 +443,7 @@ body {
                     }
                 }
             }
+            // owner_search.php
             #owner_search_filter {
                 width: 100%;
                 border-collapse: collapse;
@@ -417,11 +525,13 @@ body {
                     }
                 }
             }
+            // chat.php
             .base {
                 display: flex;
                 padding: 20px 0 0;
                 width: 100%;
                 height: 100%;
+                // chat_rooms.php
                 #area_rooms {
                     width: 220px;
                     padding: 0 0 10px;
@@ -456,14 +566,47 @@ body {
                         }
                     }
                 }
+                // chat_threads.php
                 #area_room {
                     width: calc((100% - 220px)/2);
                     padding: 0 0 10px;
                     #area_room_name {
+                        display: flex;
                         z-index: 100;
                         padding: 10px;
                         font-size: 20px;
                         font-weight: 700;
+                        #room_name {
+                            width: calc(100% - 24px);
+                        }
+                        .area_room_info {
+                            width: 24px;
+                            color: rgba(130,160,170,1);
+                            cursor: pointer;
+                        }
+                        .area_room_info:hover {
+                            color: rgba(255,200,69,1);
+                            position: relative;
+                            .room_info {
+                                position: absolute;
+                                right: 0px;
+                                background-color: white;
+                                overflow: hidden;
+                                color: rgba(41,43,46,1);
+                                font-size: 14px;
+                                width: 150px;
+                                padding: 10px;
+                                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+                                p {
+                                    text-align: center;
+                                    vertical-align: middle;
+                                    line-height: 28px;
+                                }
+                                .info_title {
+                                    font-weight: 700;
+                                }
+                            }
+                        }
                     }
                     #area_output {
                         z-index: 5;
@@ -549,6 +692,7 @@ body {
                         }
                     }
                 }
+                // chat_thread.php
                 #area_thread {
                     width: calc((100% - 220px)/2);
                     padding: 0 0 10px;

@@ -5,6 +5,8 @@ include("funcs.php");
 sschk();
 $pdo = db_conn();
 
+$recommend="";
+
 $stmt   = $pdo->prepare("SELECT * FROM cap_vessel INNER JOIN cap_owner ON cap_vessel.owner_id=cap_owner.id WHERE cap_owner.id=:id");
 $stmt->bindValue(":id",$id,PDO::PARAM_INT);
 $status = $stmt->execute();
@@ -120,6 +122,10 @@ if($status2==false) {
         </div>
       </div>
       <div class = "area_main">
+        <!-- <div class = "area_recommend">
+          <h3>おすすめのマッチング候補先</h3>
+          <div id="recommend"><?=$recommend?></div>
+        </div> -->
         <div class = "area_owner_vessel">
           <h3>保有船舶</h3>
           <div id="view"><?=$view?></div>

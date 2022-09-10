@@ -61,8 +61,8 @@ body .container header .area_nav_header .area_tab .area_item {
   width: 220px;
   padding: 15px;
   position: absolute;
-  -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);
 }
 
 body .container header .area_nav_header .area_tab .area_item a {
@@ -364,6 +364,120 @@ body .container main .area_main .area_vessel_category table tr:last-child {
   border-bottom: none;
 }
 
+body .container main #vessel_search_filter_0 {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+body .container main #vessel_search_filter_0 tr {
+  border-bottom: solid 1px white;
+}
+
+body .container main #vessel_search_filter_0 tr th {
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  width: calc(100% / 4);
+  height: 100%;
+  line-height: 30px;
+  background-color: #004a85;
+  color: white;
+}
+
+body .container main #vessel_search_filter_0 tr th .filter_item {
+  border-radius: 3px;
+  display: none;
+  overflow: hidden;
+  background-color: white;
+  width: auto;
+  padding: 15px;
+  position: absolute;
+  z-index: 100;
+  -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+body .container main #vessel_search_filter_0 tr th .filter_item a {
+  display: block;
+  float: left;
+  padding: 0%;
+  margin: 2% 0;
+  width: 100%;
+  text-align: center;
+  background-color: #004a85;
+  color: #fbfbfb;
+  border-radius: 2px;
+  -webkit-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+}
+
+body .container main #vessel_search_filter_0 tr th .filter_item a:hover {
+  background-color: #212121;
+  cursor: pointer;
+}
+
+body .container main #vessel_search_filter_0 tr th:hover {
+  background-color: rgba(0, 74, 133, 0.3);
+  color: #292b2e;
+  font-weight: 500;
+}
+
+body .container main #vessel_search_filter_0 tr th:hover .filter_item {
+  display: block;
+}
+
+body .container main #vessel_search_filter_0 tr td {
+  text-align: center;
+  vertical-align: middle;
+  width: auto;
+  background-color: white;
+  padding: 5px 0px;
+}
+
+body .container main #vessel_search_filter_0 tr:nth-child(odd) td {
+  text-align: center;
+  vertical-align: middle;
+  width: auto;
+  background-color: #e6ecee;
+  padding: 5px 0px;
+}
+
+body .container main #vessel_search_filter_0 tr:last-child {
+  border-bottom: none;
+}
+
+body .container main #vessel_search_filter {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+body .container main #vessel_search_filter tr {
+  border-bottom: solid 1px white;
+}
+
+body .container main #vessel_search_filter tr td {
+  position: relative;
+  width: calc(100% / 10);
+  text-align: center;
+  vertical-align: middle;
+  background-color: white;
+  padding: 5px 0px;
+}
+
+body .container main #vessel_search_filter tr:nth-child(odd) td {
+  text-align: center;
+  vertical-align: middle;
+  width: calc(100% / 10);
+  background-color: #e6ecee;
+  padding: 5px 0px;
+}
+
+body .container main #vessel_search_filter tr:last-child {
+  border-bottom: none;
+}
+
 body .container main #table_vessel {
   padding: 20px 0px;
   width: 100%;
@@ -555,9 +669,51 @@ body .container main .base #area_room {
 }
 
 body .container main .base #area_room #area_room_name {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   z-index: 100;
   padding: 10px;
   font-size: 20px;
+  font-weight: 700;
+}
+
+body .container main .base #area_room #area_room_name #room_name {
+  width: calc(100% - 24px);
+}
+
+body .container main .base #area_room #area_room_name .area_room_info {
+  width: 24px;
+  color: #82a0aa;
+  cursor: pointer;
+}
+
+body .container main .base #area_room #area_room_name .area_room_info:hover {
+  color: #ffc845;
+  position: relative;
+}
+
+body .container main .base #area_room #area_room_name .area_room_info:hover .room_info {
+  position: absolute;
+  right: 0px;
+  background-color: white;
+  overflow: hidden;
+  color: #292b2e;
+  font-size: 14px;
+  width: 150px;
+  padding: 10px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+body .container main .base #area_room #area_room_name .area_room_info:hover .room_info p {
+  text-align: center;
+  vertical-align: middle;
+  line-height: 28px;
+}
+
+body .container main .base #area_room #area_room_name .area_room_info:hover .room_info .info_title {
   font-weight: 700;
 }
 

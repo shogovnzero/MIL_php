@@ -5,10 +5,22 @@ $pdo = db_conn();
 
 $threads="";
 $room_name="";
+$room_member="";
+$common_interest="";
 ?>
 
 
-<div id="area_room_name"><?=$room_name?></div>
+<div id="area_room_name">
+  <p id="room_name"><?=$room_name?></p>
+  <div id="area_room_member" class="material-icons-outlined area_room_info">
+    group
+    <div id="room_member" class="room_info"><?=$room_member?></div>
+  </div>
+  <div id="area_common_interest" class="material-icons-outlined area_room_info">
+    favorite
+    <div id="common_interest" class="room_info"><?=$common_interest?></div>
+  </div>
+</div>
 
 <div id="area_output">
   <div id="area_threads"><?=$threads?></div>
@@ -30,12 +42,54 @@ $room_name="";
 
 
 <script>
-  $("#area_room_name").on("click", function(){
+  $('#area_room_member').on({
+    "mouseenter": function() {
+      const params = new URLSearchParams();
+      params.append("room_id", $("#send").attr('name'));
+      axios.post('chat_member_process.php',params).then(function (response) {
+        console.log(typeof response.data);
+        if(response.data){
+          document.querySelector("#room_member").innerHTML=response.data;
+        };
+      }).catch(function (error) {
+          console.log(error);
+      }).then(function () {
+          console.log("Room Member");
+      });
+      $("#room_member").show();
+    },
+    "mouseleave": function() {
+      $("#room_member").hide();
+    }
+  });
+
+  $('#area_common_interest').on({
+    "mouseenter": function() {
+      const params = new URLSearchParams();
+      params.append("room_id", $("#send").attr('name'));
+      axios.post('chat_interest_process.php',params).then(function (response) {
+        console.log(typeof response.data);
+        if(response.data){
+          document.querySelector("#common_interest").innerHTML=response.data;
+        };
+      }).catch(function (error) {
+          console.log(error);
+      }).then(function () {
+          console.log("Common Interest");
+      });
+      $("#common_interest").show();
+    },
+    "mouseleave": function() {
+      $("#common_interest").hide();
+    }
+  });
+
+  $("#room_name").on("click", function(){
     if(!$(this).hasClass('on')){
       $(this).addClass('on');
       var txt = $(this).text();
       $(this).html('<input id="room_rename" type="text" value="'+txt+'" />');
-      $('#area_room_name > #room_rename').focus().blur(function(){
+      $('#room_name > #room_rename').focus().blur(function(){
         var inputVal = $(this).val();
         if(inputVal===''){
           inputVal = this.defaultValue;
@@ -47,7 +101,7 @@ $room_name="";
         axios.post('chat_room_rename_process.php',params).then(function (response) {
             console.log(typeof response.data);
             if(response.data){
-              document.querySelector("#area_room_name").innerHTML=response.data;
+              document.querySelector("#room_name").innerHTML=response.data;
             }
         }).catch(function (error) {
             console.log(error);

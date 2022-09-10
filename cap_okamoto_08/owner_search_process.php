@@ -363,8 +363,6 @@ if($status==false) {
   $view .= '<tr>';
   $view .= '<th rowspan="2">船主</th>';
   $view .= '<th rowspan="2">所在地</th>';
-  $view .= '<th rowspan="2">資本金<br>(百万円)</th>';
-  $view .= '<th rowspan="2">従業員数<br>(人)</th>';
   $view .= '<th rowspan="2">保有隻数</th>';
   $view .= '<th colspan="4">関心事項</th>';
   $view .= '</tr>';
@@ -378,8 +376,6 @@ if($status==false) {
     $view .= '<tr>';
     $view .= '<td>'.'<a href="owner_page.php?id='.h($r["id"]).'">'.h($r["owner_name"]).'</a>'.'</td>';
     $view .= '<td>'.h($r["p_region"]).h($r["p_locality"]).'</td>';
-    $view .= '<td>'.number_format(h($r["owner_capital"])/1000000).'</td>';
-    $view .= '<td>'.number_format(h($r["owner_employee"])).'</td>';
     $stmt2 = $pdo->prepare("SELECT COUNT(*) as cnt_number FROM cap_vessel WHERE owner_id=?");
     $stmt2->execute(array($r["id"]));
     $record = $stmt2->fetch();
@@ -392,7 +388,6 @@ if($status==false) {
   }
   $view .= '</table>';
 }
-$view .= '</table>';
 
 echo $view;
 ?>

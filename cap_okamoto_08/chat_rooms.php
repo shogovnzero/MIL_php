@@ -41,7 +41,7 @@
     axios.post('chat_room_name_process.php',params).then(function (response) {
       console.log(typeof response.data);
       if(response.data){
-        document.querySelector("#area_room_name").innerHTML=response.data;
+        document.querySelector("#room_name").innerHTML=response.data;
       }
     }).catch(function (error) {
       console.log(error);
