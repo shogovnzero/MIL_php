@@ -19,11 +19,32 @@ body .container header {
   background-color: #004a85;
   z-index: 9999;
   width: 100%;
+  height: 40px;
   padding: 0px 10px;
 }
 
 body .container header .area_logo_header {
-  width: 200px;
+  width: 100px;
+  height: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body .container header .area_logo_header img {
+  width: 100px;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+body .container header .area_space {
+  width: calc(100% - 100px*5 - 10px*2);
 }
 
 body .container header .area_nav_header {
@@ -31,14 +52,11 @@ body .container header .area_nav_header {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
 }
 
 body .container header .area_nav_header .area_tab {
   width: 100px;
+  position: relative;
 }
 
 body .container header .area_nav_header .area_tab a {
@@ -46,10 +64,12 @@ body .container header .area_nav_header .area_tab a {
   width: 100%;
   height: 100%;
   display: block;
-  line-height: 50px;
+  font-size: 16px;
+  line-height: 40px;
   color: #fbfbfb;
-  -webkit-transition: background-color 0.2s ease;
-  transition: background-color 0.2s ease;
+  text-decoration: none;
+  -webkit-transition: background-color 0.5s ease;
+  transition: background-color 0.5s ease;
   text-transform: uppercase;
 }
 
@@ -61,8 +81,9 @@ body .container header .area_nav_header .area_tab .area_item {
   width: 220px;
   padding: 15px;
   position: absolute;
-  -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);
-          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);
+  right: 0;
+  -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
 }
 
 body .container header .area_nav_header .area_tab .area_item a {
@@ -75,17 +96,13 @@ body .container header .area_nav_header .area_tab .area_item a {
   background-color: #004a85;
   color: #fbfbfb;
   border-radius: 2px;
-  -webkit-transition: background-color 0.2s ease;
-  transition: background-color 0.2s ease;
-}
-
-body .container header .area_nav_header .area_tab .area_item a:hover {
-  background-color: #212121;
-  cursor: pointer;
+  -webkit-transition: background-color 0.5s ease;
+  transition: background-color 0.5s ease;
 }
 
 body .container header .area_nav_header .area_tab:hover a {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: #ffc845;
+  color: #292b2e;
   cursor: pointer;
 }
 
@@ -93,11 +110,106 @@ body .container header .area_nav_header .area_tab:hover .area_item {
   display: block;
 }
 
+body .container header .area_nav_header .area_tab:hover .area_item a {
+  background-color: #004a85;
+  color: white;
+}
+
+body .container header .area_nav_header .area_tab:hover .area_item a:hover {
+  background-color: #ffc845;
+  color: #292b2e;
+  cursor: pointer;
+}
+
 body .container main {
   display: block;
-  margin-top: 50px;
+  margin-top: 40px;
   padding: 0 20px;
   height: 100%;
+}
+
+body .container main .area_login {
+  width: 400px;
+  height: auto;
+  margin: 50px auto 0;
+}
+
+body .container main .area_login .area_logo {
+  width: 100%;
+  height: 150px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 10px 0;
+  display: block;
+}
+
+body .container main .area_login .area_logo img {
+  width: 300px;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+body .container main .area_login p {
+  color: #0062b1;
+  font-weight: 700;
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px 0;
+}
+
+body .container main .area_login .area_input {
+  padding-top: 30px;
+}
+
+body .container main .area_login .area_input table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+body .container main .area_login .area_input table tr {
+  border-bottom: solid 1px white;
+}
+
+body .container main .area_login .area_input table tr th {
+  text-align: center;
+  vertical-align: middle;
+  width: 33%;
+  height: 100%;
+  line-height: 30px;
+  background-color: #004a85;
+  color: white;
+}
+
+body .container main .area_login .area_input table tr td {
+  text-align: center;
+  vertical-align: middle;
+  width: 67%;
+  height: 100%;
+  line-height: 30px;
+}
+
+body .container main .area_login .area_input button {
+  display: block;
+  margin: 0 auto 20px;
+}
+
+body .container main .area_login .area_signup button {
+  display: block;
+  margin: 0 auto;
+}
+
+body .container main .area_login .area_signup button a {
+  text-decoration: none;
 }
 
 body .container main .area_top {
@@ -364,6 +476,12 @@ body .container main .area_main .area_vessel_category table tr:last-child {
   border-bottom: none;
 }
 
+body .container main h2 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 40px;
+}
+
 body .container main #vessel_search_filter_0 {
   width: 100%;
   border-collapse: collapse;
@@ -479,7 +597,7 @@ body .container main #vessel_search_filter tr:last-child {
 }
 
 body .container main #table_vessel {
-  padding: 20px 0px;
+  padding: 0px 0px 20px;
   width: 100%;
 }
 
@@ -570,7 +688,7 @@ body .container main #owner_search_filter tr:last-child {
 }
 
 body .container main #table_owner {
-  padding: 20px 0px;
+  padding: 0px 0px 20px;
   width: 100%;
 }
 
@@ -614,27 +732,28 @@ body .container main #table_owner table tr:last-child {
   border-bottom: none;
 }
 
-body .container main .base {
+body .container .base {
+  margin-top: 40px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding: 20px 0 0;
+  padding: 0;
   width: 100%;
   height: 100%;
 }
 
-body .container main .base #area_rooms {
+body .container .base #area_rooms {
   width: 220px;
   padding: 0 0 10px;
 }
 
-body .container main .base #area_rooms #window_rooms {
+body .container .base #area_rooms #window_rooms {
   overflow-y: scroll;
   height: 100%;
 }
 
-body .container main .base #area_rooms #window_rooms p {
+body .container .base #area_rooms #window_rooms p {
   text-align: center;
   vertical-align: middle;
   font-size: 14px;
@@ -642,15 +761,20 @@ body .container main .base #area_rooms #window_rooms p {
   padding: 10px;
 }
 
-body .container main .base #area_rooms #window_rooms .new_room {
+body .container .base #area_rooms #window_rooms .new_room {
   cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px;
 }
 
-body .container main .base #area_rooms #window_rooms .new_room:hover {
+body .container .base #area_rooms #window_rooms .new_room:hover {
   background-color: #bce1ff;
 }
 
-body .container main .base #area_rooms #window_rooms ul li {
+body .container .base #area_rooms #window_rooms ul li {
   text-align: left;
   vertical-align: middle;
   font-size: 14px;
@@ -659,42 +783,55 @@ body .container main .base #area_rooms #window_rooms ul li {
   cursor: pointer;
 }
 
-body .container main .base #area_rooms #window_rooms ul li:hover {
+body .container .base #area_rooms #window_rooms ul li:hover {
   background-color: #bce1ff;
 }
 
-body .container main .base #area_room {
+body .container .base #area_room {
   width: calc((100% - 220px)/2);
   padding: 0 0 10px;
 }
 
-body .container main .base #area_room #area_room_name {
+body .container .base #area_room #area_room_name {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  position: relative;
   z-index: 100;
   padding: 10px;
   font-size: 20px;
   font-weight: 700;
 }
 
-body .container main .base #area_room #area_room_name #room_name {
+body .container .base #area_room #area_room_name .area_add_member {
+  background-color: #bce1ff;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  z-index: 500;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  width: calc(100% - 20px);
+}
+
+body .container .base #area_room #area_room_name #room_name {
   width: calc(100% - 24px);
 }
 
-body .container main .base #area_room #area_room_name .area_room_info {
+body .container .base #area_room #area_room_name .area_room_info {
   width: 24px;
   color: #82a0aa;
   cursor: pointer;
 }
 
-body .container main .base #area_room #area_room_name .area_room_info:hover {
+body .container .base #area_room #area_room_name .area_room_info:hover {
   color: #ffc845;
   position: relative;
 }
 
-body .container main .base #area_room #area_room_name .area_room_info:hover .room_info {
+body .container .base #area_room #area_room_name .area_room_info:hover .room_info {
   position: absolute;
   right: 0px;
   background-color: white;
@@ -707,27 +844,27 @@ body .container main .base #area_room #area_room_name .area_room_info:hover .roo
           box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
-body .container main .base #area_room #area_room_name .area_room_info:hover .room_info p {
+body .container .base #area_room #area_room_name .area_room_info:hover .room_info p {
   text-align: center;
   vertical-align: middle;
   line-height: 28px;
 }
 
-body .container main .base #area_room #area_room_name .area_room_info:hover .room_info .info_title {
+body .container .base #area_room #area_room_name .area_room_info:hover .room_info .info_title {
   font-weight: 700;
 }
 
-body .container main .base #area_room #area_output {
+body .container .base #area_room #area_output {
   z-index: 5;
   overflow-y: scroll;
   height: 65vh;
 }
 
-body .container main .base #area_room #area_output #area_threads {
+body .container .base #area_room #area_output #area_threads {
   padding: 10px 10px 0px;
 }
 
-body .container main .base #area_room #area_output #area_threads .thread {
+body .container .base #area_room #area_output #area_threads .thread {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -735,12 +872,12 @@ body .container main .base #area_room #area_output #area_threads .thread {
   padding: 10px 0;
 }
 
-body .container main .base #area_room #area_output #area_threads .thread .area_img {
+body .container .base #area_room #area_output #area_threads .thread .area_img {
   width: 40px;
   padding-right: 10px;
 }
 
-body .container main .base #area_room #area_output #area_threads .thread .area_img .owner_img {
+body .container .base #area_room #area_output #area_threads .thread .area_img .owner_img {
   width: 40px;
   height: 40px;
   border: solid 0px;
@@ -762,47 +899,47 @@ body .container main .base #area_room #area_output #area_threads .thread .area_i
           align-items: center;
 }
 
-body .container main .base #area_room #area_output #area_threads .thread .area_img .owner_img img {
+body .container .base #area_room #area_output #area_threads .thread .area_img .owner_img img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
 
-body .container main .base #area_room #area_output #area_threads .thread .area_content {
+body .container .base #area_room #area_output #area_threads .thread .area_content {
   width: calc(100% - 40px);
 }
 
-body .container main .base #area_room #area_output #area_threads .thread .area_content .info {
+body .container .base #area_room #area_output #area_threads .thread .area_content .info {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-body .container main .base #area_room #area_output #area_threads .thread .area_content .info .owner_name {
+body .container .base #area_room #area_output #area_threads .thread .area_content .info .owner_name {
   font-size: 14px;
   font-weight: 700;
   vertical-align: bottom;
 }
 
-body .container main .base #area_room #area_output #area_threads .thread .area_content .info .dt_sent {
+body .container .base #area_room #area_output #area_threads .thread .area_content .info .dt_sent {
   font-size: 12px;
   font-weight: 300;
   vertical-align: bottom;
 }
 
-body .container main .base #area_room #area_output #area_threads .thread .area_content .message_thread {
+body .container .base #area_room #area_output #area_threads .thread .area_content .message_thread {
   padding: 5px 0;
   font-size: 14px;
   font-weight: 400;
 }
 
-body .container main .base #area_room #area_output #area_threads .thread:hover {
+body .container .base #area_room #area_output #area_threads .thread:hover {
   background-color: #bce1ff;
 }
 
-body .container main .base #area_room .area_input {
+body .container .base #area_room .area_input {
   z-index: 100;
   position: -webkit-sticky;
   position: sticky;
@@ -814,35 +951,35 @@ body .container main .base #area_room .area_input {
   background-color: #bce1ff;
 }
 
-body .container main .base #area_room .area_input .area_message #message {
+body .container .base #area_room .area_input .area_message #message {
   width: 100%;
   border: none;
   background-color: transparent;
 }
 
-body .container main .base #area_thread {
+body .container .base #area_thread {
   width: calc((100% - 220px)/2);
   padding: 0 0 10px;
 }
 
-body .container main .base #area_thread .area_thread_name {
+body .container .base #area_thread .area_thread_name {
   z-index: 100;
   padding: 10px;
   font-size: 20px;
   font-weight: 700;
 }
 
-body .container main .base #area_thread .area_output {
+body .container .base #area_thread .area_output {
   z-index: 5;
   overflow-y: scroll;
   height: 65vh;
 }
 
-body .container main .base #area_thread .area_output #thread {
+body .container .base #area_thread .area_output #thread {
   padding: 10px 10px 0px;
 }
 
-body .container main .base #area_thread .area_output #thread .thread {
+body .container .base #area_thread .area_output #thread .thread {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -850,12 +987,12 @@ body .container main .base #area_thread .area_output #thread .thread {
   padding: 10px 0;
 }
 
-body .container main .base #area_thread .area_output #thread .thread .area_img {
+body .container .base #area_thread .area_output #thread .thread .area_img {
   width: 40px;
   padding-right: 10px;
 }
 
-body .container main .base #area_thread .area_output #thread .thread .area_img .owner_img {
+body .container .base #area_thread .area_output #thread .thread .area_img .owner_img {
   width: 40px;
   height: 40px;
   border: solid 0px;
@@ -877,47 +1014,47 @@ body .container main .base #area_thread .area_output #thread .thread .area_img .
           align-items: center;
 }
 
-body .container main .base #area_thread .area_output #thread .thread .area_img .owner_img img {
+body .container .base #area_thread .area_output #thread .thread .area_img .owner_img img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
 
-body .container main .base #area_thread .area_output #thread .thread .area_content {
+body .container .base #area_thread .area_output #thread .thread .area_content {
   width: calc(100% - 40px);
 }
 
-body .container main .base #area_thread .area_output #thread .thread .area_content .info {
+body .container .base #area_thread .area_output #thread .thread .area_content .info {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-body .container main .base #area_thread .area_output #thread .thread .area_content .info .owner_name {
+body .container .base #area_thread .area_output #thread .thread .area_content .info .owner_name {
   font-size: 14px;
   font-weight: 700;
   vertical-align: bottom;
 }
 
-body .container main .base #area_thread .area_output #thread .thread .area_content .info .dt_sent {
+body .container .base #area_thread .area_output #thread .thread .area_content .info .dt_sent {
   font-size: 12px;
   font-weight: 300;
   vertical-align: bottom;
 }
 
-body .container main .base #area_thread .area_output #thread .thread .area_content .message_thread {
+body .container .base #area_thread .area_output #thread .thread .area_content .message_thread {
   padding: 5px 0;
   font-size: 14px;
   font-weight: 400;
 }
 
-body .container main .base #area_thread .area_output #thread .thread:hover {
+body .container .base #area_thread .area_output #thread .thread:hover {
   background-color: #bce1ff;
 }
 
-body .container main .base #area_thread .area_input {
+body .container .base #area_thread .area_input {
   z-index: 100;
   position: -webkit-sticky;
   position: sticky;
@@ -929,7 +1066,7 @@ body .container main .base #area_thread .area_input {
   background-color: #bce1ff;
 }
 
-body .container main .base #area_thread .area_input .area_reply #message_reply {
+body .container .base #area_thread .area_input .area_reply #message_reply {
   width: 100%;
   border: none;
   background-color: transparent;

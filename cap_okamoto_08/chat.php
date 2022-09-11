@@ -32,19 +32,17 @@ sschk();
     <header>
       <?php include_once("menu.php"); ?>
     </header>
-    <main>
-      <div class="base">
-        <div id="area_rooms">
-          <?php include_once("chat_rooms.php"); ?>
-        </div>
-        <div id="area_room">
-          <?php include_once("chat_threads.php"); ?>
-        </div>
-        <div id="area_thread" style="display:none">
-          <?php include_once("chat_thread.php"); ?>
-        </div>
+    <div class="base">
+      <div id="area_rooms">
+        <?php include_once("chat_rooms.php"); ?>
       </div>
-    </main>
+      <div id="area_room">
+        <?php include_once("chat_threads.php"); ?>
+      </div>
+      <div id="area_thread" style="display:none">
+        <?php include_once("chat_thread.php"); ?>
+      </div>
+    </div>
     <footer>
     </footer>
   </div>

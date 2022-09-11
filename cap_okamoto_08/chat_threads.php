@@ -1,16 +1,38 @@
 <?php
 $id = $_SESSION["id"];
 include_once("funcs.php");
-$pdo = db_conn();
 
 $threads="";
 $room_name="";
 $room_member="";
 $common_interest="";
+
+$pdo = db_conn();
+$stmt = $pdo->prepare("SELECT id, owner_name FROM `cap_owner` WHERE id <> :id");
+$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+$status = $stmt->execute();
+
+$member_list = array();
+if($status==false) {
+  sql_error($stmt);
+}else{
+  while($r = $stmt->fetch(PDO::FETCH_ASSOC)){
+    $member_list[] = $r["owner_name"];
+  };
+};
+$member_list = json_encode($member_list);
+
 ?>
 
 
 <div id="area_room_name">
+  <div class="area_add_member" style="display:none">
+    <input type="text" id="add_member_name">
+    <form method="post">
+      <div id="added_members"></div>
+      <button id="create_new_room">新規作成</button>
+    </form>
+  </div>
   <p id="room_name"><?=$room_name?></p>
   <div id="area_room_member" class="material-icons-outlined area_room_info">
     group
@@ -42,6 +64,43 @@ $common_interest="";
 
 
 <script>
+  $(document).ready(function(){
+    $('#add_member_name').autocomplete({
+      source: <?=$member_list?>
+    });
+  });
+
+  var i = 1;
+  $('#add_member_name').change(function(){
+    var added_member_name = $(this).val();
+    var member_list = <?=$member_list?>;
+    if(member_list.indexOf(added_member_name) != -1){
+      var added_member = "";
+      added_member += `<p id="added_member_${i}">${added_member_name}</p>`;
+      $("#added_members").append(added_member);
+      $(this).val('');
+      i += 1;
+    }
+  });
+
+  $("#create_new_room").on("click", function(){
+    const params = new URLSearchParams();
+    var j = 1;
+    while(j <= i){
+      params.append(`owner_name_${j}`, $(`#added_member_${j}`).text());
+      j += 1;
+    };
+    params.append("number_members", i-1);
+    console.log(params);
+    axios.post('chat_new_room_process.php',params).then(function (response) {
+      console.log(typeof response.data);
+    }).catch(function (error) {
+        console.log(error);
+    }).then(function () {
+        console.log("New Room Created");
+    });
+  });
+
   $('#area_room_member').on({
     "mouseenter": function() {
       const params = new URLSearchParams();

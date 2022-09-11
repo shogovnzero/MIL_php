@@ -12,7 +12,7 @@ $stmt->bindValue(':room_id', $room_id, PDO::PARAM_INT);
 $stmt->bindValue(':thread_flg', $thread_flg, PDO::PARAM_INT);
 $status = $stmt->execute();
 
-$threads="";
+$threads=" ";
 
 if($status==false) {
   sql_error($stmt);

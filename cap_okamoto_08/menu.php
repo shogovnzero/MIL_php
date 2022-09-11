@@ -16,8 +16,9 @@ if($status==false) {
 ?>
 
 <div class = "area_logo_header">
-    <h1>CAP</h1>
+    <img src="img/cap_logo.png">
 </div>
+<div class="area_space"></div>
 <nav class = "area_nav_header">
     <div class="area_tab">
         <a>検索</a>

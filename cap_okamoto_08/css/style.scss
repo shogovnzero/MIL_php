@@ -14,24 +14,39 @@ body {
             background-color: rgba(0,74,133,1);
             z-index: 9999;
             width: 100%;
+            height: 40px;
             padding: 0px 10px;
             .area_logo_header {
-                width: 200px;
+                width: 100px;
+                height: 100%;
+                justify-content: center;
+                align-items: center;
+                img {
+                    width: 100px;
+                    height: 100%;
+                    object-fit: contain;
+                }
+            }
+            .area_space {
+                width: calc(100% - 100px*5 - 10px*2);
             }
             .area_nav_header {
                 display: flex;
-                justify-content: flex-end;
+                // justify-content: flex-end;
                 // float: right;
                 .area_tab {
                     width: 100px;
+                    position: relative;
                     a {
                         text-align: center;
                         width: 100%;
                         height: 100%;
                         display: block;
-                        line-height: 50px;
+                        font-size: 16px;
+                        line-height: 40px;
                         color: #fbfbfb;
-                        transition: background-color 0.2s ease;
+                        text-decoration: none;
+                        transition: background-color 0.5s ease;
                         text-transform: uppercase;
                     }
                     .area_item {
@@ -42,7 +57,8 @@ body {
                         width: 220px;
                         padding: 15px;
                         position: absolute;
-                        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);
+                        right: 0;
+                        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
                         a {
                             display: block;
                             float: left;
@@ -53,22 +69,26 @@ body {
                             background-color: rgba(0,74,133,1);
                             color: #fbfbfb;
                             border-radius: 2px;
-                            transition: background-color 0.2s ease;
-                        }
-                        a:hover {
-                            background-color: #212121;
-                            cursor: pointer;
+                            transition: background-color 0.5s ease;
                         }
                     }
                 }
                 .area_tab:hover {
                     a {
-                        background-color: rgba(0, 0, 0, 0.1);
+                        background-color: rgba(255,200,69,1);
+                        color: rgba(41,43,46,1);
                         cursor: pointer;
                     }
                     .area_item {
                         display: block;
                         a {
+                            background-color: rgba(0,74,133,1);
+                            color: white;
+                        }
+                        a:hover {
+                            background-color: rgba(255,200,69,1);
+                            color: rgba(41,43,46,1);
+                            cursor: pointer;
                         }
                     }
                 }
@@ -76,9 +96,77 @@ body {
         }
         main {
             display: block;
-            margin-top: 50px;
+            margin-top: 40px;
             padding: 0 20px;
             height: 100%;
+            // login.php
+            .area_login {
+                width: 400px;
+                height: auto;
+                margin: 50px auto 0;
+                .area_logo {
+                    width: 100%;
+                    height: 150px;
+                    justify-content: center;
+                    align-items: center;
+                    margin: 10px 0;
+                    display: block;
+                    img {
+                        width: 300px;
+                        height: 100%;
+                        object-fit: contain;
+                        display: block;
+                        margin: 0 auto;
+                    }
+                }
+                p {
+                    color: rgba(0,98,177,1);
+                    font-weight: 700;
+                    text-align: center;
+                    vertical-align: middle;
+                    padding: 10px 0;
+                }
+                .area_input {
+                    padding-top: 30px;
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        font-size: 14px;
+                        tr {
+                            border-bottom: solid 1px white;
+                            th {
+                                text-align: center;
+                                vertical-align: middle;
+                                width: 33%;
+                                height: 100%;
+                                line-height: 30px;
+                                background-color: rgba(0,74,133,1);
+                                color: white;
+                            }
+                            td {
+                                text-align: center;
+                                vertical-align: middle;
+                                width: 67%;
+                                height: 100%;
+                                line-height: 30px;
+                            }
+                        }
+                    }
+                    button {
+                        display: block;
+                        margin: 0 auto 20px;
+                    }
+                }
+                .area_signup {
+                    button {
+                        display: block;
+                        margin: 0 auto;
+                        a {
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
             // index.php owner_page.php vessel_mine.php vessel_mine_update.php vessel_page.php
             .area_top {
                 display: flex;
@@ -301,6 +389,11 @@ body {
                     }
                 }
             }
+            h2 {
+                font-size: 20px;
+                font-weight: 700;
+                line-height: 40px;
+            }
             // vessel_search.php
             #vessel_search_filter_0 {
                 width: 100%;
@@ -404,7 +497,7 @@ body {
                 }
             }
             #table_vessel {
-                padding: 20px 0px;
+                padding: 0px 0px 20px;
                 width: 100%;
                 table {
                     width: 100%;
@@ -486,7 +579,7 @@ body {
                 }
             }
             #table_owner {
-                padding: 20px 0px;
+                padding: 0px 0px 20px;
                 width: 100%;
                 table {
                     width: 100%;
@@ -525,264 +618,281 @@ body {
                     }
                 }
             }
-            // chat.php
-            .base {
-                display: flex;
-                padding: 20px 0 0;
-                width: 100%;
-                height: 100%;
-                // chat_rooms.php
-                #area_rooms {
-                    width: 220px;
-                    padding: 0 0 10px;
-                    #window_rooms {
-                        overflow-y: scroll;
-                        height: 100%;
-                        p {
-                            text-align: center;
+        }
+        // chat.php
+        .base {
+            margin-top: 40px;
+            display: flex;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            // chat_rooms.php
+            #area_rooms {
+                width: 220px;
+                padding: 0 0 10px;
+                #window_rooms {
+                    overflow-y: scroll;
+                    height: 100%;
+                    p {
+                        text-align: center;
+                        vertical-align: middle;
+                        font-size: 14px;
+                        font-weight: 500;
+                        padding: 10px;
+                    }
+                    .new_room {
+                        cursor: pointer;
+                        text-align: center;
+                        vertical-align: middle;
+                        font-size: 14px;
+                        font-weight: 500;
+                        padding: 10px;
+                    }
+                    .new_room:hover {
+                        background-color: rgba(188,225,255,1);
+                    }
+                    ul {
+                        li {
+                            text-align: left;
                             vertical-align: middle;
                             font-size: 14px;
                             font-weight: 500;
                             padding: 10px;
-                        }
-                        .new_room {
                             cursor: pointer;
                         }
-                        .new_room:hover {
+                        li:hover {
                             background-color: rgba(188,225,255,1);
                         }
-                        ul {
-                            li {
-                                text-align: left;
+                    }
+                }
+            }
+            // chat_threads.php
+            #area_room {
+                width: calc((100% - 220px)/2);
+                padding: 0 0 10px;
+                #area_room_name {
+                    display: flex;
+                    position: relative;
+                    z-index: 100;
+                    padding: 10px;
+                    font-size: 20px;
+                    font-weight: 700;
+                    .area_add_member {
+                        background-color: rgba(188,225,255,1);
+                        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+                        z-index: 500;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        padding: 10px;
+                        width: calc(100% - 20px);
+                    }
+                    #room_name {
+                        width: calc(100% - 24px);
+                    }
+                    .area_room_info {
+                        width: 24px;
+                        color: rgba(130,160,170,1);
+                        cursor: pointer;
+                    }
+                    .area_room_info:hover {
+                        color: rgba(255,200,69,1);
+                        position: relative;
+                        .room_info {
+                            position: absolute;
+                            right: 0px;
+                            background-color: white;
+                            overflow: hidden;
+                            color: rgba(41,43,46,1);
+                            font-size: 14px;
+                            width: 150px;
+                            padding: 10px;
+                            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+                            p {
+                                text-align: center;
                                 vertical-align: middle;
-                                font-size: 14px;
-                                font-weight: 500;
-                                padding: 10px;
-                                cursor: pointer;
+                                line-height: 28px;
                             }
-                            li:hover {
-                                background-color: rgba(188,225,255,1);
+                            .info_title {
+                                font-weight: 700;
                             }
                         }
                     }
                 }
-                // chat_threads.php
-                #area_room {
-                    width: calc((100% - 220px)/2);
-                    padding: 0 0 10px;
-                    #area_room_name {
-                        display: flex;
-                        z-index: 100;
-                        padding: 10px;
-                        font-size: 20px;
-                        font-weight: 700;
-                        #room_name {
-                            width: calc(100% - 24px);
-                        }
-                        .area_room_info {
-                            width: 24px;
-                            color: rgba(130,160,170,1);
-                            cursor: pointer;
-                        }
-                        .area_room_info:hover {
-                            color: rgba(255,200,69,1);
-                            position: relative;
-                            .room_info {
-                                position: absolute;
-                                right: 0px;
-                                background-color: white;
-                                overflow: hidden;
-                                color: rgba(41,43,46,1);
-                                font-size: 14px;
-                                width: 150px;
-                                padding: 10px;
-                                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-                                p {
-                                    text-align: center;
-                                    vertical-align: middle;
-                                    line-height: 28px;
-                                }
-                                .info_title {
-                                    font-weight: 700;
-                                }
-                            }
-                        }
-                    }
-                    #area_output {
-                        z-index: 5;
-                        overflow-y: scroll;
-                        height: 65vh;
-                        #area_threads {
-                            padding: 10px 10px 0px;
-                            .thread {
-                                display: flex;
-                                padding: 10px 0;
-                                .area_img {
+                #area_output {
+                    z-index: 5;
+                    overflow-y: scroll;
+                    height: 65vh;
+                    #area_threads {
+                        padding: 10px 10px 0px;
+                        .thread {
+                            display: flex;
+                            padding: 10px 0;
+                            .area_img {
+                                width: 40px;
+                                padding-right: 10px;
+                                .owner_img {
                                     width: 40px;
-                                    padding-right: 10px;
-                                    .owner_img {
-                                        width: 40px;
-                                        height: 40px;
-                                        border:solid 0px ;
-                                        border-radius:5px;
-                                        margin:0;
-                                        overflow:hidden;
-                                        background-color: rgba(0,74,133,0.3);
-                                        display: flex;
-                                        justify-content: center;
-                                        align-items: center;
-                                        img {
-                                            width: 100%;
-                                            height: 100%;
-                                            object-fit: cover;
-                                        }
+                                    height: 40px;
+                                    border:solid 0px ;
+                                    border-radius:5px;
+                                    margin:0;
+                                    overflow:hidden;
+                                    background-color: rgba(0,74,133,0.3);
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    img {
+                                        width: 100%;
+                                        height: 100%;
+                                        object-fit: cover;
                                     }
                                 }
-                                .area_content {
-                                    width: calc(100% - 40px);
-                                    .info {
-                                        display: flex;
-                                        .owner_name {
-                                            font-size: 14px;
-                                            font-weight: 700;
-                                            vertical-align: bottom;
-                                        }
-                                        .dt_sent {
-                                            font-size: 12px;
-                                            font-weight: 300;
-                                            vertical-align: bottom;
-                                        }
-                                    }
-                                    .message_thread {
-                                        padding: 5px 0;
+                            }
+                            .area_content {
+                                width: calc(100% - 40px);
+                                .info {
+                                    display: flex;
+                                    .owner_name {
                                         font-size: 14px;
-                                        font-weight: 400;
+                                        font-weight: 700;
+                                        vertical-align: bottom;
                                     }
-                                    .command_thread {
-                                        .btn_like {}
-                                        .btn_reply {}
-                                        .btn_update {}
-                                        .btn_delete {}
+                                    .dt_sent {
+                                        font-size: 12px;
+                                        font-weight: 300;
+                                        vertical-align: bottom;
                                     }
                                 }
-                            }
-                            .thread:hover {
-                                background-color: rgba(188,225,255,1);
-                            }
-                        }
-                    }
-                    .area_input {
-                        z-index: 100;
-                        position: sticky;
-                        top: 100vh;
-                        margin: 10px;
-                        border: 2px solid rgba(0,74,133,1);
-                        border-radius: 5px;
-                        padding: 5px;
-                        background-color: rgba(188,225,255,1);
-                        .area_message {
-                            #message {
-                                width: 100%;
-                                border: none;
-                                background-color: transparent;
+                                .message_thread {
+                                    padding: 5px 0;
+                                    font-size: 14px;
+                                    font-weight: 400;
+                                }
+                                .command_thread {
+                                    .btn_like {}
+                                    .btn_reply {}
+                                    .btn_update {}
+                                    .btn_delete {}
+                                }
                             }
                         }
-                        .area_btn {
-                            #send {}
+                        .thread:hover {
+                            background-color: rgba(188,225,255,1);
                         }
                     }
                 }
-                // chat_thread.php
-                #area_thread {
-                    width: calc((100% - 220px)/2);
-                    padding: 0 0 10px;
-                    .area_thread_name {
-                        z-index: 100;
-                        padding: 10px;
-                        font-size: 20px;
-                        font-weight: 700;
+                .area_input {
+                    z-index: 100;
+                    position: sticky;
+                    top: 100vh;
+                    margin: 10px;
+                    border: 2px solid rgba(0,74,133,1);
+                    border-radius: 5px;
+                    padding: 5px;
+                    background-color: rgba(188,225,255,1);
+                    .area_message {
+                        #message {
+                            width: 100%;
+                            border: none;
+                            background-color: transparent;
+                        }
                     }
-                    .area_output {
-                        z-index: 5;
-                        overflow-y: scroll;
-                        height: 65vh;
-                        #thread {
-                            padding: 10px 10px 0px;
-                            .thread {
-                                display: flex;
-                                padding: 10px 0;
-                                .area_img {
+                    .area_btn {
+                        #send {}
+                    }
+                }
+            }
+            // chat_thread.php
+            #area_thread {
+                width: calc((100% - 220px)/2);
+                padding: 0 0 10px;
+                .area_thread_name {
+                    z-index: 100;
+                    padding: 10px;
+                    font-size: 20px;
+                    font-weight: 700;
+                }
+                .area_output {
+                    z-index: 5;
+                    overflow-y: scroll;
+                    height: 65vh;
+                    #thread {
+                        padding: 10px 10px 0px;
+                        .thread {
+                            display: flex;
+                            padding: 10px 0;
+                            .area_img {
+                                width: 40px;
+                                padding-right: 10px;
+                                .owner_img {
                                     width: 40px;
-                                    padding-right: 10px;
-                                    .owner_img {
-                                        width: 40px;
-                                        height: 40px;
-                                        border:solid 0px ;
-                                        border-radius:5px;
-                                        margin:0;
-                                        overflow:hidden;
-                                        background-color: rgba(0,74,133,0.3);
-                                        display: flex;
-                                        justify-content: center;
-                                        align-items: center;
-                                        img {
-                                            width: 100%;
-                                            height: 100%;
-                                            object-fit: cover;
-                                        }
+                                    height: 40px;
+                                    border:solid 0px ;
+                                    border-radius:5px;
+                                    margin:0;
+                                    overflow:hidden;
+                                    background-color: rgba(0,74,133,0.3);
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    img {
+                                        width: 100%;
+                                        height: 100%;
+                                        object-fit: cover;
                                     }
                                 }
-                                .area_content {
-                                    width: calc(100% - 40px);
-                                    .info {
-                                        display: flex;
-                                        .owner_name{
-                                            font-size: 14px;
-                                            font-weight: 700;
-                                            vertical-align: bottom;
-                                        }
-                                        .dt_sent {
-                                            font-size: 12px;
-                                            font-weight: 300;
-                                            vertical-align: bottom;
-                                        }
-                                    }
-                                    .message_thread {
-                                        padding: 5px 0;
+                            }
+                            .area_content {
+                                width: calc(100% - 40px);
+                                .info {
+                                    display: flex;
+                                    .owner_name{
                                         font-size: 14px;
-                                        font-weight: 400;
+                                        font-weight: 700;
+                                        vertical-align: bottom;
                                     }
-                                    .command_thread {
-                                        .btn_like {}
-                                        .btn_update {}
-                                        .btn_delete {}
+                                    .dt_sent {
+                                        font-size: 12px;
+                                        font-weight: 300;
+                                        vertical-align: bottom;
                                     }
                                 }
+                                .message_thread {
+                                    padding: 5px 0;
+                                    font-size: 14px;
+                                    font-weight: 400;
+                                }
+                                .command_thread {
+                                    .btn_like {}
+                                    .btn_update {}
+                                    .btn_delete {}
+                                }
                             }
-                            .thread:hover {
-                                background-color: rgba(188,225,255,1);
-                            }
+                        }
+                        .thread:hover {
+                            background-color: rgba(188,225,255,1);
                         }
                     }
-                    .area_input {
-                        z-index: 100;
-                        position: sticky;
-                        top: 100vh;
-                        margin: 10px;
-                        border: 2px solid rgba(0,74,133,1);
-                        border-radius: 5px;
-                        padding: 5px;
-                        background-color: rgba(188,225,255,1);
-                        .area_reply {
-                            #message_reply {
-                                width: 100%;
-                                border: none;
-                                background-color: transparent;
-                            }
+                }
+                .area_input {
+                    z-index: 100;
+                    position: sticky;
+                    top: 100vh;
+                    margin: 10px;
+                    border: 2px solid rgba(0,74,133,1);
+                    border-radius: 5px;
+                    padding: 5px;
+                    background-color: rgba(188,225,255,1);
+                    .area_reply {
+                        #message_reply {
+                            width: 100%;
+                            border: none;
+                            background-color: transparent;
                         }
-                        .area_btn {
-                            #send_reply {}
-                        }
+                    }
+                    .area_btn {
+                        #send_reply {}
                     }
                 }
             }

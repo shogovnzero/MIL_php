@@ -118,8 +118,7 @@ if($status==false) {
     filter += `<td colspan="2">会社名</td>`;
     filter += `<td colspan="3"><input type="text" id="owner_name_${cnt_owner_name}" required></td>`;
     filter += `<td colspan="1"><select id="op_owner_name_${cnt_owner_name}"><option value="含む">含む</option><option value="含まない">含まない</option></select></td>`;
-    filter += `<td colspan="2"></td>`;
-    filter += `<td colspan="1"><button class="owner_name_OR">OR</button><button class="owner_name_NOR">NOR</button></td>`;
+    filter += `<td colspan="3"></td>`;
     filter += `<td colspan="1"><button class="remove">削除</button></td>`;
     filter += `</tr>`;
     $("#owner_search_filter").append(filter);
@@ -131,8 +130,7 @@ if($status==false) {
     filter += `<td colspan="2">所在地</td>`;
     filter += `<td colspan="3"><select id="p_region_${cnt_p_region}"><optgroup label="北海道・東北"><option value="北海道">北海道</option><option value="青森県">青森県</option><option value="岩手県">岩手県</option><option value="宮城県">宮城県</option><option value="秋田県">秋田県</option><option value="山形県">山形県</option><option value="福島県">福島県</option><optgroup label="関東"><option value="茨城県">茨城県</option><option value="栃木県">栃木県</option><option value="群馬県">群馬県</option><option value="埼玉県">埼玉県</option><option value="千葉県">千葉県</option><option value="東京都">東京都</option><option value="神奈川県">神奈川県</option><optgroup label="東海道・甲信越"><option value="新潟県">新潟県</option><option value="富山県">富山県</option><option value="石川県">石川県</option><option value="福井県">福井県</option><option value="山梨県">山梨県</option><option value="長野県">長野県</option><option value="岐阜県">岐阜県</option><option value="静岡県">静岡県</option><option value="愛知県">愛知県</option><option value="三重県">三重県</option><optgroup label="関西"><option value="滋賀県">滋賀県</option><option value="京都府">京都府</option><option value="大阪府">大阪府</option><option value="兵庫県">兵庫県</option><option value="奈良県">奈良県</option><option value="和歌山県">和歌山県</option><optgroup label="中国・四国"><option value="鳥取県">鳥取県</option><option value="島根県">島根県</option><option value="岡山県">岡山県</option><option value="広島県">広島県</option><option value="山口県">山口県</option><option value="徳島県">徳島県</option><option value="香川県">香川県</option><option value="愛媛県">愛媛県</option><option value="高知県">高知県</option><optgroup label="九州・沖縄"><option value="福岡県">福岡県</option><option value="佐賀県">佐賀県</option><option value="長崎県">長崎県</option><option value="熊本県">熊本県</option><option value="大分県">大分県</option><option value="宮崎県">宮崎県</option><option value="鹿児島県">鹿児島県</option><option value="沖縄県">沖縄県</option></select></td>`;
     filter += `<td colspan="1"><select id="op_p_region_${cnt_p_region}"><option value="含む">含む</option><option value="含まない">含まない</option></select></td>`;
-    filter += `<td colspan="2"></td>`;
-    filter += `<td colspan="1"><button class="p_region_OR">OR</button><button class="p_region_NOR">NOR</button></td>`;
+    filter += `<td colspan="3"></td>`;
     filter += `<td colspan="1"><button class="remove">削除</button></td>`;
     filter += `</tr>`;
     $("#owner_search_filter").append(filter);
@@ -144,8 +142,7 @@ if($status==false) {
     filter += `<td colspan="2">創業年</td>`;
     filter += `<td colspan="1"><select id="op_owner_foundation_${cnt_owner_foundation}"><option value="<"><</option><option value="<="><=</option><option value="=">=</option><option value=">=">>=</option><option value=">">></option></select></td>`;
     filter += `<td colspan="3"><input type="number" min="1800" max="2022" id="owner_foundation_${cnt_owner_foundation}" required>年</td>`;
-    filter += `<td colspan="2"></td>`;
-    filter += `<td colspan="1"><button class="owner_foundation_OR">OR</button><button class="owner_foundation_NOR">NOR</button></td>`;
+    filter += `<td colspan="3"></td>`;
     filter += `<td colspan="1"><button class="remove">削除</button></td>`;
     filter += `</tr>`;
     $("#owner_search_filter").append(filter);
@@ -157,8 +154,7 @@ if($status==false) {
     filter += `<td colspan="2">資本金</td>`;
     filter += `<td colspan="1"><select id="op_owner_capital_${cnt_owner_capital}"><option value="<"><</option><option value="<="><=</option><option value="=">=</option><option value=">=">>=</option><option value=">">></option></select></td>`;
     filter += `<td colspan="3"><input type="number" id="owner_capital_${cnt_owner_capital}" required>百万円</td>`;
-    filter += `<td colspan="2"></td>`;
-    filter += `<td colspan="1"><button class="owner_capital_OR">OR</button><button class="owner_capital_NOR">NOR</button></td>`;
+    filter += `<td colspan="3"></td>`;
     filter += `<td colspan="1"><button class="remove">削除</button></td>`;
     filter += `</tr>`;
     $("#owner_search_filter").append(filter);
@@ -170,8 +166,7 @@ if($status==false) {
     filter += `<td colspan="2">従業員数</td>`;
     filter += `<td colspan="1"><select id="op_owner_employee_${cnt_owner_employee}"><option value="<"><</option><option value="<="><=</option><option value="=">=</option><option value=">=">>=</option><option value=">">></option></select></td>`;
     filter += `<td colspan="3"><input type="number" id="owner_employee_${cnt_owner_employee}" required>人</td>`;
-    filter += `<td colspan="2"></td>`;
-    filter += `<td colspan="1"><button class="owner_employee_OR">OR</button><button class="owner_employee_NOR">NOR</button></td>`;
+    filter += `<td colspan="3"></td>`;
     filter += `<td colspan="1"><button class="remove">削除</button></td>`;
     filter += `</tr>`;
     $("#owner_search_filter").append(filter);
@@ -183,8 +178,7 @@ if($status==false) {
     filter += `<td colspan="2">保有隻数</td>`;
     filter += `<td colspan="1"><select id="op_owner_vessel_${cnt_owner_vessel}"><option value="<"><</option><option value="<="><=</option><option value="=">=</option><option value=">=">>=</option><option value=">">></option></select></td>`;
     filter += `<td colspan="3"><input type="number" min="1" id="owner_vessel_${cnt_owner_vessel}" required>隻</td>`;
-    filter += `<td colspan="2"></td>`;
-    filter += `<td colspan="1"><button class="owner_vessel_OR">OR</button><button class="owner_vessel_NOR">NOR</button></td>`;
+    filter += `<td colspan="3"></td>`;
     filter += `<td colspan="1"><button class="remove">削除</button></td>`;
     filter += `</tr>`;
     $("#owner_search_filter").append(filter);
@@ -196,8 +190,7 @@ if($status==false) {
     filter += `<td colspan="2">運航コスト</td>`;
     filter += `<td colspan="3"><select id="owner_cost_${cnt_owner_cost}"><option value="船員費の見直し">船員費の見直し</option><option value="燃料の共同調達">燃料の共同調達</option><option value="機器資材の共同調達">機器資材の共同調達</option><option value="機器資材の在庫共有">機器資材の在庫共有</option><option value="保険料の見直し">保険料の見直し</option><option value="船舶管理費の見直し">船舶管理費の見直し</option></select></td>`;
     filter += `<td colspan="1"><select id="op_owner_cost_${cnt_owner_cost}"><option value="含む">含む</option><option value="含まない">含まない</option></select></td>`;
-    filter += `<td colspan="2"></td>`;
-    filter += `<td colspan="1"><button class="owner_cost_OR">OR</button><button class="owner_cost_NOR">NOR</button></td>`;
+    filter += `<td colspan="3"></td>`;
     filter += `<td colspan="1"><button class="remove">削除</button></td>`;
     filter += `</tr>`;
     $("#owner_search_filter").append(filter);
@@ -209,8 +202,7 @@ if($status==false) {
     filter += `<td colspan="2">船員・安全運航</td>`;
     filter += `<td colspan="3"><select id="owner_crew_mng_${cnt_owner_crew_mng}"><option value="船員採用">船員採用</option><option value="船員育成・教育">船員育成・教育</option><option value="船員管理">船員管理</option><option value="船員融通">船員融通</option><option value="省人化・自動化">省人化・自動化</option><option value="オペレーションマニュアル">オペレーションマニュアル</option><option value="コロナ対策">コロナ対策</option></select></td>`;
     filter += `<td colspan="1"><select id="op_owner_crew_mng_${cnt_owner_crew_mng}"><option value="含む">含む</option><option value="含まない">含まない</option></select></td>`;
-    filter += `<td colspan="2"></td>`;
-    filter += `<td colspan="1"><button class="owner_crew_mng_OR">OR</button><button class="owner_crew_mng_NOR">NOR</button></td>`;
+    filter += `<td colspan="3"></td>`;
     filter += `<td colspan="1"><button class="remove">削除</button></td>`;
     filter += `</tr>`;
     $("#owner_search_filter").append(filter);
@@ -222,8 +214,7 @@ if($status==false) {
     filter += `<td colspan="2">船主グループ化</td>`;
     filter += `<td colspan="3"><select id="owner_group_${cnt_owner_group}"><option value="共同船舶管理会社">共同船舶管理会社</option><option value="合併">合併</option><option value="売船">売船</option><option value="買船">買船</option><option value="事業売却">事業売却</option><option value="事業買収">事業買収</option></select></td>`;
     filter += `<td colspan="1"><select id="op_owner_group_${cnt_owner_group}"><option value="含む">含む</option><option value="含まない">含まない</option></select></td>`;
-    filter += `<td colspan="2"></td>`;
-    filter += `<td colspan="1"><button class="owner_group_OR">OR</button><button class="owner_group_NOR">NOR</button></td>`;
+    filter += `<td colspan="3"></td>`;
     filter += `<td colspan="1"><button class="remove">削除</button></td>`;
     filter += `</tr>`;
     $("#owner_search_filter").append(filter);
@@ -235,8 +226,7 @@ if($status==false) {
     filter += `<td colspan="2">脱炭素化</td>`;
     filter += `<td colspan="3"><select id="owner_decarbon_${cnt_owner_decarbon}"><option value="排出量可視化">排出量可視化</option><option value="ウェザールーティング">ウェザールーティング</option><option value="帆">帆</option><option value="空気潤滑">空気潤滑</option><option value="船上回収">船上回収</option><option value="次世代主機・燃料">次世代主機・燃料</option></select></td>`;
     filter += `<td colspan="1"><select id="op_owner_decarbon_${cnt_owner_decarbon}"><option value="含む">含む</option><option value="含まない">含まない</option></select></td>`;
-    filter += `<td colspan="2"></td>`;
-    filter += `<td colspan="1"><button class="owner_decarbon_OR">OR</button><button class="owner_decarbon_NOR">NOR</button></td>`;
+    filter += `<td colspan="3"></td>`;
     filter += `<td colspan="1"><button class="remove">削除</button></td>`;
     filter += `</tr>`;
     $("#owner_search_filter").append(filter);

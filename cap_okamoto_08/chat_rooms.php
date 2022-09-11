@@ -6,6 +6,7 @@
 </div>
 
 <script>
+  var rooms = "";
   function reload_rooms() {
     const params = new URLSearchParams();
     params.append("id", $("#id").val());
@@ -19,7 +20,7 @@
     }).then(function () {
       console.log("Rooms Reloaded");
     });
-    setTimeout(function() {reload_rooms()},5000);
+    rooms = setTimeout(function() {reload_rooms()},5000);
   }
   reload_rooms();
 
@@ -56,7 +57,7 @@
   });
 
   $(document).on("click",".new_room", function(){
-    // 新しい要素を追加：上にかぶせる
+    $(".area_add_member").show();
   });
 
 </script>
